@@ -1,4 +1,4 @@
-package com.bookmgr.models;
+package bookmgr.models;
 
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;

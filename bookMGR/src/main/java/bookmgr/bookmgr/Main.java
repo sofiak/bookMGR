@@ -1,4 +1,4 @@
-package com.bookmgr;
+package bookmgr.bookmgr;
 
 import org.javalite.activejdbc.Base;
  

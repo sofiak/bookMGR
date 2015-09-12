@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bookmgr.repos;
+package bookmgr.repos;
 
 /**
  *
  * @author Sofia
  */
-public class AdminRepo {
+public class BookRepo {
     
 }

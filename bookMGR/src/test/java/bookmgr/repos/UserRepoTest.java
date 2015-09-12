@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bookmgr.models;
+package bookmgr.repos;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Sofia
  */
-public class UserTest {
+public class UserRepoTest {
     
-    public UserTest() {
+    public UserRepoTest() {
     }
     
     @BeforeClass

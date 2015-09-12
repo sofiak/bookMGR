@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bookmgr.models;
+package bookmgr.models;
 
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
-@Table("rents")
-public class Rent extends Model{
+@Table("users")
+
+public class User extends Model{
     
 }

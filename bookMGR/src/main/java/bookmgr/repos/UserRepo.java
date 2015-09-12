@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bookmgr.repos;
+package bookmgr.repos;
 
-import com.bookmgr.models.User;
+import bookmgr.models.User;
 import java.util.Date;
         
 

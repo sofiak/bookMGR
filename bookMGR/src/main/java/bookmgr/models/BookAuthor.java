@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.bookmgr.repos;
+package bookmgr.models;
 
-/**
- *
- * @author Sofia
- */
-public class BookRepo {
+import org.javalite.activejdbc.Model;
+import org.javalite.activejdbc.annotations.Table;
+
+@Table("books_authors")
+public class BookAuthor extends Model {
     
 }
