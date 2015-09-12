@@ -6,8 +6,6 @@
 package bookmgr.repos;
 
 import bookmgr.models.User;
-import java.util.Date;
-import java.sql.Timestamp;
         
 
 public class UserRepo {
