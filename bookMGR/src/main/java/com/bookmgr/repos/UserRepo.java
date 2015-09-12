@@ -19,7 +19,7 @@ public class UserRepo {
         User user = new User();
         user.set("username", uname);
         user.set("password", pw);
-        java.util.Date date= new java.util.Date();
+        java.util.Date date = new java.util.Date();
         user.set("created_at", date.getTime());
         user.set("updated_at", date.getTime());
         return user;
