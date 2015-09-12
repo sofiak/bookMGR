@@ -7,6 +7,7 @@ package bookmgr.repos;
 
 import bookmgr.models.User;
 import java.util.Date;
+import java.sql.Timestamp;
         
 
 public class UserRepo {
@@ -19,9 +20,10 @@ public class UserRepo {
         User user = new User();
         user.set("username", uname);
         user.set("password", pw);
-        java.util.Date date = new java.util.Date();
-        user.set("created_at", date.getTime());
-        user.set("updated_at", date.getTime());
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        user.set("created_at", timestamp.getTime());
+        user.set("updated_at", timestamp.getTime());
         return user;
     }
     
