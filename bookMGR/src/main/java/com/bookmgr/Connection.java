@@ -1,4 +1,4 @@
-package com.bookmgr.bookmgr;
+package com.bookmgr;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
