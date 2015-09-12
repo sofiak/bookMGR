@@ -5,10 +5,20 @@
  */
 package com.bookmgr.repos;
 
-/**
- *
- * @author Sofia
- */
+import com.bookmgr.models.User;
+        
+
 public class UserRepo {
+    
+    public void UserRepo(){
+        
+    }
+    
+    public static User createUser(String uname, String pw){
+        User a = new User();
+        a.set("username", uname);
+        a.set("password", pw);
+        return null;
+    }
     
 }
