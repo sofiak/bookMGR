@@ -20,10 +20,7 @@ public class UserRepo {
         User user = new User();
         user.set("username", uname);
         user.set("password", pw);
-        Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
-        user.set("created_at", timestamp.getTime());
-        user.set("updated_at", timestamp.getTime());
+        user.saveIt();
         return user;
     }
     
