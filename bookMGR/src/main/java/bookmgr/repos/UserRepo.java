@@ -6,20 +6,28 @@
 package bookmgr.repos;
 
 import bookmgr.models.User;
-        
+import java.util.List;
 
 public class UserRepo {
-    
-    public void UserRepo(){
-        
+
+    public void UserRepo() {
+
     }
-    
-    public User createUser(String uname, String pw){
+
+    public User createUser(String uname, String pw) {
         User user = new User();
         user.set("username", uname);
         user.set("password", pw);
         user.saveIt();
         return user;
     }
-    
+
+    private boolean CheckUserName(String username) {
+        List<User> users = User.where(username, "username");
+        if (users.isEmpty() == true) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

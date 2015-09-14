@@ -11,4 +11,8 @@ package bookmgr.repos;
  */
 public class BookRepo {
     
+    public BookRepo(){
+        
+    }
+    
 }
