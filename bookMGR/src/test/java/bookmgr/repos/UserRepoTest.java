@@ -44,7 +44,7 @@ public class UserRepoTest {
         User user1 = newrepo.createUser(userName, passw);
         User user2 = newrepo.createUser(userName, passw);
 
-        List<User> users = User.where("username = userName");
+        List<User> users = User.where("username == userName");
 
         Assert.assertEquals(1, users.size());
 

@@ -15,22 +15,24 @@ public class UserRepo {
     }
 
     public User createUser(String uname, String pw) {
-        if (this.CheckUserName(uname) == true) {
-           return null;
-        } else {
+        System.out.println(uname);
+        if (this.CheckUserName(uname) == false) {
             User user = new User();
             user.set("username", uname);
             user.set("password", pw);
             user.saveIt();
             return user;
+        } else {
+            throw new RuntimeException();
         }
     }
 
     private boolean CheckUserName(String username) {
-        List<User> users = User.where(username, "username");
-        if (users.isEmpty() == true) {
+        User user = new User();
+        List<User> users = User.where("username", username);
+        if(users.isEmpty()) {
             return false;
-        } else {
+        }else{
             return true;
         }
     }
