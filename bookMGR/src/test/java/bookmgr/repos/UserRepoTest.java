@@ -9,11 +9,8 @@ import bookmgr.models.User;
 import junit.framework.Assert;
 import org.javalite.activejdbc.Base;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -21,29 +18,13 @@ import static org.junit.Assert.*;
  */
 public class UserRepoTest {
 
-    private String userName = "ananas";
-    private String passw = "123";
-    private UserRepo newrepo;
-    private User user;
-
     public UserRepoTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
     }
 
     @Before
     public void setUp() throws Exception {
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://52.16.13.120/bookMGR", "sofia", "iambatgirl");
         Base.openTransaction();
-
-        newrepo = new UserRepo();
-        user = newrepo.createUser(userName, passw);
     }
 
     @After
@@ -54,7 +35,10 @@ public class UserRepoTest {
 
     @Test
     public void CreateNewUserCreatesRightUserName() {
-
+        UserRepo newrepo = new UserRepo();
+        String userName = "ananas";
+        String passw = "123";
+        User user = newrepo.createUser(userName, passw);
 
         String username = user.getString("username");
 
