@@ -15,11 +15,15 @@ public class UserRepo {
     }
 
     public User createUser(String uname, String pw) {
-        User user = new User();
-        user.set("username", uname);
-        user.set("password", pw);
-        user.saveIt();
-        return user;
+        if (this.CheckUserName(uname) == true) {
+           return null;
+        } else {
+            User user = new User();
+            user.set("username", uname);
+            user.set("password", pw);
+            user.saveIt();
+            return user;
+        }
     }
 
     private boolean CheckUserName(String username) {
