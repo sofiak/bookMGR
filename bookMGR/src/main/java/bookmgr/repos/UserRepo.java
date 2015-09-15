@@ -1,21 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bookmgr.repos;
-
+ 
 import bookmgr.models.User;
 import java.util.List;
-
+ 
 public class UserRepo {
-
+ 
     public void UserRepo() {
-
+ 
     }
-
-    public User createUser(String uname, String pw) {
-        System.out.println(uname);
+ 
+    public User createUser (String uname, String pw) {
         if (this.CheckUserName(uname) == false) {
             User user = new User();
             user.set("username", uname);
@@ -26,10 +20,10 @@ public class UserRepo {
             throw new RuntimeException();
         }
     }
-
+ 
     private boolean CheckUserName(String username) {
         User user = new User();
-        List<User> users = User.where("username", username);
+        List<User> users = user.where("username = ?", username);
         if(users.isEmpty()) {
             return false;
         }else{
