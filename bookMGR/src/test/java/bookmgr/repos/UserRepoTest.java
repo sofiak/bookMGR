@@ -20,37 +20,44 @@ import static org.junit.Assert.*;
  * @author Sofia
  */
 public class UserRepoTest {
-    
+
+    private String userName = "ananas";
+    private String passw = "123";
+    private UserRepo newrepo;
+    private User user;
+
     public UserRepoTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() throws Exception {
         Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://52.16.13.120/bookMGR", "sofia", "iambatgirl");
         Base.openTransaction();
+
+        newrepo = new UserRepo();
+        user = newrepo.createUser(userName, passw);
     }
-    
+
     @After
     public void tearDown() {
-            Base.rollbackTransaction();
-            Base.close();
+        Base.rollbackTransaction();
+        Base.close();
     }
 
     @Test
-    public void CreateNewUser() {
-        UserRepo userrepo = new UserRepo();
-        User user = userrepo.createUser("sofia", "reset123");
-        
+    public void CreateNewUserCreatesRightUserName() {
+
+
         String username = user.getString("username");
-        
-        Assert.assertEquals("sofia", username);
+
+        Assert.assertEquals(userName, username);
     }
 }
