@@ -53,10 +53,8 @@ public class UserRepoTest {
         UserRepo newrepo = new UserRepo();
         User user1 = newrepo.createUser(userName, passw);
         
-        int thatID = user1.getInteger("id");
+        User user2 = newrepo.fetchUser(user1.getInteger("id"));
         
-        User user2 = newrepo.fetchUser(thatID);
-        
-        Assert.assertEquals(user1, user2);
+        Assert.assertEquals(user2.get("username"), user1.get("username"));
     }
 }
