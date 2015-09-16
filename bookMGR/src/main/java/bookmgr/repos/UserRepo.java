@@ -22,14 +22,9 @@ public class UserRepo {
         }
     }
 
-    public void removeUser(String username) {
-        if (this.CheckUserName(username) == true) {
-            User user = new User();
-            List<User> users = user.where("username = ?", username);
-            users.get(0).delete();
-        }else{
-            
-        }
+    public User fetchUser(int user_id) {
+        User user = User.findById(user_id);
+        return user;
     }
 
     private boolean CheckUserName(String username) {

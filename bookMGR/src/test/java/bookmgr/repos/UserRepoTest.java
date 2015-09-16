@@ -39,13 +39,24 @@ public class UserRepoTest {
         Assert.assertEquals(userName, username);
     }
  
-    @Test
+    @Test (expected=UserAlreadyExistsException.class)
     public void CantCreateUsernameDuplicates() throws UserAlreadyExistsException {
-       
+        
         UserRepo newrepo = new UserRepo();
         User user1 = newrepo.createUser(userName, passw);
         User user2 = newrepo.createUser(userName, passw);
-       
- 
+        
+    }
+    
+    @Test
+    public void fetchUserWorks() throws UserAlreadyExistsException {
+        UserRepo newrepo = new UserRepo();
+        User user1 = newrepo.createUser(userName, passw);
+        
+        int thatID = user1.getInteger("id");
+        
+        User user2 = newrepo.fetchUser(thatID);
+        
+        Assert.assertEquals(user1, user2);
     }
 }
