@@ -2,6 +2,7 @@ package bookmgr.repos;
 
 import bookmgr.models.User;
 import bookmgr.exceptions.UserAlreadyExistsException;
+import bookmgr.exceptions.UserDoesntExistException;
 import java.util.List;
 
 public class UserRepo {
@@ -22,9 +23,13 @@ public class UserRepo {
         }
     }
 
-    public User fetchUser(int user_id) {
-        User user = User.findById(user_id);
-        return user;
+    public User fetchUser(int user_id) throws UserDoesntExistException {
+        if (User.where("id", user_id).isEmpty()) {
+            throw new UserDoesntExistException();
+        } else {
+            User user = User.findById(user_id);
+            return user;
+        }
     }
 
     private boolean CheckUserName(String username) {
