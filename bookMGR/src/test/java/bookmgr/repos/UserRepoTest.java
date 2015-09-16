@@ -1,5 +1,6 @@
 package bookmgr.repos;
  
+import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.models.User;
 import java.util.List;
 import junit.framework.Assert;
@@ -29,7 +30,7 @@ public class UserRepoTest {
     }
  
     @Test
-    public void CreateNewUserCreatesRightUserName() {
+    public void CreateNewUserCreatesRightUserName() throws UserAlreadyExistsException {
         UserRepo newrepo = new UserRepo();
         User user = newrepo.createUser(userName, passw);
  
@@ -38,8 +39,8 @@ public class UserRepoTest {
         Assert.assertEquals(userName, username);
     }
  
-    @Test(expected=RuntimeException.class)
-    public void CantCreateUsernameDuplicates() {
+    @Test
+    public void CantCreateUsernameDuplicates() throws UserAlreadyExistsException {
        
         UserRepo newrepo = new UserRepo();
         User user1 = newrepo.createUser(userName, passw);
