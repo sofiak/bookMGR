@@ -47,8 +47,9 @@ public class UserRepo {
     
     public boolean setNewPassword(int user_id, String oldPass, String newPass) throws UserDoesntExistException {
         User user = this.fetchUser(user_id);
-        if(user.get("password") == oldPass) {
+        if(user.getString("password").equals(oldPass)) {
             user.set("password", newPass);
+            user.saveIt();
             return true;
         }else{
             return false;

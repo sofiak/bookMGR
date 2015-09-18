@@ -53,16 +53,40 @@ public class UserRepoTest {
     public void fetchUserWorks() throws UserDoesntExistException, UserAlreadyExistsException {
         UserRepo newrepo = new UserRepo();
         User user1 = newrepo.createUser(userName, passw);
-        
+
         User user2 = newrepo.fetchUser(user1.getInteger("id"));
-        
+
         Assert.assertEquals(user2.get("username"), user1.get("username"));
     }
-    
+
+    @Test(expected = UserDoesntExistException.class)
+    public void removeUserWorks() throws UserAlreadyExistsException, UserDoesntExistException {
+        UserRepo newrepo = new UserRepo();
+        User user1 = newrepo.createUser(userName, passw);
+        newrepo.removeUser(user1.getInteger("id"));
+        newrepo.fetchUser(user1.getInteger("id"));
+    }
+
     @Test(expected = UserDoesntExistException.class)
     public void fetchUserWorksWithWrongId() throws UserDoesntExistException {
         int randomId = 1234567891;
         UserRepo newrepo = new UserRepo();
         newrepo.fetchUser(randomId);
+    }
+    
+    @Test
+    public void editUserWorks() throws UserAlreadyExistsException, UserDoesntExistException{
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        User user1 = newrepo.editUser(user.getInteger("id"), "anakonda");
+        Assert.assertEquals("anakonda", user1.getString("username"));
+    }
+    
+    @Test
+    public void newPasswordWorks() throws UserAlreadyExistsException, UserDoesntExistException {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        boolean success = newrepo.setNewPassword(user.getInteger("id"), passw, "anakonda");
+        Assert.assertTrue(success);
     }
 }

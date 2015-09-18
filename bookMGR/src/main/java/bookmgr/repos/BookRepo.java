@@ -19,7 +19,7 @@ public class BookRepo {
     public BookRepo() {
     }
 
-    public Book addBook(int isbn, String title, String description, int pubYear, int copies) throws BookAlreadyExistsException {
+    public Book addBook(String isbn, String title, String description, int pubYear, int copies) throws BookAlreadyExistsException {
         if (this.CheckBook(isbn) == false) {
             Book book = new Book();
             book.set("ISBN", isbn);
@@ -34,7 +34,7 @@ public class BookRepo {
         }
     }
     
-    public Book editBook(int book_id, int isbn, String title, String description, int pubYear, int copies) throws BookDoesntExistException, BookAlreadyExistsException{
+    public Book editBook(int book_id, String isbn, String title, String description, int pubYear, int copies) throws BookDoesntExistException, BookAlreadyExistsException{
         Book book = this.fetchBook(book_id);
         List<Book> books = Book.where("ISBN = ? AND id != ?", isbn, book_id);
         if (books.isEmpty()) {
@@ -67,9 +67,8 @@ public class BookRepo {
         }
     }
     
-    private boolean CheckBook(int isbn) {
-        Book book = new Book();
-        List<Book> books = book.where("ISBN = ?", isbn);
+    private boolean CheckBook(String isbn) {
+        List<Book> books = Book.where("ISBN = ?", isbn);
         if (books.isEmpty()) {
             return false;
         } else {
