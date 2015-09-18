@@ -9,6 +9,9 @@ package bookmgr.exceptions;
  *
  * @author Sofia
  */
-public class UserDoesntExistException {
+public class UserDoesntExistException extends Exception {
+
+    public UserDoesntExistException() {
+    }
     
 }
