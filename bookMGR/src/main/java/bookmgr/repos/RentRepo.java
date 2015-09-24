@@ -7,12 +7,10 @@ package bookmgr.repos;
 
 import bookmgr.exceptions.RentDoesntExistException;
 import bookmgr.models.Rent;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Calendar;
 
-/**
- *
- * @author Sofia
- */
 public class RentRepo {
 
     public void RentRepo() {
@@ -24,20 +22,25 @@ public class RentRepo {
     }
 
     public boolean returnBook(int rent_id) throws RentDoesntExistException {
-        Date date = new Date();
         Rent rent = fetchRent(rent_id);
+        Timestamp stamp = new Timestamp(System.currentTimeMillis());
+        Date date = new Date(stamp.getTime());
         Date due_date = fetchRent(rent_id).getDate("due_date");
-        
-        if(date.before(due_date)) {
+
+        if (date.before(due_date)) {
             rent.delete();
-        }else{
-            
+        } else {
+            int days = this.daysBetween(date, due_date);
+            double fees = 0.5*days;
         }
 
     }
 
+    private int daysBetween(Date firstDate, Date secondDate) {
+
+    }
+
     public boolean extendRent(int rent_id) {
-        
 
     }
 
