@@ -9,6 +9,6 @@ package bookmgr.exceptions;
  *
  * @author Sofia
  */
-public class RentDoesntExistException {
+public class RentDoesntExistException extends Exception {
     
 }
