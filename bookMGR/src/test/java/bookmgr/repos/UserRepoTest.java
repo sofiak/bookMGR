@@ -3,6 +3,8 @@ package bookmgr.repos;
 import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import junit.framework.Assert;
 import org.javalite.activejdbc.Base;
@@ -88,5 +90,16 @@ public class UserRepoTest {
         User user = newrepo.createUser(userName, passw);
         boolean success = newrepo.setNewPassword(user.getInteger("id"), passw, "anakonda");
         Assert.assertTrue(success);
+    }
+    
+    @Test
+    public void timestamp() {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        Timestamp stamp = new Timestamp(System.currentTimeMillis());
+        Date date = new Date(stamp.getTime());
+        int id = user.getInteger("id");
+        Date due_date = fetchUser(id).getDate("due_date");
+
     }
 }

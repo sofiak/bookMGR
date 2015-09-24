@@ -23,9 +23,8 @@ public class RentRepo {
 
     public boolean returnBook(int rent_id) throws RentDoesntExistException {
         Rent rent = fetchRent(rent_id);
-        Timestamp stamp = new Timestamp(System.currentTimeMillis());
-        Date date = new Date(stamp.getTime());
-        Date due_date = fetchRent(rent_id).getDate("due_date");
+        Date date = new Date();
+        Date due_date = rent.getDate("due_date");
 
         if (date.before(due_date)) {
             rent.delete();
@@ -36,8 +35,13 @@ public class RentRepo {
 
     }
 
-    private int daysBetween(Date firstDate, Date secondDate) {
-
+    private int daysBetween(Date date, Date due_date) {
+        long diff = date.getTime() - due_date.getTime();
+        long diffDays = (diff / (24 * 60 * 60 * 1000));
+        
+        diffDays = Math.round(diffDays);
+        int diffInt = (int) (long) diffDays;
+        return diffInt;
     }
 
     public boolean extendRent(int rent_id) {
