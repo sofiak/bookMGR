@@ -66,16 +66,16 @@ public class UserRepo {
         }
     }
 
-    public void addFee(int fee, int user_id) {
+    public void addFee(double fee, int user_id) {
         User user = new User();
-        int currentFees = user.getInteger("fees");
+        double currentFees = user.getDouble("fees");
         currentFees = +fee;
         user.setInteger("fees", currentFees);
     }
 
-    public boolean payFee(int fee, int user_id) {
+    public boolean payFee(double fee, int user_id) {
         User user = new User();
-        int currentFees = user.getInteger("fees");
+        double currentFees = user.getDouble("fees");
         if (currentFees >= fee) {
             currentFees = -fee;
             user.setInteger("fees", currentFees);

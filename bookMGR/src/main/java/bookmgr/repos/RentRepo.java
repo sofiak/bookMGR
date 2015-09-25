@@ -28,9 +28,14 @@ public class RentRepo {
 
         if (date.before(due_date)) {
             rent.delete();
+            return true;
         } else {
             int days = this.daysBetween(date, due_date);
             double fees = 0.5 * days;
+            UserRepo userrepo = new UserRepo();
+            userrepo.addFee(fees, user_id);
+            rent.delete();
+            return true;
         }
 
     }
