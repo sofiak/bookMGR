@@ -29,18 +29,13 @@ public class RentRepo {
         if (availableCopies == 0) {
             throw new BookNotAvailableException();
         } else {
-            ReservationRepo reservationrepo = new ReservationRepo();
-            if (reservationrepo.CheckReservation(user_id, book_id) == false) {
-                Rent rent = new Rent();
-                rent.set("user_id", user_id);
-                rent.set("book_id", book_id);
-                Date due_date = this.calculateDueDate();
-                rent.set("due_date", due_date);
-                rent.saveIt();
-                return true;
-            }else{
-                Reservation reservation = reservationrepo.fetchReservation(user_id)
-            }
+            Rent rent = new Rent();
+            rent.set("user_id", user_id);
+            rent.set("book_id", book_id);
+            Date due_date = this.calculateDueDate();
+            rent.set("due_date", due_date);
+            rent.saveIt();
+            return true;
         }
     }
 
@@ -86,10 +81,6 @@ public class RentRepo {
 
     }
 
-    public boolean checkForReservations(int book_id) {
-
-    }
-
     public Rent fetchRent(int rent_id) throws RentDoesntExistException {
         Rent rent = Rent.findById(rent_id);
         if (rent == null) {
@@ -105,15 +96,7 @@ public class RentRepo {
         Book book = bookrepo.fetchBook(book_id);
         List<Rent> rents = rent.where("book_id = ?", book_id);
         int copies = book.getInteger("copies");
-        copies -= (rents.size() - 1);
-
-        if (copies > 0) {
-            Reservation reservation = new Reservation();
-            List<Reservation> reservations = reservation.where("book_id = ?", book_id);
-            int availableCopies = copies - (reservations.size() + 1);
-            return availableCopies;
-        } else {
-            return copies;
-        }
+        copies -= (rents.size() + 1);
+        return copies;
     }
 }
