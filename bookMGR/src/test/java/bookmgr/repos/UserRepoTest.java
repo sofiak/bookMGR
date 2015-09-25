@@ -91,4 +91,23 @@ public class UserRepoTest {
         boolean success = newrepo.setNewPassword(user.getInteger("id"), passw, "anakonda");
         Assert.assertTrue(success);
     }
+    
+    @Test
+    public void newPasswordDoesntWorkWithWrongOldPW() throws UserAlreadyExistsException, UserDoesntExistException {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        boolean success = newrepo.setNewPassword(user.getInteger("id"), "ananas", "anakonda");
+        Assert.assertFalse(success);
+    }
+    
+//    @Test
+//    public void addFeeAddsTheProperFee() throws UserAlreadyExistsException {
+//        UserRepo newrepo = new UserRepo();
+//        User user = newrepo.createUser(userName, passw);
+//        int user_id = user.getInteger("id");
+//        double addableFee = 13.4;
+//        
+//        newrepo.addFee(addableFee, user_id);
+//        Assert.assertEquals(13.4, user.getDouble("fees"));
+//    }
 }

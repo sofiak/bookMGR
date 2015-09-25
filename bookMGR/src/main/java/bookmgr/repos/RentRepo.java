@@ -10,12 +10,23 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * Repo for book-related functions
+ */
 public class RentRepo {
 
     public void RentRepo() {
     }
 
-    public boolean newRent(int user_id, int book_id) throws BookDoesntExistException, BookNotAvailableException {
+    /**
+     * Method for creating a Rent object with given attributes, User and Book
+     *
+     * @param user_id id for User
+     * @param book_id id for Book
+     *
+     * @return returns true if creation was successful
+     */
+    public boolean createRent(int user_id, int book_id) throws BookDoesntExistException, BookNotAvailableException {
         int availableCopies = this.availableCopies(book_id);
 
         if (availableCopies == 0) {
@@ -31,7 +42,7 @@ public class RentRepo {
         }
     }
 
-    public Date calculateDueDate() {
+    private Date calculateDueDate() {
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
@@ -40,6 +51,13 @@ public class RentRepo {
         return date;
     }
 
+    /**
+     * Method for returning a rented book
+     *
+     * @param rent_id id for Rent object
+     *
+     * @return returns true if return was successful
+     */
     public boolean returnBook(int rent_id) throws RentDoesntExistException {
         Rent rent = fetchRent(rent_id);
         int user_id = rent.getInteger("user_id");
