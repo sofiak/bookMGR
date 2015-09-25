@@ -29,6 +29,7 @@ public class RentRepo {
         if (availableCopies == 0) {
             throw new BookNotAvailableException();
         } else {
+            Reservation reservation = new Reservation();
             Rent rent = new Rent();
             rent.set("user_id", user_id);
             rent.set("book_id", book_id);
@@ -79,6 +80,10 @@ public class RentRepo {
 
     public boolean extendRent(int rent_id) {
 
+    }
+    
+    public boolean checkForReservations(int book_id) {
+        
     }
 
     public Rent fetchRent(int rent_id) throws RentDoesntExistException {
