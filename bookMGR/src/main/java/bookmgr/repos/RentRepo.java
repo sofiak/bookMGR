@@ -6,12 +6,15 @@
 package bookmgr.repos;
 
 import bookmgr.exceptions.BookDoesntExistException;
+import bookmgr.exceptions.BookNotAvailableException;
 import bookmgr.exceptions.RentDoesntExistException;
 import bookmgr.models.Book;
 import bookmgr.models.Rent;
 import bookmgr.models.Reservation;
 import bookmgr.models.User;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class RentRepo {
@@ -20,8 +23,29 @@ public class RentRepo {
 
     }
 
-    public Rent newRent(int user_id, int book_id) {
+    public boolean newRent(int user_id, int book_id) throws BookDoesntExistException, BookNotAvailableException {
+        int availableCopies = this.availableCopies(book_id);
 
+        if (availableCopies == 0) {
+            throw new BookNotAvailableException();
+        } else {
+            Rent rent = new Rent();
+            rent.set("user_id", user_id);
+            rent.set("book_id", book_id);
+            Date due_date = this.calculateDueDate();
+            rent.set("due_date", due_date);
+            rent.saveIt();
+            return true;
+        }
+    }
+
+    public Date calculateDueDate() {
+        Date date = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, 30);
+        date = calendar.getTime();
+        return date;
     }
 
     public boolean returnBook(int rent_id) throws RentDoesntExistException {
