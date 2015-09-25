@@ -9,6 +9,7 @@ import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.RentDoesntExistException;
 import bookmgr.models.Book;
 import bookmgr.models.Rent;
+import bookmgr.models.Reservation;
 import bookmgr.models.User;
 import java.util.Date;
 import java.util.List;
@@ -71,11 +72,15 @@ public class RentRepo {
         Book book = bookrepo.fetchBook(book_id);
         List<Rent> rents = rent.where("book_id = ?", book_id);
         int copies = book.getInteger("copies");
+        copies -= (rents.size() - 1);
 
-        if (rents.size()-1 < copies) {
-            return copies - (rents.size()-1);
+        if (copies > 0) {
+            Reservation reservation = new Reservation();
+            List<Reservation> reservations = reservation.where("book_id = ?", book_id);
+            int availableCopies = copies - (reservations.size() + 1);
+            return availableCopies;
         } else {
-            return 0;
+            return copies;
         }
     }
 }
