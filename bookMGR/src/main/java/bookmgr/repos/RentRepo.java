@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bookmgr.repos;
 
 import bookmgr.exceptions.BookDoesntExistException;
@@ -10,8 +5,6 @@ import bookmgr.exceptions.BookNotAvailableException;
 import bookmgr.exceptions.RentDoesntExistException;
 import bookmgr.models.Book;
 import bookmgr.models.Rent;
-import bookmgr.models.Reservation;
-import bookmgr.models.User;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,7 +13,6 @@ import java.util.List;
 public class RentRepo {
 
     public void RentRepo() {
-
     }
 
     public boolean newRent(int user_id, int book_id) throws BookDoesntExistException, BookNotAvailableException {

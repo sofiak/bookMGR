@@ -8,7 +8,6 @@ import java.util.List;
 public class UserRepo {
 
     public void UserRepo() {
-
     }
 
     public User createUser(String uname, String pw) throws UserAlreadyExistsException {
