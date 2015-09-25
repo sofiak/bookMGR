@@ -64,4 +64,19 @@ public class UserRepo {
             return true;
         }
     }
+    
+    public void addFee(int fee, int user_id) {
+        User user = new User();
+        int currentFees = user.getInteger("fees");
+        currentFees =+ fee;
+        user.setInteger("fees", currentFees);
+    }
+    
+    public void payFee(int fee, int user_id) {
+        User user = new User();
+        int currentFees = user.getInteger("fees");
+        currentFees =- fee;
+        user.setInteger("fees", currentFees);
+    }
+  
 }

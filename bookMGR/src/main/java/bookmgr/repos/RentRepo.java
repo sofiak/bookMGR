@@ -7,9 +7,8 @@ package bookmgr.repos;
 
 import bookmgr.exceptions.RentDoesntExistException;
 import bookmgr.models.Rent;
-import java.sql.Timestamp;
+import bookmgr.models.User;
 import java.util.Date;
-import java.util.Calendar;
 
 public class RentRepo {
 
@@ -23,6 +22,7 @@ public class RentRepo {
 
     public boolean returnBook(int rent_id) throws RentDoesntExistException {
         Rent rent = fetchRent(rent_id);
+        int user_id = rent.getInteger("user_id");
         Date date = new Date();
         Date due_date = rent.getDate("due_date");
 
@@ -30,7 +30,7 @@ public class RentRepo {
             rent.delete();
         } else {
             int days = this.daysBetween(date, due_date);
-            double fees = 0.5*days;
+            double fees = 0.5 * days;
         }
 
     }
@@ -38,7 +38,7 @@ public class RentRepo {
     private int daysBetween(Date date, Date due_date) {
         long diff = date.getTime() - due_date.getTime();
         long diffDays = (diff / (24 * 60 * 60 * 1000));
-        
+
         diffDays = Math.round(diffDays);
         int diffInt = (int) (long) diffDays;
         return diffInt;
