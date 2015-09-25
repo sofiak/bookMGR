@@ -5,10 +5,13 @@
  */
 package bookmgr.repos;
 
+import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.RentDoesntExistException;
+import bookmgr.models.Book;
 import bookmgr.models.Rent;
 import bookmgr.models.User;
 import java.util.Date;
+import java.util.List;
 
 public class RentRepo {
 
@@ -59,6 +62,20 @@ public class RentRepo {
             throw new RentDoesntExistException();
         } else {
             return rent;
+        }
+    }
+
+    public boolean bookIsAvailable(int book_id) throws BookDoesntExistException {
+        Rent rent = new Rent();
+        BookRepo bookrepo = new BookRepo();
+        Book book = bookrepo.fetchBook(book_id);
+        List<Rent> rents = rent.where("book_id = ?", book_id);
+        int copies = book.getInteger("copies");
+
+        if (rents.size() < copies) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
