@@ -91,15 +91,4 @@ public class UserRepoTest {
         boolean success = newrepo.setNewPassword(user.getInteger("id"), passw, "anakonda");
         Assert.assertTrue(success);
     }
-    
-    @Test
-    public void timestamp() {
-        UserRepo newrepo = new UserRepo();
-        User user = newrepo.createUser(userName, passw);
-        Timestamp stamp = new Timestamp(System.currentTimeMillis());
-        Date date = new Date(stamp.getTime());
-        int id = user.getInteger("id");
-        Date due_date = fetchUser(id).getDate("due_date");
-
-    }
 }
