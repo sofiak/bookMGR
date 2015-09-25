@@ -77,8 +77,11 @@ public class RentRepo {
         return diffInt;
     }
 
-    public boolean extendRent(int rent_id) {
-
+    public void extendRent(int rent_id) throws RentDoesntExistException {
+        Rent rent = this.fetchRent(rent_id);
+        Date date = this.calculateDueDate();
+        rent.set("due_date", date);
+        rent.saveIt();
     }
 
     public Rent fetchRent(int rent_id) throws RentDoesntExistException {
