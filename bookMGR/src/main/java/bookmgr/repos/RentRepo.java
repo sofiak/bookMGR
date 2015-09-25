@@ -65,17 +65,17 @@ public class RentRepo {
         }
     }
 
-    public boolean bookIsAvailable(int book_id) throws BookDoesntExistException {
+    public int availableCopies(int book_id) throws BookDoesntExistException {
         Rent rent = new Rent();
         BookRepo bookrepo = new BookRepo();
         Book book = bookrepo.fetchBook(book_id);
         List<Rent> rents = rent.where("book_id = ?", book_id);
         int copies = book.getInteger("copies");
 
-        if (rents.size() < copies) {
-            return true;
+        if (rents.size()-1 < copies) {
+            return copies - (rents.size()-1);
         } else {
-            return false;
+            return 0;
         }
     }
 }
