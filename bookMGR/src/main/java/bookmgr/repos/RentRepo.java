@@ -29,14 +29,18 @@ public class RentRepo {
         if (availableCopies == 0) {
             throw new BookNotAvailableException();
         } else {
-            Reservation reservation = new Reservation();
-            Rent rent = new Rent();
-            rent.set("user_id", user_id);
-            rent.set("book_id", book_id);
-            Date due_date = this.calculateDueDate();
-            rent.set("due_date", due_date);
-            rent.saveIt();
-            return true;
+            ReservationRepo reservationrepo = new ReservationRepo();
+            if (reservationrepo.CheckReservation(user_id, book_id) == false) {
+                Rent rent = new Rent();
+                rent.set("user_id", user_id);
+                rent.set("book_id", book_id);
+                Date due_date = this.calculateDueDate();
+                rent.set("due_date", due_date);
+                rent.saveIt();
+                return true;
+            }else{
+                Reservation reservation = reservationrepo.fetchReservation(user_id)
+            }
         }
     }
 
@@ -81,9 +85,9 @@ public class RentRepo {
     public boolean extendRent(int rent_id) {
 
     }
-    
+
     public boolean checkForReservations(int book_id) {
-        
+
     }
 
     public Rent fetchRent(int rent_id) throws RentDoesntExistException {

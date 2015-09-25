@@ -28,7 +28,7 @@ public class ReservationRepo {
         }
     }
 
-    private boolean CheckReservation(int user_id, int book_id) {
+    public boolean CheckReservation(int user_id, int book_id) {
         Reservation reservation = new Reservation();
         List<Reservation> users = reservation.where("user_id = ?", user_id, "book_id = ?", book_id);
         if (users.isEmpty()) {
