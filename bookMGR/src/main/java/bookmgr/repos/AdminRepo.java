@@ -6,8 +6,7 @@
 package bookmgr.repos;
 
 /**
- *
- * @author Sofia
+ * Repo for admin-related functions
  */
 public class AdminRepo {
     

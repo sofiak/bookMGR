@@ -5,6 +5,10 @@ import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.exceptions.UserDoesntExistException;
 import java.util.List;
 
+/**
+ * Repo for user-related functions
+ */
+
 public class UserRepo {
 
     public void UserRepo() {

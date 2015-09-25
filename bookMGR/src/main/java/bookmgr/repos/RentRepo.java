@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
- * Repo for book-related functions
+ * Repo for rent-related functions
  */
 public class RentRepo {
 
@@ -109,7 +109,12 @@ public class RentRepo {
         Book book = bookrepo.fetchBook(book_id);
         List<Rent> rents = rent.where("book_id = ?", book_id);
         int copies = book.getInteger("copies");
-        copies -= (rents.size() + 1);
-        return copies;
+        if (rents.isEmpty()) {
+            return copies;
+        } else {
+            int outOnRent = rents.size();
+            copies = copies - outOnRent;
+            return copies;
+        }
     }
 }

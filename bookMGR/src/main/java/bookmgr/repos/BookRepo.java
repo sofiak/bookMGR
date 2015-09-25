@@ -6,6 +6,10 @@ import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.models.Book;
 import java.util.List;
 
+/**
+ * Repo for book-related functions
+ */
+
 public class BookRepo {
 
     public BookRepo() {

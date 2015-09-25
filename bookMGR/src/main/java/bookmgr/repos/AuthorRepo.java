@@ -6,9 +6,9 @@
 package bookmgr.repos;
 
 /**
- *
- * @author Sofia
+ * Repo for author-related functions
  */
+
 public class AuthorRepo {
     
 }
