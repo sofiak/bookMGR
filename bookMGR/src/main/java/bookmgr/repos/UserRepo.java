@@ -24,37 +24,38 @@ public class UserRepo {
     }
 
     public User fetchUser(int user_id) throws UserDoesntExistException {
-        
+
         User user = User.findById(user_id);
         if (user == null) {
             throw new UserDoesntExistException();
-        }else{
+        } else {
             return user;
         }
     }
-    
+
     public void removeUser(int user_id) throws UserDoesntExistException {
         User user = this.fetchUser(user_id);
         user.delete();
     }
 
-    public User editUser(int user_id, String newUsername) throws UserDoesntExistException{
+    public User editUser(int user_id, String newUsername) throws UserDoesntExistException {
         User user = this.fetchUser(user_id);
         user.set("username", newUsername);
         user.saveIt();
         return user;
     }
-    
+
     public boolean setNewPassword(int user_id, String oldPass, String newPass) throws UserDoesntExistException {
         User user = this.fetchUser(user_id);
-        if(user.getString("password").equals(oldPass)) {
+        if (user.getString("password").equals(oldPass)) {
             user.set("password", newPass);
             user.saveIt();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
     private boolean CheckUserName(String username) {
         User user = new User();
         List<User> users = user.where("username = ?", username);
@@ -64,19 +65,24 @@ public class UserRepo {
             return true;
         }
     }
-    
+
     public void addFee(int fee, int user_id) {
         User user = new User();
         int currentFees = user.getInteger("fees");
-        currentFees =+ fee;
+        currentFees = +fee;
         user.setInteger("fees", currentFees);
     }
-    
-    public void payFee(int fee, int user_id) {
+
+    public boolean payFee(int fee, int user_id) {
         User user = new User();
         int currentFees = user.getInteger("fees");
-        currentFees =- fee;
-        user.setInteger("fees", currentFees);
+        if (currentFees >= fee) {
+            currentFees = -fee;
+            user.setInteger("fees", currentFees);
+            return true;
+        } else {
+            return false;
+        }
     }
-  
+
 }
