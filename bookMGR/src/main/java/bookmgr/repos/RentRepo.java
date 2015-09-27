@@ -3,6 +3,7 @@ package bookmgr.repos;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.BookNotAvailableException;
 import bookmgr.exceptions.RentDoesntExistException;
+import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.Book;
 import bookmgr.models.Rent;
 import java.util.Calendar;
@@ -26,7 +27,7 @@ public class RentRepo {
      *
      * @return returns true if creation was successful
      */
-    public boolean createRent(int user_id, int book_id) throws BookDoesntExistException, BookNotAvailableException {
+    public Rent createRent(int user_id, int book_id) throws BookDoesntExistException, BookNotAvailableException {
         int availableCopies = this.availableCopies(book_id);
 
         if (availableCopies == 0) {
@@ -38,7 +39,7 @@ public class RentRepo {
             Date due_date = this.calculateDueDate();
             rent.set("due_date", due_date);
             rent.saveIt();
-            return true;
+            return rent;
         }
     }
 
@@ -58,22 +59,24 @@ public class RentRepo {
      *
      * @return returns true if return was successful
      */
-    public boolean returnBook(int rent_id) throws RentDoesntExistException {
+    public Rent returnBook(int rent_id) throws RentDoesntExistException, UserDoesntExistException {
         Rent rent = fetchRent(rent_id);
         int user_id = rent.getInteger("user_id");
         Date date = new Date();
         Date due_date = rent.getDate("due_date");
 
         if (date.before(due_date)) {
-            rent.delete();
-            return true;
+            rent.set("hasReturned", 1);
+            rent.saveIt();
+            return rent;
         } else {
             int days = this.daysBetween(date, due_date);
             double fees = 0.5 * days;
             UserRepo userrepo = new UserRepo();
             userrepo.addFee(fees, user_id);
-            rent.delete();
-            return true;
+            rent.set("hasReturned", 1);
+            rent.saveIt();
+            return rent;
         }
 
     }
@@ -107,7 +110,7 @@ public class RentRepo {
         Rent rent = new Rent();
         BookRepo bookrepo = new BookRepo();
         Book book = bookrepo.fetchBook(book_id);
-        List<Rent> rents = rent.where("book_id = ?", book_id);
+        List<Rent> rents = rent.where("book_id = ?", book_id, "hasReturned = ?", 0);
         int copies = book.getInteger("copies");
         if (rents.isEmpty()) {
             return copies;

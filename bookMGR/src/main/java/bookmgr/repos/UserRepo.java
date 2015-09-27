@@ -69,19 +69,21 @@ public class UserRepo {
         }
     }
 
-    public void addFee(double fee, int user_id) {
-        User user = new User();
+    public void addFee(double fee, int user_id) throws UserDoesntExistException {
+        User user = this.fetchUser(user_id);
         double currentFees = user.getDouble("fees");
-        currentFees = +fee;
+        currentFees += fee;
         user.setInteger("fees", currentFees);
+        user.saveIt();
     }
 
-    public boolean payFee(double fee, int user_id) {
-        User user = new User();
+    public boolean payFee(double fee, int user_id) throws UserDoesntExistException {
+        User user = this.fetchUser(user_id);
         double currentFees = user.getDouble("fees");
         if (currentFees >= fee) {
-            currentFees = -fee;
+            currentFees -=fee;
             user.setInteger("fees", currentFees);
+            user.saveIt();
             return true;
         } else {
             return false;
