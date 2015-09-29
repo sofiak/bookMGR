@@ -110,7 +110,7 @@ public class RentRepo {
         Rent rent = new Rent();
         BookRepo bookrepo = new BookRepo();
         Book book = bookrepo.fetchBook(book_id);
-        List<Rent> rents = rent.where("book_id = ?", book_id, "hasReturned = ?", 0);
+        List<Rent> rents = rent.where("book_id = ? AND hasReturned = ?", book_id, 0);
         int copies = book.getInteger("copies");
         if (rents.isEmpty()) {
             return copies;

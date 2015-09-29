@@ -88,7 +88,7 @@ public class RentRepoTest {
         int book_id = book.getInteger("id");
         int user_id = user.getInteger("id");
         Rent rent = rentrepo.createRent(user_id, book_id);
-        rentrepo.returnBook(rent.getInteger("id"));
+        rent = rentrepo.returnBook(rent.getInteger("id"));
         int hasReturned = rent.getInteger("hasReturned");
         Assert.assertEquals(1, hasReturned);
     }
