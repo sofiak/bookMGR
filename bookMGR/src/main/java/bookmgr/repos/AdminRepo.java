@@ -8,6 +8,7 @@ package bookmgr.repos;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.exceptions.UserHasUnresolvedFeesOrRentsException;
 import bookmgr.models.Book;
+import bookmgr.models.BookAuthor;
 import bookmgr.models.Rent;
 import bookmgr.models.User;
 import java.util.List;
@@ -51,7 +52,16 @@ public class AdminRepo {
         return rents;
     }
     
-    public List<Book> reportBooksByAuthor(int author_id) {
-        return null;
+    public List<Rent> reportForAllRents(int bookStatus) {
+        RentRepo rentrepo = new RentRepo();
+        Rent rent = new Rent();
+        List<Rent> rents = rent.where("user_id = ?", bookStatus);
+        return rents;
+    }
+    
+    
+    public List<BookAuthor> reportBooksByAuthor(int author_id) {
+        List<BookAuthor> booksbyauthor = Book.where("author_id = ?", author_id);
+        return booksbyauthor;
     }
 }
