@@ -49,9 +49,11 @@ public class BookRepo {
     }
     
     public void removeBook(int book_id) throws BookDoesntExistException {
-        
         Book book = this.fetchBook(book_id);
+        RentRepo rentrepo = new RentRepo();
+        if(rentrepo.availableCopies(book_id) == book.getInteger("copies")){
         book.delete();
+        }
     }
     
     public Book fetchBook(int book_id) throws BookDoesntExistException {

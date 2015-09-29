@@ -89,5 +89,10 @@ public class UserRepo {
             return false;
         }
     }
+    
+    public int fetchFees(int user_id) throws UserDoesntExistException {
+        User user = this.fetchUser(user_id);
+        return user.getInteger("fees");
+    }
 
 }
