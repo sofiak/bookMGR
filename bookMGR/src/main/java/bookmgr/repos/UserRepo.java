@@ -90,9 +90,9 @@ public class UserRepo {
         }
     }
     
-    public int fetchFees(int user_id) throws UserDoesntExistException {
+    public double fetchFees(int user_id) throws UserDoesntExistException {
         User user = this.fetchUser(user_id);
-        return user.getInteger("fees");
+        return user.getDouble("fees");
     }
 
 }
