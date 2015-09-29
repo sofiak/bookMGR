@@ -55,7 +55,7 @@ public class AdminRepo {
     public List<Rent> reportForAllRents(int bookStatus) {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
-        List<Rent> rents = rent.where("user_id = ?", bookStatus);
+        List<Rent> rents = rent.where("hasReturned = ?", bookStatus);
         return rents;
     }
     
