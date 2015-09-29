@@ -1,15 +1,18 @@
 package bookmgr.repos;
 
 import bookmgr.exceptions.AuthorAlreadyExistsException;
+import bookmgr.exceptions.AuthorAndBookAreAlreadyConnectedException;
+import bookmgr.exceptions.AuthorAndBookAreNotConnectedException;
 import bookmgr.exceptions.AuthorDoesntExistException;
 import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.models.Author;
 import bookmgr.models.Book;
+import bookmgr.models.BookAuthor;
 import java.util.List;
 
 /**
- * Repo for book-related functions
+ * Repo for book- and author-related methods
  */
 public class BookRepo {
 
@@ -53,6 +56,11 @@ public class BookRepo {
         Book book = this.fetchBook(book_id);
         RentRepo rentrepo = new RentRepo();
         if (rentrepo.availableCopies(book_id) == book.getInteger("copies")) {
+            List<BookAuthor> bookauthors = BookAuthor.where("book_id = ?", book_id);
+            for (int i = 0; i <= bookauthors.size(); i++) {
+                BookAuthor bookauthor = bookauthors.get(i);
+                bookauthor.delete();
+            }
             book.delete();
         }
     }
@@ -105,7 +113,48 @@ public class BookRepo {
     }
 
     public void removeAuthor(int author_id) throws AuthorDoesntExistException {
+        List<BookAuthor> bookauthor = BookAuthor.where("author_id = ?", author_id);
+        if (bookauthor.isEmpty()) {
+            Author author = this.fetchAuthor(author_id);
+            author.delete();
+        }
+    }
+
+    public void addAuthorToBook(int book_id, int author_id) throws BookDoesntExistException, AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
         Author author = this.fetchAuthor(author_id);
-        author.delete();
+        Book book = this.fetchBook(book_id);
+        boolean exists = this.checkBookAuthor(book_id, author_id);
+        if (exists = false) {
+            BookAuthor bookauthor = new BookAuthor();
+            bookauthor.set("book_id", book_id);
+            bookauthor.set(author_id, author_id);
+            bookauthor.saveIt();
+        } else {
+            throw new AuthorAndBookAreAlreadyConnectedException();
+        }
+    }
+
+    public void removeAuthorFromBook(int book_id, int author_id) throws AuthorDoesntExistException, BookDoesntExistException, AuthorAndBookAreNotConnectedException {
+        boolean exists = this.checkBookAuthor(book_id, author_id);
+        if (exists == true) {
+            BookAuthor bookauthor = this.fetchBookAuthor(book_id, author_id).get(0);
+            bookauthor.delete();
+        } else {
+            throw new AuthorAndBookAreNotConnectedException();
+        }
+    }
+
+    public List<BookAuthor> fetchBookAuthor(int book_id, int author_id) {
+        List<BookAuthor> bookauthor = BookAuthor.findBySQL("author_id = ? AND book_id = ?", author_id, book_id);
+        return bookauthor;
+    }
+
+    public boolean checkBookAuthor(int book_id, int author_id) {
+        List<BookAuthor> bookauthor = BookAuthor.findBySQL("author_id = ? AND book_id = ?", author_id, book_id);
+        if (bookauthor.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

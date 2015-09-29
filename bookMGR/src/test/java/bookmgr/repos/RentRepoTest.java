@@ -38,7 +38,7 @@ public class RentRepoTest {
     @Test(expected = BookNotAvailableException.class)
     public void ifNoCopiesAvailableToRentThrowsException() throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException {
         BookRepo bookrepo = new BookRepo();
-        Book book = bookrepo.addBook("1234567891111", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 1);
+        Book book = bookrepo.createBook("1234567891111", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 1);
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
         RentRepo rentrepo = new RentRepo();
@@ -60,7 +60,7 @@ public class RentRepoTest {
     @Test
     public void availableCopiesReturnCorrectCopies() throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException {
         BookRepo bookrepo = new BookRepo();
-        Book book = bookrepo.addBook("1234567891121", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
+        Book book = bookrepo.createBook("1234567891121", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
         RentRepo rentrepo = new RentRepo();
@@ -81,7 +81,7 @@ public class RentRepoTest {
     @Test
     public void ReturnRentChangesHasReturnedTo1 () throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException, RentDoesntExistException, UserDoesntExistException {
         BookRepo bookrepo = new BookRepo();
-        Book book = bookrepo.addBook("1234567891121", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
+        Book book = bookrepo.createBook("1234567891121", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
         RentRepo rentrepo = new RentRepo();
