@@ -25,7 +25,10 @@ public class RentRepo {
      * @param user_id id for User
      * @param book_id id for Book
      *
-     * @return returns true if creation was successful
+     * @throws BookDoesntExistException if book does not exist
+     * @throws BookNotAvailableException if the book has no available copies
+     *
+     * @return Rent object
      */
     public Rent createRent(int user_id, int book_id) throws BookDoesntExistException, BookNotAvailableException {
         int availableCopies = this.availableCopies(book_id);
@@ -43,6 +46,11 @@ public class RentRepo {
         }
     }
 
+    /**
+     * Method calculates a due date 30 days from current day onward
+     *
+     * @return the calculated due date
+     */
     private Date calculateDueDate() {
         Date date = new Date();
         Calendar calendar = new GregorianCalendar();
@@ -57,7 +65,10 @@ public class RentRepo {
      *
      * @param rent_id id for Rent object
      *
-     * @return returns true if return was successful
+     * @throws RentDoesntExistException if rent doesn't exist
+     * @throws UserDoesntExistException if user doesn't exist
+     *
+     * @return Rent object
      */
     public Rent returnBook(int rent_id) throws RentDoesntExistException, UserDoesntExistException {
         Rent rent = fetchRent(rent_id);
@@ -70,7 +81,7 @@ public class RentRepo {
             rent.saveIt();
             return rent;
         } else {
-            int days = this.daysBetween(date, due_date);
+            int days = this.howManyDaysOverdue(date, due_date);
             double fees = 0.5 * days;
             UserRepo userrepo = new UserRepo();
             userrepo.addFee(fees, user_id);
@@ -81,7 +92,15 @@ public class RentRepo {
 
     }
 
-    private int daysBetween(Date date, Date due_date) {
+    /**
+     * Method calculates how many days a book is overdue
+     *
+     * @param date current date passed when method is called
+     * @param due_date due date of the book
+     *
+     * @return diffInt the difference in days
+     */
+    private int howManyDaysOverdue(Date date, Date due_date) {
         long diff = date.getTime() - due_date.getTime();
         long diffDays = (diff / (24 * 60 * 60 * 1000));
 
@@ -90,6 +109,13 @@ public class RentRepo {
         return diffInt;
     }
 
+    /**
+     * Method extends the renting period of a book by 30 days from current date
+     *
+     * @param rent_id
+     *
+     * @throws RentDoesntExistException if rent doesn't exist
+     */
     public void extendRent(int rent_id) throws RentDoesntExistException {
         Rent rent = this.fetchRent(rent_id);
         Date date = this.calculateDueDate();
@@ -97,6 +123,15 @@ public class RentRepo {
         rent.saveIt();
     }
 
+    /**
+     * Method fetches a rent based on ID
+     *
+     * @param rent_id ID of the rent
+     *
+     * @throws RentDoesntExistException is rent doesn't exist
+     *
+     * @return Rent object
+     */
     public Rent fetchRent(int rent_id) throws RentDoesntExistException {
         Rent rent = Rent.findById(rent_id);
         if (rent == null) {
@@ -106,6 +141,13 @@ public class RentRepo {
         }
     }
 
+    /**
+     * Method calculates copies available of a certain book
+     *
+     * @param book_id id of the book
+     *
+     * @return copies number of copies available to rent
+     */
     public int availableCopies(int book_id) throws BookDoesntExistException {
         Rent rent = new Rent();
         BookRepo bookrepo = new BookRepo();
