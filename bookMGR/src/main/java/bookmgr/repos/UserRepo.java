@@ -150,6 +150,8 @@ public class UserRepo {
      *
      * @param fee how much is user paying
      * @param user_id ID of user
+     * 
+     * @throws UserDoesntExistException if user doesn't exist
      *
      * @return true if payment is successful, false if not
      */

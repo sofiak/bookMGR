@@ -112,7 +112,7 @@ public class RentRepo {
     /**
      * Method extends the renting period of a book by 30 days from current date
      *
-     * @param rent_id
+     * @param rent_id ID of the rent
      *
      * @throws RentDoesntExistException if rent doesn't exist
      */
@@ -145,6 +145,8 @@ public class RentRepo {
      * Method calculates copies available of a certain book
      *
      * @param book_id id of the book
+     * 
+     * @throws BookDoesntExistException if book doesn't exist
      *
      * @return copies number of copies available to rent
      */

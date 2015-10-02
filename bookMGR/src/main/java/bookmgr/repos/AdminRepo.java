@@ -56,6 +56,15 @@ public class AdminRepo {
 
     }
 
+    /**
+     * Method creates a List report of rents
+     *
+     * @param user_id ID of the user whose rents are collected
+     * @param bookStatus specifies if loans to be collected are returned,
+     * current, or all
+     *
+     * @return List of the rents
+     */
     public List<Rent> reportForRents(int user_id, int bookStatus) {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
@@ -63,6 +72,14 @@ public class AdminRepo {
         return rents;
     }
 
+    /**
+     * Method creates a report of rents by all users
+     *
+     * @param bookStatus specifies if loans to be collected are returned,
+     * current, or all
+     *
+     * @return List of rents
+     */
     public List<Rent> reportForAllRents(int bookStatus) {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
@@ -70,6 +87,13 @@ public class AdminRepo {
         return rents;
     }
 
+    /**
+     * Method creates a report of all book by a specific author
+     *
+     * @param author_id ID of the author
+     *
+     * @return List of the books
+     */
     public List<BookAuthor> reportBooksByAuthor(int author_id) {
         List<BookAuthor> booksbyauthor = Book.where("author_id = ?", author_id);
         return booksbyauthor;
