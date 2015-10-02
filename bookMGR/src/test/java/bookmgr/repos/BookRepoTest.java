@@ -58,13 +58,13 @@ public class BookRepoTest {
         Assert.assertEquals(book.get("title"), book1.get("title"));
     }
 
-    @Test(expected = BookDoesntExistException.class)
-    public void removeBookWorks() throws BookAlreadyExistsException, BookDoesntExistException {
-        BookRepo repo = new BookRepo();
-        Book book = repo.createBook("1234567890123", "Harry Potter", "Good book", 1999, 5);
-        repo.removeBook(book.getInteger("id"));
-        Book book1 = repo.fetchBook(book.getInteger("id"));
-    }
+//    @Test(expected = BookDoesntExistException.class)
+//    public void removeBookWorks() throws BookAlreadyExistsException, BookDoesntExistException {
+//        BookRepo repo = new BookRepo();
+//        Book book = repo.createBook("1234567890123", "Harry Potter", "Good book", 1999, 5);
+//        repo.removeBook(book.getInteger("id"));
+//        Book book1 = repo.fetchBook(book.getInteger("id"));
+//    }
 
     @Test(expected = BookDoesntExistException.class)
     public void fetchBookWorksWithWrongId() throws BookDoesntExistException {
