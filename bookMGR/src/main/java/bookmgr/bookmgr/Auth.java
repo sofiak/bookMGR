@@ -27,7 +27,7 @@ public class Auth {
             throw new UnauthorizedException();
         }else{
         User user = userlist.get(0);
-        if(user.get("username").equals(username)) {
+        if(user.get("password").equals(password)) {
             return user;
         }else{
             throw new UnauthorizedException();
