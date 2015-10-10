@@ -1,7 +1,9 @@
 package bookmgr.UI;
 
+import bookmgr.bookmgr.Connection;
 import bookmgr.exceptions.UnauthorizedException;
 import bookmgr.models.User;
+import bookmgr.repos.AdminRepo;
 import bookmgr.repos.UserRepo;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -153,16 +155,26 @@ public class SignIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
+        Connection conn = new Connection();
         String username = UsernameField.getText();
         String password = PasswordField.getText();
-        
+
         UserRepo userrepo = new UserRepo();
-        
+
         try {
-            userrepo.signIn(username, password);
+            User user = userrepo.signIn(username, password);
+            AdminRepo adminrepo = new AdminRepo();
+            boolean isAdmin = adminrepo.checkIfAdmin(user.getInteger("id"));
+            
+            if(isAdmin == true) {
+                AdminView adView = new AdminView();
+            }else{
+                UserView usView = new UserView();
+            }
         } catch (UnauthorizedException ex) {
             ErrorBox.setVisible(true);
         }
+        conn.close();
     }//GEN-LAST:event_SignInButtonActionPerformed
 
     /**

@@ -1,5 +1,6 @@
 package bookmgr.repos;
 
+import bookmgr.exceptions.UnauthorizedException;
 import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
@@ -98,6 +99,23 @@ public class UserRepoTest {
         User user = newrepo.createUser(userName, passw);
         boolean success = newrepo.setNewPassword(user.getInteger("id"), "ananas", "anakonda");
         Assert.assertFalse(success);
+    }
+    
+    @Test (expected = UnauthorizedException.class)
+    public void SignInThrowsError() throws UserAlreadyExistsException, UnauthorizedException{
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        
+        newrepo.signIn(userName, "banana");
+    }
+    
+    @Test 
+    public void SignInWorks() throws UserAlreadyExistsException, UnauthorizedException {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        
+        User anotherUser = newrepo.signIn(userName, passw);
+        Assert.assertEquals(user.get("username"), anotherUser.get("username"));
     }
     
 //    @Test

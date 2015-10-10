@@ -27,8 +27,10 @@ public class AdminRepo {
     public boolean checkIfAdmin(int user_id) {
         UserRepo userrepo = new UserRepo();
         User user = User.findById(user_id);
+        
+        int yesNo = user.getInteger("isAdmin");
 
-        if (user.getInteger("isAdmin") == 1) {
+        if (yesNo == 1) {
             return true;
         } else {
             return false;
