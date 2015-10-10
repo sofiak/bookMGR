@@ -13,6 +13,7 @@ public class SignIn extends javax.swing.JFrame {
      */
     public SignIn() {
         initComponents();
+        ErrorBox.setVisible(false);
     }
 
     /**
@@ -33,6 +34,7 @@ public class SignIn extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         PasswordField = new javax.swing.JPasswordField();
         SignInButton = new javax.swing.JButton();
+        ErrorBox = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("bookMGR");
@@ -111,6 +113,10 @@ public class SignIn extends javax.swing.JFrame {
             }
         });
 
+        ErrorBox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ErrorBox.setText("Check username and password");
+        ErrorBox.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,6 +128,10 @@ public class SignIn extends javax.swing.JFrame {
                 .addGap(114, 114, 114)
                 .addComponent(SignInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ErrorBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,7 +143,9 @@ public class SignIn extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(SignInButton, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 49, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(ErrorBox, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -148,7 +160,6 @@ public class SignIn extends javax.swing.JFrame {
         try {
             User user = auth.signIn(username, password);
         } catch (UnauthorizedException ex) {
-            Logger.getLogger(SignIn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_SignInButtonActionPerformed
 
@@ -189,6 +200,7 @@ public class SignIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ErrorBox;
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JButton SignInButton;
     private javax.swing.JTextField UsernameField;
