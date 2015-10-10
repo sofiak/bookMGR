@@ -29,9 +29,11 @@ public class SignIn extends javax.swing.JFrame {
         SignInButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("bookMGR");
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Gulim", 0, 36)); // NOI18N
-        jLabel1.setText("Welcome");
+        jLabel1.setText("bookMGR");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -47,8 +49,6 @@ public class SignIn extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
         );
 
-        UsernameField.setText("jTextField1");
-
         jLabel2.setFont(new java.awt.Font("Gulim", 0, 18)); // NOI18N
         jLabel2.setText("username");
 
@@ -59,8 +59,8 @@ public class SignIn extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -76,8 +76,6 @@ public class SignIn extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Gulim", 0, 18)); // NOI18N
         jLabel3.setText("password");
 
-        PasswordField.setText("jPasswordField1");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -86,7 +84,7 @@ public class SignIn extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -99,7 +97,7 @@ public class SignIn extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        SignInButton.setFont(new java.awt.Font("Gulim", 0, 11)); // NOI18N
+        SignInButton.setFont(new java.awt.Font("Gulim", 0, 18)); // NOI18N
         SignInButton.setText("Sign in");
         SignInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,10 +131,11 @@ public class SignIn extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_SignInButtonActionPerformed
 
     /**
