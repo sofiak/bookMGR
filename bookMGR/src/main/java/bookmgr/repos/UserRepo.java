@@ -1,5 +1,6 @@
 package bookmgr.repos;
 
+import bookmgr.exceptions.UnauthorizedException;
 import bookmgr.models.User;
 import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.exceptions.UserDoesntExistException;
@@ -180,6 +181,21 @@ public class UserRepo {
     public double fetchFees(int user_id) throws UserDoesntExistException {
         User user = this.fetchUser(user_id);
         return user.getDouble("fees");
+    }
+    
+        public User signIn(String username, String password) throws UnauthorizedException {
+        UserRepo userrepo = new UserRepo();
+        List<User> userlist = User.where("username = ?", username);
+        if(userlist.isEmpty()) {
+            throw new UnauthorizedException();
+        }else{
+        User user = userlist.get(0);
+        if(user.get("password").equals(password)) {
+            return user;
+        }else{
+            throw new UnauthorizedException();
+        }
+        }
     }
 
 }
