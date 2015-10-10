@@ -230,7 +230,8 @@ public class AdminView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBookActionPerformed
-        // TODO add your handling code here:
+        AddBookView newView = new AddBookView();
+        newView.render();
     }//GEN-LAST:event_AddBookActionPerformed
 
     private void RemoveBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveBookActionPerformed
@@ -247,7 +248,8 @@ public class AdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_AddAuthorActionPerformed
 
     private void RemoveAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveAuthorActionPerformed
-        // TODO add your handling code here:
+        RemoveAuthorView newView = new RemoveAuthorView();
+        newView.render();
     }//GEN-LAST:event_RemoveAuthorActionPerformed
 
     private void AddBookToAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBookToAuthorActionPerformed

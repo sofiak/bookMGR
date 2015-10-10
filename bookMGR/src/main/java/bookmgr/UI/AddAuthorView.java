@@ -1,5 +1,6 @@
 package bookmgr.UI;
 
+import bookmgr.bookmgr.Connection;
 import bookmgr.exceptions.AuthorAlreadyExistsException;
 import bookmgr.repos.BookRepo;
 import java.util.logging.Level;
@@ -27,7 +28,10 @@ public class AddAuthorView extends javax.swing.JFrame {
         ErrorBox = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("bookMGR - Add author");
+        setResizable(false);
 
+        AuthorName.setLabelFor(AuthorNameField);
         AuthorName.setText("Author name");
 
         AddButton.setText("Add");
@@ -55,10 +59,10 @@ public class AddAuthorView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(AuthorName, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(AuthorNameField)
+                        .addComponent(AuthorNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 109, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(AddButton)
                         .addGap(116, 116, 116))))
         );
@@ -80,12 +84,16 @@ public class AddAuthorView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        Connection conn = new Connection();
         BookRepo bookrepo = new BookRepo();
         try {
             bookrepo.createAuthor(AuthorNameField.getText());
+            ErrorBox.setText("Author successfully added!");
+            ErrorBox.setVisible(true);
         } catch (AuthorAlreadyExistsException ex) {
             ErrorBox.setVisible(true);
         }
+        conn.close();
     }//GEN-LAST:event_AddButtonActionPerformed
 
     /**

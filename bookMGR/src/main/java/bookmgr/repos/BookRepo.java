@@ -136,6 +136,15 @@ public class BookRepo {
         }
     }
 
+    public Book GetBook(String isbn) throws BookDoesntExistException {
+        List<Book> books = Book.where("ISBN = ?", isbn);
+        if (books.isEmpty()) {
+            throw new BookDoesntExistException();
+        } else {
+            return books.get(0);
+        }
+    }
+
     /**
      * Method creates Author object with passed parameter
      *
@@ -167,6 +176,15 @@ public class BookRepo {
             return false;
         } else {
             return true;
+        }
+    }
+
+    public Author GetAuthor(String name) throws AuthorDoesntExistException {
+        List<Author> authors = Author.where("name = ?", name);
+        if (authors.isEmpty()) {
+            throw new AuthorDoesntExistException();
+        } else {
+            return authors.get(0);
         }
     }
 
@@ -236,7 +254,8 @@ public class BookRepo {
      *
      * @throws BookDoesntExistException if the book doesn't exist
      * @throws AuthorDoesntExistException if the author doesn't exist
-     * @throws AuthorAndBookAreNotConnectedException if the objects are not connected
+     * @throws AuthorAndBookAreNotConnectedException if the objects are not
+     * connected
      */
     public void removeAuthorFromBook(int book_id, int author_id) throws AuthorDoesntExistException, BookDoesntExistException, AuthorAndBookAreNotConnectedException {
         boolean exists = this.checkBookAuthor(book_id, author_id);
