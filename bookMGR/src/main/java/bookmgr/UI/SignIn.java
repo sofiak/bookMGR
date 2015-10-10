@@ -169,9 +169,11 @@ public class SignIn extends javax.swing.JFrame {
             if(isAdmin == true) {
                 AdminView adView = new AdminView();
                 adView.render();
+                this.dispose();
             }else{
                 UserView usView = new UserView();
                 usView.render();
+                this.dispose();
             }
         } catch (UnauthorizedException ex) {
             ErrorBox.setVisible(true);

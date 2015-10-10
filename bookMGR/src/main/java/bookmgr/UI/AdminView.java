@@ -1,5 +1,7 @@
 package bookmgr.UI;
 
+import bookmgr.bookmgr.Connection;
+
 public class AdminView extends javax.swing.JFrame {
 
     public AdminView() {
@@ -23,21 +25,23 @@ public class AdminView extends javax.swing.JFrame {
         Books = new javax.swing.JPanel();
         AddBook = new javax.swing.JButton();
         RemoveBook = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        EditBook = new javax.swing.JButton();
         Authors = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        AddAuthor = new javax.swing.JButton();
+        RemoveAuthor = new javax.swing.JButton();
+        AddBookToAuthor = new javax.swing.JButton();
         Users = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        AddUser = new javax.swing.JButton();
+        RemoveUser = new javax.swing.JButton();
+        SettleFee = new javax.swing.JButton();
         Report = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        LoansByUser = new javax.swing.JButton();
+        AllBooks = new javax.swing.JButton();
+        BooksByAuthor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("bookMGR");
+        setResizable(false);
 
         Home.setLayout(new java.awt.GridBagLayout());
 
@@ -58,89 +62,149 @@ public class AdminView extends javax.swing.JFrame {
         Books.setLayout(new java.awt.GridBagLayout());
 
         AddBook.setText("Add book");
+        AddBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddBookActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         Books.add(AddBook, gridBagConstraints);
 
         RemoveBook.setText("Remove book");
+        RemoveBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveBookActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         Books.add(RemoveBook, gridBagConstraints);
 
-        jButton3.setText("Edit book");
+        EditBook.setText("Edit book");
+        EditBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditBookActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        Books.add(jButton3, gridBagConstraints);
+        Books.add(EditBook, gridBagConstraints);
 
         jTabbedPane1.addTab("Books", Books);
 
         Authors.setLayout(new java.awt.GridBagLayout());
 
-        jButton1.setText("Add author");
+        AddAuthor.setText("Add author");
+        AddAuthor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddAuthorActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        Authors.add(jButton1, gridBagConstraints);
+        Authors.add(AddAuthor, gridBagConstraints);
 
-        jButton2.setText("Remove author");
+        RemoveAuthor.setText("Remove author");
+        RemoveAuthor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveAuthorActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        Authors.add(jButton2, gridBagConstraints);
+        Authors.add(RemoveAuthor, gridBagConstraints);
 
-        jButton4.setText("Add book to author");
+        AddBookToAuthor.setText("Add book to author");
+        AddBookToAuthor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddBookToAuthorActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        Authors.add(jButton4, gridBagConstraints);
+        Authors.add(AddBookToAuthor, gridBagConstraints);
 
         jTabbedPane1.addTab("Authors", Authors);
 
         Users.setLayout(new java.awt.GridBagLayout());
 
-        jButton5.setText("Add user");
+        AddUser.setText("Add user");
+        AddUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddUserActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        Users.add(jButton5, gridBagConstraints);
+        Users.add(AddUser, gridBagConstraints);
 
-        jButton6.setText("Remove user");
+        RemoveUser.setText("Remove user");
+        RemoveUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveUserActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        Users.add(jButton6, gridBagConstraints);
+        Users.add(RemoveUser, gridBagConstraints);
 
-        jButton7.setText("Settle fee");
+        SettleFee.setText("Settle fee");
+        SettleFee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettleFeeActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        Users.add(jButton7, gridBagConstraints);
+        Users.add(SettleFee, gridBagConstraints);
 
         jTabbedPane1.addTab("Users", Users);
 
         Report.setLayout(new java.awt.GridBagLayout());
 
-        jButton8.setText("Loans by user");
-        jButton8.setAlignmentX(0.5F);
+        LoansByUser.setText("Loans by user");
+        LoansByUser.setAlignmentX(0.5F);
+        LoansByUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoansByUserActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
-        Report.add(jButton8, gridBagConstraints);
+        Report.add(LoansByUser, gridBagConstraints);
 
-        jButton9.setText("All books");
+        AllBooks.setText("All books");
+        AllBooks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AllBooksActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        Report.add(jButton9, gridBagConstraints);
+        Report.add(AllBooks, gridBagConstraints);
 
-        jButton10.setText("Books by author");
+        BooksByAuthor.setText("Books by author");
+        BooksByAuthor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BooksByAuthorActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        Report.add(jButton10, gridBagConstraints);
+        Report.add(BooksByAuthor, gridBagConstraints);
 
         jTabbedPane1.addTab("Report", Report);
 
@@ -150,19 +214,69 @@ public class AdminView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBookActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddBookActionPerformed
+
+    private void RemoveBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveBookActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RemoveBookActionPerformed
+
+    private void EditBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBookActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EditBookActionPerformed
+
+    private void AddAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAuthorActionPerformed
+        AddAuthorView newView = new AddAuthorView();
+        newView.render();
+    }//GEN-LAST:event_AddAuthorActionPerformed
+
+    private void RemoveAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveAuthorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RemoveAuthorActionPerformed
+
+    private void AddBookToAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBookToAuthorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddBookToAuthorActionPerformed
+
+    private void AddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AddUserActionPerformed
+
+    private void RemoveUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RemoveUserActionPerformed
+
+    private void SettleFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettleFeeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SettleFeeActionPerformed
+
+    private void BooksByAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BooksByAuthorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BooksByAuthorActionPerformed
+
+    private void AllBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllBooksActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AllBooksActionPerformed
+
+    private void LoansByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoansByUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoansByUserActionPerformed
 
     public void render() {
         /* Set the Nimbus look and feel */
@@ -197,24 +311,24 @@ public class AdminView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddAuthor;
     private javax.swing.JButton AddBook;
+    private javax.swing.JButton AddBookToAuthor;
+    private javax.swing.JButton AddUser;
+    private javax.swing.JButton AllBooks;
     private javax.swing.JPanel Authors;
     private javax.swing.JPanel Books;
+    private javax.swing.JButton BooksByAuthor;
+    private javax.swing.JButton EditBook;
     private javax.swing.JPanel Home;
+    private javax.swing.JButton LoansByUser;
+    private javax.swing.JButton RemoveAuthor;
     private javax.swing.JButton RemoveBook;
+    private javax.swing.JButton RemoveUser;
     private javax.swing.JPanel Report;
+    private javax.swing.JButton SettleFee;
     private javax.swing.JPanel Users;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
