@@ -37,7 +37,7 @@ public class AdminRepoTest {
 
         AdminRepo adRepo = new AdminRepo();
         boolean success = adRepo.checkIfAdmin(userId);
-        Assert.assertTrue(success);
+        Assert.assertFalse(success);
     }
 
     @Test

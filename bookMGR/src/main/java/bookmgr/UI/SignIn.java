@@ -168,8 +168,10 @@ public class SignIn extends javax.swing.JFrame {
             
             if(isAdmin == true) {
                 AdminView adView = new AdminView();
+                adView.render();
             }else{
                 UserView usView = new UserView();
+                usView.render();
             }
         } catch (UnauthorizedException ex) {
             ErrorBox.setVisible(true);
