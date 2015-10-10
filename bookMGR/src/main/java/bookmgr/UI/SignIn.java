@@ -1,5 +1,11 @@
 package bookmgr.UI;
 
+import bookmgr.bookmgr.Auth;
+import bookmgr.exceptions.UnauthorizedException;
+import bookmgr.models.User;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class SignIn extends javax.swing.JFrame {
 
     /**
@@ -50,7 +56,7 @@ public class SignIn extends javax.swing.JFrame {
         );
 
         jLabel2.setFont(new java.awt.Font("Gulim", 0, 18)); // NOI18N
-        jLabel2.setText("username");
+        jLabel2.setText("Username");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -74,7 +80,7 @@ public class SignIn extends javax.swing.JFrame {
         );
 
         jLabel3.setFont(new java.awt.Font("Gulim", 0, 18)); // NOI18N
-        jLabel3.setText("password");
+        jLabel3.setText("Password");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -135,7 +141,15 @@ public class SignIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SignInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInButtonActionPerformed
+        String username = UsernameField.getText();
+        String password = PasswordField.getText();
         
+        Auth auth = new Auth();
+        try {
+            User user = auth.signIn(username, password);
+        } catch (UnauthorizedException ex) {
+            Logger.getLogger(SignIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_SignInButtonActionPerformed
 
     /**
