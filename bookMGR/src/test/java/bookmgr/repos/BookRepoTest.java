@@ -7,6 +7,7 @@ package bookmgr.repos;
 
 import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
+import bookmgr.exceptions.UnacceptableISBNException;
 import bookmgr.models.Book;
 import junit.framework.Assert;
 import org.javalite.activejdbc.Base;
@@ -32,7 +33,7 @@ public class BookRepoTest {
     }
 
     @Test
-    public void AddBookWorks() throws BookAlreadyExistsException {
+    public void AddBookWorks() throws BookAlreadyExistsException, UnacceptableISBNException {
         BookRepo repo = new BookRepo();
         Book book = repo.createBook("1234567890123", "Harry Potter", "Good book", 1999, 5);
        
@@ -41,7 +42,7 @@ public class BookRepoTest {
     }
 
     @Test(expected = BookAlreadyExistsException.class)
-    public void CantCreateISBNDuplicates() throws BookAlreadyExistsException {
+    public void CantCreateISBNDuplicates() throws BookAlreadyExistsException, UnacceptableISBNException {
 
         BookRepo repo = new BookRepo();
         Book book = repo.createBook("1234567890123", "Harry Potter", "Good book", 1999, 5);
@@ -49,7 +50,7 @@ public class BookRepoTest {
     }
 
     @Test
-    public void fetchBookWorks() throws BookAlreadyExistsException, BookDoesntExistException {
+    public void fetchBookWorks() throws BookAlreadyExistsException, BookDoesntExistException, UnacceptableISBNException {
         
         BookRepo repo = new BookRepo();
         Book book = repo.createBook("1234567890123", "Harry Potter", "Good book", 1999, 5);
@@ -74,18 +75,18 @@ public class BookRepoTest {
     }
     
     @Test
-    public void editBookWorks() throws BookAlreadyExistsException, BookDoesntExistException{
+    public void editBookWorks() throws BookAlreadyExistsException, BookDoesntExistException, UnacceptableISBNException{
         BookRepo repo = new BookRepo();
         Book book = repo.createBook("1234567890123", "Harry Potter", "Good book", 1999, 5);
-        book = repo.editBook(book.getInteger("id"),"1234567890123", "LOTR", "Good book", 1999, 5);
+        book = repo.editBook("1234567890123", "LOTR", "Good book", 1999, 5);
         Assert.assertEquals("LOTR", book.getString("title"));
     }
     
     @Test(expected = BookAlreadyExistsException.class)
-    public void editBookthrowsExcetionWhenISBNexists() throws BookAlreadyExistsException, BookDoesntExistException{
+    public void editBookthrowsExcetionWhenISBNexists() throws BookAlreadyExistsException, BookDoesntExistException, UnacceptableISBNException{
         BookRepo repo = new BookRepo();
         Book book = repo.createBook("1234567890123", "Harry Potter", "Good book", 1999, 5);
         Book newBook = repo.createBook("1234567890567", "LOTR", "Best book", 1999, 5);
-        book = repo.editBook(book.getInteger("id"),"1234567890567", "LOTR", "Best book", 1999, 5);
+        book = repo.editBook("1234567890567", "LOTR", "Best book", 1999, 5);
     }
 }

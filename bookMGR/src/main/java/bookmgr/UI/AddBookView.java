@@ -1,7 +1,11 @@
 package bookmgr.UI;
 
 import bookmgr.bookmgr.Connection;
+import bookmgr.exceptions.BookAlreadyExistsException;
+import bookmgr.exceptions.UnacceptableISBNException;
 import bookmgr.repos.BookRepo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddBookView extends javax.swing.JFrame {
 
@@ -26,11 +30,12 @@ public class AddBookView extends javax.swing.JFrame {
         Description = new javax.swing.JLabel();
         ISBNField = new javax.swing.JTextField();
         TitleField = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        AddButton = new javax.swing.JButton();
         ErrorBox = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DescriptionArea = new javax.swing.JTextArea();
         CopiesSpinner = new javax.swing.JSpinner();
+        CopiesSpinner.setBounds(1, 1, 100, 1);
         PubYearSpinner = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -46,10 +51,10 @@ public class AddBookView extends javax.swing.JFrame {
 
         Description.setText("Description");
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        AddButton.setText("Add");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AddButtonActionPerformed(evt);
             }
         });
 
@@ -58,8 +63,14 @@ public class AddBookView extends javax.swing.JFrame {
         ErrorBox.setEnabled(false);
 
         DescriptionArea.setColumns(20);
+        DescriptionArea.setFont(new java.awt.Font("Gulim", 0, 13)); // NOI18N
+        DescriptionArea.setLineWrap(true);
         DescriptionArea.setRows(5);
         jScrollPane1.setViewportView(DescriptionArea);
+
+        CopiesSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+
+        PubYearSpinner.setModel(new javax.swing.SpinnerNumberModel(2000, 0, 3000, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,11 +95,11 @@ public class AddBookView extends javax.swing.JFrame {
                                     .addComponent(TitleField)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(CopiesSpinner, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+                                        .addComponent(CopiesSpinner, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(PubYearSpinner, javax.swing.GroupLayout.Alignment.LEADING))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(jButton1)))
+                        .addComponent(AddButton)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -117,7 +128,7 @@ public class AddBookView extends javax.swing.JFrame {
                     .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(AddButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ErrorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -127,9 +138,21 @@ public class AddBookView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        BookRepo newRepo = new BookRepo();
+        try {
+            newRepo.createBook(ISBNField.getText(), TitleField.getText(), DescriptionArea.getText(),
+                    (int) PubYearSpinner.getValue(), (int) CopiesSpinner.getValue());
+            ErrorBox.setText("Book succesfully added.");
+            ErrorBox.setVisible(true);
+        } catch (BookAlreadyExistsException ex) {
+            ErrorBox.setText("A book with this ISBN already exists.");
+            ErrorBox.setVisible(true);
+        } catch (UnacceptableISBNException ex) {
+            ErrorBox.setText("Please enter a proper ISBN.");
+            ErrorBox.setVisible(true);
+        }
+    }//GEN-LAST:event_AddButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,6 +193,7 @@ public class AddBookView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddButton;
     private javax.swing.JLabel Copies;
     private javax.swing.JSpinner CopiesSpinner;
     private javax.swing.JLabel Description;
@@ -181,7 +205,6 @@ public class AddBookView extends javax.swing.JFrame {
     private javax.swing.JSpinner PubYearSpinner;
     private javax.swing.JLabel Title;
     private javax.swing.JTextField TitleField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

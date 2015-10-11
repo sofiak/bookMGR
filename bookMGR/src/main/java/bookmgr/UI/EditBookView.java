@@ -1,9 +1,18 @@
 package bookmgr.UI;
 
+import bookmgr.bookmgr.Connection;
+import bookmgr.exceptions.BookAlreadyExistsException;
+import bookmgr.exceptions.BookDoesntExistException;
+import bookmgr.exceptions.UnacceptableISBNException;
+import bookmgr.repos.BookRepo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class EditBookView extends javax.swing.JFrame {
 
     public EditBookView() {
         initComponents();
+        ErrorBox.setVisible(false);
     }
 
     /**
@@ -15,21 +24,134 @@ public class EditBookView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ISBN = new javax.swing.JLabel();
+        Title = new javax.swing.JLabel();
+        PubYear = new javax.swing.JLabel();
+        Copies = new javax.swing.JLabel();
+        Description = new javax.swing.JLabel();
+        ISBNField = new javax.swing.JTextField();
+        TitleField = new javax.swing.JTextField();
+        AddButton = new javax.swing.JButton();
+        ErrorBox = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        DescriptionArea = new javax.swing.JTextArea();
+        CopiesSpinner = new javax.swing.JSpinner();
+        CopiesSpinner.setBounds(1, 1, 100, 1);
+        PubYearSpinner = new javax.swing.JSpinner();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("bookMGR - Add Book");
+
+        ISBN.setText("ISBN");
+
+        Title.setText("Title");
+
+        PubYear.setText("Publishing year");
+
+        Copies.setText("Copies");
+
+        Description.setText("Description");
+
+        AddButton.setText("Add");
+        AddButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddButtonActionPerformed(evt);
+            }
+        });
+
+        ErrorBox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ErrorBox.setText("Please enter acceptable values");
+        ErrorBox.setEnabled(false);
+
+        DescriptionArea.setColumns(20);
+        DescriptionArea.setFont(new java.awt.Font("Gulim", 0, 13)); // NOI18N
+        DescriptionArea.setLineWrap(true);
+        DescriptionArea.setRows(5);
+        jScrollPane1.setViewportView(DescriptionArea);
+
+        CopiesSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+
+        PubYearSpinner.setModel(new javax.swing.SpinnerNumberModel(2000, 0, 3000, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ErrorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Description, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Copies, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ISBN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(PubYear, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ISBNField)
+                                    .addComponent(TitleField)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(CopiesSpinner, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(PubYearSpinner, javax.swing.GroupLayout.Alignment.LEADING))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(AddButton)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(ISBNField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TitleField, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PubYear, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(PubYearSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Copies, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CopiesSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AddButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ErrorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        BookRepo newRepo = new BookRepo();
+        try {
+            newRepo.editBook(ISBNField.getText(), TitleField.getText(), DescriptionArea.getText(),
+                    (int) PubYearSpinner.getValue(), (int) CopiesSpinner.getValue());
+        } catch (BookDoesntExistException ex) {
+            ErrorBox.setText("Book does not exist.");
+            ErrorBox.setVisible(true);
+        } catch (BookAlreadyExistsException ex) {
+            ErrorBox.setText("Duplicate ISBNs are not allowed");
+            ErrorBox.setVisible(true);
+        }
+    }//GEN-LAST:event_AddButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -58,6 +180,12 @@ public class EditBookView extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -68,5 +196,18 @@ public class EditBookView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AddButton;
+    private javax.swing.JLabel Copies;
+    private javax.swing.JSpinner CopiesSpinner;
+    private javax.swing.JLabel Description;
+    private javax.swing.JTextArea DescriptionArea;
+    private javax.swing.JLabel ErrorBox;
+    private javax.swing.JLabel ISBN;
+    private javax.swing.JTextField ISBNField;
+    private javax.swing.JLabel PubYear;
+    private javax.swing.JSpinner PubYearSpinner;
+    private javax.swing.JLabel Title;
+    private javax.swing.JTextField TitleField;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

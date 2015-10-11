@@ -240,11 +240,13 @@ public class AdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_AddBookActionPerformed
 
     private void RemoveBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveBookActionPerformed
-        // TODO add your handling code here:
+        RemoveBookView newView = new RemoveBookView();
+        newView.render();
     }//GEN-LAST:event_RemoveBookActionPerformed
 
     private void EditBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBookActionPerformed
-        // TODO add your handling code here:
+        EditBookView newView = new EditBookView();
+        newView.render();
     }//GEN-LAST:event_EditBookActionPerformed
 
     private void AddAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddAuthorActionPerformed

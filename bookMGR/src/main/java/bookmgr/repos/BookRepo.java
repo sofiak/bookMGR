@@ -6,6 +6,7 @@ import bookmgr.exceptions.AuthorAndBookAreNotConnectedException;
 import bookmgr.exceptions.AuthorDoesntExistException;
 import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
+import bookmgr.exceptions.UnacceptableISBNException;
 import bookmgr.models.Author;
 import bookmgr.models.Book;
 import bookmgr.models.BookAuthor;
@@ -33,18 +34,22 @@ public class BookRepo {
      *
      * @return Book object
      */
-    public Book createBook(String isbn, String title, String description, int pubYear, int copies) throws BookAlreadyExistsException {
-        if (this.CheckBook(isbn) == false) {
-            Book book = new Book();
-            book.set("ISBN", isbn);
-            book.set("title", title);
-            book.set("description", description);
-            book.set("pub_year", pubYear);
-            book.set("copies", copies);
-            book.saveIt();
-            return book;
-        } else {
-            throw new BookAlreadyExistsException();
+    public Book createBook(String isbn, String title, String description, int pubYear, int copies) throws BookAlreadyExistsException, UnacceptableISBNException {
+        if (isbn.length() == 12) {
+            if (this.CheckBook(isbn) == false) {
+                Book book = new Book();
+                book.set("ISBN", isbn);
+                book.set("title", title);
+                book.set("description", description);
+                book.set("pub_year", pubYear);
+                book.set("copies", copies);
+                book.saveIt();
+                return book;
+            } else {
+                throw new BookAlreadyExistsException();
+            }
+        }else{
+            throw new UnacceptableISBNException();
         }
     }
 
@@ -64,9 +69,9 @@ public class BookRepo {
      *
      * @return Book object
      */
-    public Book editBook(int book_id, String isbn, String title, String description, int pubYear, int copies) throws BookDoesntExistException, BookAlreadyExistsException {
-        Book book = this.fetchBook(book_id);
-        List<Book> books = Book.where("ISBN = ? AND id != ?", isbn, book_id);
+    public Book editBook(String isbn, String title, String description, int pubYear, int copies) throws BookDoesntExistException, BookAlreadyExistsException {
+        Book book = this.GetBook(isbn);
+        List<Book> books = Book.where("ISBN = ? AND id != ?", isbn, book.get("id"));
         if (books.isEmpty()) {
             book.set("ISBN", isbn)
                     .set("title", title)
@@ -89,8 +94,9 @@ public class BookRepo {
      *
      * @throws BookDoesntExistException if book doesn't exist
      */
-    public void removeBook(int book_id) throws BookDoesntExistException {
-        Book book = this.fetchBook(book_id);
+    public void removeBook(String ISBN) throws BookDoesntExistException {
+        Book book = this.GetBook(ISBN);
+        int book_id = book.getInteger("id");
         RentRepo rentrepo = new RentRepo();
         if (rentrepo.availableCopies(book_id) == book.getInteger("copies")) {
             List<BookAuthor> bookauthors = BookAuthor.where("book_id = ?", book_id);

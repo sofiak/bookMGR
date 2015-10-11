@@ -1,5 +1,10 @@
 package bookmgr.UI;
 
+import bookmgr.exceptions.BookDoesntExistException;
+import bookmgr.repos.BookRepo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class RemoveBookView extends javax.swing.JFrame {
 
     public RemoveBookView() {
@@ -14,22 +19,77 @@ public class RemoveBookView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        ISBNLabel = new javax.swing.JLabel();
+        ISBNField = new javax.swing.JTextField();
+        RemoveButton = new javax.swing.JButton();
+        ErrorBox = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("bookMGR - Remove book");
+        setEnabled(false);
+
+        ISBNLabel.setText("ISBN");
+
+        RemoveButton.setText("Remove ");
+        RemoveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveButtonActionPerformed(evt);
+            }
+        });
+
+        ErrorBox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ErrorBox.setText("This book can't be removed.");
+        ErrorBox.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RemoveButton)
+                .addGap(96, 96, 96))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(79, 79, 79)
+                .addComponent(ISBNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ISBNField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ErrorBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ISBNField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ISBNLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RemoveButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(ErrorBox))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
+        BookRepo newRepo = new BookRepo();
+        try {
+            newRepo.removeBook(ISBNField.getText());
+            ErrorBox.setText("Book succesfully removed.");
+            ErrorBox.setVisible(true);
+        } catch (BookDoesntExistException ex) {
+            ErrorBox.setText("A book by this ISBN does not exist.");
+            ErrorBox.setVisible(true);
+        }
+    }//GEN-LAST:event_RemoveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,5 +128,9 @@ public class RemoveBookView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ErrorBox;
+    private javax.swing.JTextField ISBNField;
+    private javax.swing.JLabel ISBNLabel;
+    private javax.swing.JButton RemoveButton;
     // End of variables declaration//GEN-END:variables
 }

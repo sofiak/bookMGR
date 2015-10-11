@@ -4,6 +4,7 @@ import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.BookNotAvailableException;
 import bookmgr.exceptions.RentDoesntExistException;
+import bookmgr.exceptions.UnacceptableISBNException;
 import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.Book;
@@ -36,7 +37,7 @@ public class RentRepoTest {
     }
 
     @Test(expected = BookNotAvailableException.class)
-    public void ifNoCopiesAvailableToRentThrowsException() throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException {
+    public void ifNoCopiesAvailableToRentThrowsException() throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException, UnacceptableISBNException {
         BookRepo bookrepo = new BookRepo();
         Book book = bookrepo.createBook("1234567891111", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 1);
         UserRepo userrepo = new UserRepo();
@@ -58,7 +59,7 @@ public class RentRepoTest {
 //    }
 
     @Test
-    public void availableCopiesReturnCorrectCopies() throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException {
+    public void availableCopiesReturnCorrectCopies() throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException, UnacceptableISBNException {
         BookRepo bookrepo = new BookRepo();
         Book book = bookrepo.createBook("1234567891121", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
         UserRepo userrepo = new UserRepo();
@@ -79,7 +80,7 @@ public class RentRepoTest {
     }
     
     @Test
-    public void ReturnRentChangesHasReturnedTo1 () throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException, RentDoesntExistException, UserDoesntExistException {
+    public void ReturnRentChangesHasReturnedTo1 () throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException, RentDoesntExistException, UserDoesntExistException, UnacceptableISBNException {
         BookRepo bookrepo = new BookRepo();
         Book book = bookrepo.createBook("1234567891121", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
         UserRepo userrepo = new UserRepo();
