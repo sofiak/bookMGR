@@ -31,7 +31,7 @@ public class EditBookView extends javax.swing.JFrame {
         Description = new javax.swing.JLabel();
         ISBNField = new javax.swing.JTextField();
         TitleField = new javax.swing.JTextField();
-        AddButton = new javax.swing.JButton();
+        EditButton = new javax.swing.JButton();
         ErrorBox = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         DescriptionArea = new javax.swing.JTextArea();
@@ -52,10 +52,10 @@ public class EditBookView extends javax.swing.JFrame {
 
         Description.setText("Description");
 
-        AddButton.setText("Add");
-        AddButton.addActionListener(new java.awt.event.ActionListener() {
+        EditButton.setText("Edit");
+        EditButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddButtonActionPerformed(evt);
+                EditButtonActionPerformed(evt);
             }
         });
 
@@ -95,12 +95,11 @@ public class EditBookView extends javax.swing.JFrame {
                                     .addComponent(ISBNField)
                                     .addComponent(TitleField)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(CopiesSpinner, javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(PubYearSpinner, javax.swing.GroupLayout.Alignment.LEADING))))))
+                                    .addComponent(CopiesSpinner)
+                                    .addComponent(PubYearSpinner)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(AddButton)))
+                        .addComponent(EditButton)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -129,7 +128,7 @@ public class EditBookView extends javax.swing.JFrame {
                     .addComponent(Description, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(AddButton)
+                .addComponent(EditButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ErrorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -139,7 +138,8 @@ public class EditBookView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+    private void EditButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditButtonActionPerformed
+        Connection conn = new Connection();
         BookRepo newRepo = new BookRepo();
         try {
             newRepo.editBook(ISBNField.getText(), TitleField.getText(), DescriptionArea.getText(),
@@ -151,7 +151,8 @@ public class EditBookView extends javax.swing.JFrame {
             ErrorBox.setText("Duplicate ISBNs are not allowed");
             ErrorBox.setVisible(true);
         }
-    }//GEN-LAST:event_AddButtonActionPerformed
+        conn.close();
+    }//GEN-LAST:event_EditButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,11 +197,11 @@ public class EditBookView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddButton;
     private javax.swing.JLabel Copies;
     private javax.swing.JSpinner CopiesSpinner;
     private javax.swing.JLabel Description;
     private javax.swing.JTextArea DescriptionArea;
+    private javax.swing.JButton EditButton;
     private javax.swing.JLabel ErrorBox;
     private javax.swing.JLabel ISBN;
     private javax.swing.JTextField ISBNField;

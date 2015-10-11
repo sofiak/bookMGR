@@ -139,6 +139,7 @@ public class AddBookView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
+        Connection conn = new Connection();
         BookRepo newRepo = new BookRepo();
         try {
             newRepo.createBook(ISBNField.getText(), TitleField.getText(), DescriptionArea.getText(),
@@ -152,6 +153,7 @@ public class AddBookView extends javax.swing.JFrame {
             ErrorBox.setText("Please enter a proper ISBN.");
             ErrorBox.setVisible(true);
         }
+        conn.close();
     }//GEN-LAST:event_AddButtonActionPerformed
 
     /**

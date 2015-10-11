@@ -30,7 +30,10 @@ public class RentRepo {
      *
      * @return Rent object
      */
-    public Rent createRent(int user_id, int book_id) throws BookDoesntExistException, BookNotAvailableException {
+    public Rent createRent(int user_id, String ISBN) throws BookDoesntExistException, BookNotAvailableException {
+        BookRepo newRepo = new BookRepo();
+        Book book = newRepo.GetBook(ISBN);
+        int book_id = book.getInteger("id");
         int availableCopies = this.availableCopies(book_id);
 
         if (availableCopies == 0) {
@@ -70,9 +73,11 @@ public class RentRepo {
      *
      * @return Rent object
      */
-    public Rent returnBook(int rent_id) throws RentDoesntExistException, UserDoesntExistException {
-        Rent rent = fetchRent(rent_id);
-        int user_id = rent.getInteger("user_id");
+    public Rent returnBook(int user_id, String ISBN) throws RentDoesntExistException, UserDoesntExistException, BookDoesntExistException {
+        BookRepo newRepo = new BookRepo();
+        Book book = newRepo.GetBook(ISBN);
+        int book_id = book.getInteger("id");
+        Rent rent = fetchRent(user_id, ISBN);
         Date date = new Date();
         Date due_date = rent.getDate("due_date");
 
@@ -116,8 +121,8 @@ public class RentRepo {
      *
      * @throws RentDoesntExistException if rent doesn't exist
      */
-    public void extendRent(int rent_id) throws RentDoesntExistException {
-        Rent rent = this.fetchRent(rent_id);
+    public void extendRent(int user_id, String ISBN) throws RentDoesntExistException {
+        Rent rent = this.fetchRent(user_id, ISBN);
         Date date = this.calculateDueDate();
         rent.set("due_date", date);
         rent.saveIt();
@@ -132,12 +137,12 @@ public class RentRepo {
      *
      * @return Rent object
      */
-    public Rent fetchRent(int rent_id) throws RentDoesntExistException {
-        Rent rent = Rent.findById(rent_id);
-        if (rent == null) {
+    public Rent fetchRent(int user_id, String ISBN) throws RentDoesntExistException {
+        List<Rent> rents = Rent.where("ISBN = ? AND user_id != ?", ISBN, user_id);
+        if (rents.isEmpty()) {
             throw new RentDoesntExistException();
         } else {
-            return rent;
+            return rents.get(0);
         }
     }
 

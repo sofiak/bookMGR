@@ -171,8 +171,8 @@ public class SignIn extends javax.swing.JFrame {
                 adView.render();
                 this.dispose();
             }else{
-                UserView usView = new UserView();
-                usView.render();
+                UserView newView = new UserView(user);
+                newView.render();
                 this.dispose();
             }
         } catch (UnauthorizedException ex) {

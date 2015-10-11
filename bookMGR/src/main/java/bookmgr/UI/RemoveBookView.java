@@ -1,5 +1,6 @@
 package bookmgr.UI;
 
+import bookmgr.bookmgr.Connection;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.repos.BookRepo;
 import java.util.logging.Level;
@@ -80,6 +81,7 @@ public class RemoveBookView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
+        Connection conn = new Connection();
         BookRepo newRepo = new BookRepo();
         try {
             newRepo.removeBook(ISBNField.getText());
@@ -89,6 +91,7 @@ public class RemoveBookView extends javax.swing.JFrame {
             ErrorBox.setText("A book by this ISBN does not exist.");
             ErrorBox.setVisible(true);
         }
+        conn.close();
     }//GEN-LAST:event_RemoveButtonActionPerformed
 
     /**
