@@ -15,22 +15,113 @@ public class UserView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        Home = new javax.swing.JPanel();
+        ExitButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        RentBookButton = new javax.swing.JButton();
+        ReturnBookButton = new javax.swing.JButton();
+        ExtendLoanButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        Home.setLayout(new java.awt.GridBagLayout());
+
+        ExitButton.setText("Exit");
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        Home.add(ExitButton, gridBagConstraints);
+
+        jLabel3.setText("Select action from tabs, press exit when ready.");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        Home.add(jLabel3, gridBagConstraints);
+
+        jTabbedPane1.addTab("Home", Home);
+
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        RentBookButton.setText("Rent book");
+        RentBookButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RentBookButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        jPanel2.add(RentBookButton, gridBagConstraints);
+
+        ReturnBookButton.setText("Return book");
+        ReturnBookButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReturnBookButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        jPanel2.add(ReturnBookButton, gridBagConstraints);
+
+        ExtendLoanButton.setText("Extend loan");
+        ExtendLoanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExtendLoanButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        jPanel2.add(ExtendLoanButton, gridBagConstraints);
+
+        jTabbedPane1.addTab("Loans", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitButtonActionPerformed
+
+    private void RentBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RentBookButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RentBookButtonActionPerformed
+
+    private void ReturnBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnBookButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ReturnBookButtonActionPerformed
+
+    private void ExtendLoanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExtendLoanButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExtendLoanButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,5 +159,13 @@ public class UserView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ExitButton;
+    private javax.swing.JButton ExtendLoanButton;
+    private javax.swing.JPanel Home;
+    private javax.swing.JButton RentBookButton;
+    private javax.swing.JButton ReturnBookButton;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

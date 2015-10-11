@@ -1,7 +1,9 @@
 package bookmgr.repos;
 
+import bookmgr.exceptions.AuthorDoesntExistException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.exceptions.UserHasUnresolvedFeesOrRentsException;
+import bookmgr.models.Author;
 import bookmgr.models.Book;
 import bookmgr.models.BookAuthor;
 import bookmgr.models.Rent;
@@ -86,12 +88,14 @@ public class AdminRepo {
     /**
      * Method creates a report of all book by a specific author
      *
-     * @param author_id ID of the author
+     * @param name name of the author in String form
      *
      * @return List of the books
      */
-    public List<BookAuthor> reportBooksByAuthor(int author_id) {
-        List<BookAuthor> booksbyauthor = Book.where("author_id = ?", author_id);
+    public List<BookAuthor> reportBooksByAuthor(String name) throws AuthorDoesntExistException {
+        BookRepo newRepo = new BookRepo();
+        Author author = newRepo.GetAuthor(name);
+        List<BookAuthor> booksbyauthor = Book.where("author_id = ?", author.get("id"));
         return booksbyauthor;
     }
 }

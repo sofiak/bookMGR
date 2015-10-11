@@ -20,8 +20,8 @@ public class AdminView extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         Home = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        ExitButton = new javax.swing.JButton();
+        InfoLabel = new javax.swing.JLabel();
         Books = new javax.swing.JPanel();
         AddBook = new javax.swing.JButton();
         RemoveBook = new javax.swing.JButton();
@@ -45,17 +45,22 @@ public class AdminView extends javax.swing.JFrame {
 
         Home.setLayout(new java.awt.GridBagLayout());
 
-        jButton11.setText("Exit");
+        ExitButton.setText("Exit");
+        ExitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExitButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
-        Home.add(jButton11, gridBagConstraints);
+        Home.add(ExitButton, gridBagConstraints);
 
-        jLabel1.setText("Select action from tabs, press exit when ready.");
+        InfoLabel.setText("Select action from tabs, press exit when ready.");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        Home.add(jLabel1, gridBagConstraints);
+        Home.add(InfoLabel, gridBagConstraints);
 
         jTabbedPane1.addTab("Home", Home);
 
@@ -219,7 +224,7 @@ public class AdminView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                 .addContainerGap())
@@ -280,6 +285,10 @@ public class AdminView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_LoansByUserActionPerformed
 
+    private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_ExitButtonActionPerformed
+
     public void render() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -322,7 +331,9 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JPanel Books;
     private javax.swing.JButton BooksByAuthor;
     private javax.swing.JButton EditBook;
+    private javax.swing.JButton ExitButton;
     private javax.swing.JPanel Home;
+    private javax.swing.JLabel InfoLabel;
     private javax.swing.JButton LoansByUser;
     private javax.swing.JButton RemoveAuthor;
     private javax.swing.JButton RemoveBook;
@@ -330,8 +341,6 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JPanel Report;
     private javax.swing.JButton SettleFee;
     private javax.swing.JPanel Users;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
