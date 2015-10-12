@@ -1,5 +1,8 @@
 package bookmgr.repos;
 
+import bookmgr.exceptions.AuthorAlreadyExistsException;
+import bookmgr.exceptions.AuthorAndBookAreAlreadyConnectedException;
+import bookmgr.exceptions.AuthorDoesntExistException;
 import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.BookNotAvailableException;
@@ -13,11 +16,8 @@ import bookmgr.models.User;
 import junit.framework.Assert;
 import org.javalite.activejdbc.Base;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class RentRepoTest {
 
@@ -37,9 +37,15 @@ public class RentRepoTest {
     }
 
     @Test(expected = BookNotAvailableException.class)
-    public void ifNoCopiesAvailableToRentThrowsException() throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException, UnacceptableISBNException {
+    public void ifNoCopiesAvailableToRentThrowsException() throws BookAlreadyExistsException, 
+            UserAlreadyExistsException, BookDoesntExistException, 
+            BookNotAvailableException, UnacceptableISBNException, 
+            AuthorAlreadyExistsException, AuthorDoesntExistException, 
+            AuthorAndBookAreAlreadyConnectedException {
         BookRepo bookrepo = new BookRepo();
-        Book book = bookrepo.createBook("1234567891111", "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 1);
+        bookrepo.createAuthor("Anneli");
+        Book book = bookrepo.createBook("1234567891111", "Graveyard", 
+                "Neil Gaimans bestselling novel yet", "Anneli", 1991, 1);
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
         RentRepo rentrepo = new RentRepo();
@@ -59,10 +65,16 @@ public class RentRepoTest {
 //    }
 
     @Test
-    public void availableCopiesReturnCorrectCopies() throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException, UnacceptableISBNException {
+    public void availableCopiesReturnCorrectCopies() throws BookAlreadyExistsException, 
+            UserAlreadyExistsException, BookDoesntExistException, 
+            BookNotAvailableException, UnacceptableISBNException, 
+            AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException, 
+            AuthorAlreadyExistsException {
         BookRepo bookrepo = new BookRepo();
         String isbn = "1234567891121";
-        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
+        bookrepo.createAuthor("Anneli");
+        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet",
+                "Anneli", 1991, 3);
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
         RentRepo rentrepo = new RentRepo();
@@ -74,22 +86,34 @@ public class RentRepoTest {
     }
     
     @Test (expected = RentDoesntExistException.class)
-    public void fetchRentThrowsRentDoesntExistException() throws RentDoesntExistException, UserAlreadyExistsException, BookAlreadyExistsException, UnacceptableISBNException {
+    public void fetchRentThrowsRentDoesntExistException() throws RentDoesntExistException, 
+            UserAlreadyExistsException, BookAlreadyExistsException, 
+            UnacceptableISBNException, AuthorAlreadyExistsException, 
+            AuthorDoesntExistException, BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
         RentRepo rentrepo = new RentRepo();
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
         BookRepo bookrepo = new BookRepo();
         String isbn = "1234567891121";
-        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
+        bookrepo.createAuthor("Anneli");
+        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet", 
+                "Anneli", 1991, 3);
         rentrepo.fetchRent(user.getInteger("id"), isbn);
         
     }
     
     @Test
-    public void ReturnRentChangesHasReturnedTo1 () throws BookAlreadyExistsException, UserAlreadyExistsException, BookDoesntExistException, BookNotAvailableException, RentDoesntExistException, UserDoesntExistException, UnacceptableISBNException {
+    public void ReturnRentChangesHasReturnedTo1 () throws BookAlreadyExistsException, 
+            UserAlreadyExistsException, BookDoesntExistException, 
+            BookNotAvailableException, RentDoesntExistException, 
+            UserDoesntExistException, UnacceptableISBNException, 
+            AuthorAlreadyExistsException, AuthorDoesntExistException, 
+            AuthorAndBookAreAlreadyConnectedException {
         BookRepo bookrepo = new BookRepo();
         String isbn = "1234567891121";
-        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
+        bookrepo.createAuthor("Anneli");
+        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet",
+                "Anneli", 1991, 3);
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
         RentRepo rentrepo = new RentRepo();

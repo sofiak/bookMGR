@@ -6,6 +6,8 @@ import bookmgr.exceptions.UserHasUnresolvedFeesOrRentsException;
 import bookmgr.models.User;
 import bookmgr.repos.AdminRepo;
 import bookmgr.repos.UserRepo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RemoveUserView extends javax.swing.JFrame {
 
@@ -82,18 +84,21 @@ public class RemoveUserView extends javax.swing.JFrame {
     private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
         Connection conn = new Connection();
         UserRepo newRepo = new UserRepo();
-        User user = newRepo.getUser(UsernameField.getText());
+        User user;
         AdminRepo newRepo1 = new AdminRepo();
         try {
+            user = newRepo.getUser(UsernameField.getText());
             newRepo1.removeUser(user.getInteger("id"));
+            ErrorBox.setText("User succesfully removed.");
+            ErrorBox.setVisible(true);
         } catch (UserDoesntExistException ex) {
             ErrorBox.setText("User doesn't exist.");
             ErrorBox.setVisible(true);
         } catch (UserHasUnresolvedFeesOrRentsException ex) {
-            ErrorBox.setText("ERROR: User has pending loans or fees.");
+            ErrorBox.setText("ERROR: User has pending fees or loans.");
             ErrorBox.setVisible(true);
         }
-        
+
         conn.close();
     }//GEN-LAST:event_RemoveButtonActionPerformed
 

@@ -107,4 +107,13 @@ public class AdminRepo {
         user.saveIt();
         return true;
     }
+    
+    public boolean changeAPassword(String username, String password) throws UserDoesntExistException{
+        UserRepo newRepo = new UserRepo();
+        User user =  newRepo.getUser(username);
+        
+        user.set("password", password);
+        user.saveIt();
+        return true;
+    }
 }

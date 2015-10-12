@@ -56,8 +56,13 @@ public class UserRepo {
         }
     }
 
-    public User getUser(String username) {
-        return this.CheckUser(username);
+    public User getUser(String username) throws UserDoesntExistException {
+        User user = CheckUser(username);
+        if(user == null) {
+            throw new UserDoesntExistException();
+        }else{
+            return user;
+        }
     }
 
     /**
