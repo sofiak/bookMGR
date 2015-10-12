@@ -6,6 +6,7 @@ import bookmgr.exceptions.AuthorAndBookAreNotConnectedException;
 import bookmgr.exceptions.AuthorDoesntExistException;
 import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
+import bookmgr.exceptions.CantRemoveBooksNotOnTheShelfException;
 import bookmgr.exceptions.UnacceptableISBNException;
 import bookmgr.models.Author;
 import bookmgr.models.Book;
@@ -26,6 +27,7 @@ public class BookRepo {
      * @param isbn ISBN of the book
      * @param title title of the book
      * @param description description of the book
+     * @param author name of author in string form
      * @param pubYear publishing year of the book
      * @param copies number of copies of the book
      *
@@ -33,22 +35,30 @@ public class BookRepo {
      * exists
      *
      * @return Book object
+     * @throws bookmgr.exceptions.UnacceptableISBNException
+     * @throws bookmgr.exceptions.AuthorDoesntExistException
      */
-    public Book createBook(String isbn, String title, String description, int pubYear, int copies) throws BookAlreadyExistsException, UnacceptableISBNException {
+    public Book createBook(String isbn, String title, String description,
+            String author, int pubYear, int copies) throws BookAlreadyExistsException,
+            UnacceptableISBNException, AuthorDoesntExistException, BookDoesntExistException,
+            AuthorAndBookAreAlreadyConnectedException {
         if (isbn.length() == 13) {
             if (this.CheckBook(isbn) == false) {
                 Book book = new Book();
                 book.set("ISBN", isbn);
+                book.set("author", this.GetAuthor(author));
                 book.set("title", title);
                 book.set("description", description);
                 book.set("pub_year", pubYear);
                 book.set("copies", copies);
                 book.saveIt();
+
+                this.addAuthorToBook(book.getInteger("id"), this.GetAuthor(author).getInteger("id"));
                 return book;
             } else {
                 throw new BookAlreadyExistsException();
             }
-        }else{
+        } else {
             throw new UnacceptableISBNException();
         }
     }
@@ -56,7 +66,6 @@ public class BookRepo {
     /**
      * Method edits a Book object with user input
      *
-     * @param book_id ID of the book
      * @param isbn ISBN of the book
      * @param title title of the book
      * @param description description of the book
@@ -69,28 +78,39 @@ public class BookRepo {
      *
      * @return Book object
      */
-    public Book editBook(String isbn, String title, String description, int pubYear, int copies) throws BookDoesntExistException, BookAlreadyExistsException {
+    public Book editBook(String isbn, String title, String description, String author, int pubYear,
+            int copies) throws BookDoesntExistException, BookAlreadyExistsException, CantRemoveBooksNotOnTheShelfException, AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException, AuthorAndBookAreNotConnectedException {
         Book book = this.GetBook(isbn);
-        List<Book> books = Book.where("ISBN = ? AND id != ?", isbn, book.get("id"));
-        if (books.isEmpty()) {
-            book.set("ISBN", isbn)
-                    .set("title", title)
-                    .set("description", description)
-                    .set("pub_year", pubYear)
-                    .set("copies", copies);
-            book.saveIt();
+        RentRepo newRepo = new RentRepo();
+        if (copies < (book.getInteger("copies") - newRepo.availableCopies(book.getInteger("id")))) {
+            throw new CantRemoveBooksNotOnTheShelfException();
+        } else if (author.equalsIgnoreCase(book.getString("author"))) {
+            book = this.bookSetter(book, title, description, pubYear, copies);
             return book;
         } else {
-            throw new BookAlreadyExistsException();
+            Author oldAuthor = this.GetAuthor(book.getString("author"));
+            this.removeAuthorFromBook(book.getInteger("id"), oldAuthor.getInteger("id"));
+            book = this.bookSetter(book, title, description, pubYear, copies);
+            this.addAuthorToBook(book.getInteger("id"), this.GetAuthor(author).getInteger("id"));
+            return book;
         }
+    }
 
-        //TO-DO - check if copies can be reduced based on number of copies given out to rent
+    private Book bookSetter(Book aBook, String title, String description, int pubYear, int copies) {
+        Book book = aBook;
+        book.set("title", title);
+        book.set("description", description);
+        book.set("pub_year", pubYear);
+        book.set("copies", copies);
+        book.saveIt();
+
+        return book;
     }
 
     /**
      * Method removes a Book object if all copies are present
      *
-     * @param book_id ID of the book
+     * @param ISBN ISBN of the book
      *
      * @throws BookDoesntExistException if book doesn't exist
      */
