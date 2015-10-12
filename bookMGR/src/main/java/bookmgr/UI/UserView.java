@@ -38,6 +38,7 @@ public class UserView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("bookMGR");
+        setMinimumSize(new java.awt.Dimension(523, 371));
         setResizable(false);
 
         Home.setLayout(new java.awt.GridBagLayout());

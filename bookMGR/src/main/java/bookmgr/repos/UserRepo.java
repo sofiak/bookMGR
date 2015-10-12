@@ -26,7 +26,7 @@ public class UserRepo {
      * @return todennäköisyys kalibroituna
      */
     public User createUser(String uname, String pw) throws UserAlreadyExistsException {
-        if (this.CheckUserName(uname) == false) {
+        if (this.CheckUser(uname) == null) {
             User user = new User();
             user.set("username", uname);
             user.set("password", pw);
@@ -56,6 +56,10 @@ public class UserRepo {
         }
     }
 
+    public User getUser(String username) {
+        return this.CheckUser(username);
+    }
+
     /**
      * Method deletes a user
      *
@@ -82,7 +86,7 @@ public class UserRepo {
      */
     public User editUser(int user_id, String newUsername) throws UserDoesntExistException, UserAlreadyExistsException {
         User user = this.fetchUser(user_id);
-        if (this.CheckUserName(newUsername) == false) {
+        if (this.CheckUser(newUsername) == null) {
             user.set("username", newUsername);
             user.saveIt();
             return user;
@@ -121,13 +125,13 @@ public class UserRepo {
      *
      * @return true if username is taken, false if not
      */
-    private boolean CheckUserName(String username) {
+    private User CheckUser(String username) {
         User user = new User();
         List<User> users = user.where("username = ?", username);
         if (users.isEmpty()) {
-            return false;
+            return null;
         } else {
-            return true;
+            return users.get(0);
         }
     }
 
@@ -152,7 +156,7 @@ public class UserRepo {
      *
      * @param fee how much is user paying
      * @param user_id ID of user
-     * 
+     *
      * @throws UserDoesntExistException if user doesn't exist
      *
      * @return true if payment is successful, false if not
@@ -174,7 +178,7 @@ public class UserRepo {
      * Method fetches a certain users active balance
      *
      * @param user_id ID of the user
-     * 
+     *
      * @throws UserDoesntExistException if user doesn't exist
      *
      * @return current fees
@@ -183,19 +187,19 @@ public class UserRepo {
         User user = this.fetchUser(user_id);
         return user.getDouble("fees");
     }
-    
-        public User signIn(String username, String password) throws UnauthorizedException {
+
+    public User signIn(String username, String password) throws UnauthorizedException {
         UserRepo userrepo = new UserRepo();
         List<User> userlist = User.where("username = ?", username);
-        if(userlist.isEmpty()) {
+        if (userlist.isEmpty()) {
             throw new UnauthorizedException();
-        }else{
-        User user = userlist.get(0);
-        if(user.get("password").equals(password)) {
-            return user;
-        }else{
-            throw new UnauthorizedException();
-        }
+        } else {
+            User user = userlist.get(0);
+            if (user.get("password").equals(password)) {
+                return user;
+            } else {
+                throw new UnauthorizedException();
+            }
         }
     }
 

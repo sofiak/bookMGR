@@ -36,7 +36,7 @@ public class ReturnBookView extends javax.swing.JFrame {
         ErrorBox = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("bookMGR - Rent book");
+        setTitle("bookMGR - Return book");
 
         ISBNLabel.setText("ISBN");
 

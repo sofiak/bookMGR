@@ -268,7 +268,8 @@ public class AdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_AddUserActionPerformed
 
     private void RemoveUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveUserActionPerformed
-        // TODO add your handling code here:
+        RemoveUserView newView = new RemoveUserView();
+        newView.render();
     }//GEN-LAST:event_RemoveUserActionPerformed
 
     private void SettleFeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettleFeeActionPerformed

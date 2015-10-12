@@ -1,12 +1,21 @@
 package bookmgr.UI;
 
+import bookmgr.bookmgr.Connection;
+import bookmgr.exceptions.BookDoesntExistException;
+import bookmgr.exceptions.UserDoesntExistException;
+import bookmgr.exceptions.UserHasUnresolvedFeesOrRentsException;
+import bookmgr.models.User;
+import bookmgr.repos.AdminRepo;
+import bookmgr.repos.BookRepo;
+import bookmgr.repos.UserRepo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class RemoveUserView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form RemoveUserView
-     */
     public RemoveUserView() {
         initComponents();
+        ErrorBox.setVisible(false);
     }
 
     /**
@@ -18,21 +27,79 @@ public class RemoveUserView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        UsernameLabel = new javax.swing.JLabel();
+        UsernameField = new javax.swing.JTextField();
+        RemoveButton = new javax.swing.JButton();
+        ErrorBox = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("bookMGR - Remove user");
+
+        UsernameLabel.setText("Username");
+
+        RemoveButton.setText("Remove ");
+        RemoveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RemoveButtonActionPerformed(evt);
+            }
+        });
+
+        ErrorBox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ErrorBox.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RemoveButton)
+                .addGap(96, 96, 96))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addComponent(UsernameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ErrorBox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(UsernameField)
+                    .addComponent(UsernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RemoveButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ErrorBox, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveButtonActionPerformed
+        Connection conn = new Connection();
+        UserRepo newRepo = new UserRepo();
+        User user = newRepo.getUser(UsernameField.getText());
+        AdminRepo newRepo1 = new AdminRepo();
+        try {
+            newRepo1.removeUser(user.getInteger("id"));
+        } catch (UserDoesntExistException ex) {
+            ErrorBox.setText("User doesn't exist.");
+            ErrorBox.setVisible(true);
+        } catch (UserHasUnresolvedFeesOrRentsException ex) {
+            ErrorBox.setText("ERROR: User has pending loans or fees.");
+            ErrorBox.setVisible(true);
+        }
+        
+        conn.close();
+    }//GEN-LAST:event_RemoveButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -61,6 +128,8 @@ public class RemoveUserView extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -71,5 +140,9 @@ public class RemoveUserView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ErrorBox;
+    private javax.swing.JButton RemoveButton;
+    private javax.swing.JTextField UsernameField;
+    private javax.swing.JLabel UsernameLabel;
     // End of variables declaration//GEN-END:variables
 }

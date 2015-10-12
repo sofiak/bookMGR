@@ -20,7 +20,6 @@ public class RemoveBookView extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         ISBNLabel = new javax.swing.JLabel();
         ISBNField = new javax.swing.JTextField();
@@ -29,7 +28,6 @@ public class RemoveBookView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("bookMGR - Remove book");
-        setEnabled(false);
 
         ISBNLabel.setText("ISBN");
 
