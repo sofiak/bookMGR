@@ -11,8 +11,8 @@ public class EditBookView extends javax.swing.JFrame {
     public EditBookView() {
         initComponents();
         TitleField.disable();
-        CopiesSpinner.enable(false);
-        PubYearSpinner.enable(false);
+        CopiesSpinner.setEnabled(false);
+        PubYearSpinner.setEnabled(false);
         DescriptionArea.disable();
         EditButton.disable();
     }
@@ -43,7 +43,7 @@ public class EditBookView extends javax.swing.JFrame {
         OkButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("bookMGR - Add Book");
+        setTitle("bookMGR - Edit Book");
 
         ISBN.setText("ISBN");
 
@@ -179,11 +179,12 @@ public class EditBookView extends javax.swing.JFrame {
             Book book = newRepo.GetBook(ISBNField.getText());
             ISBNField.disable();
             TitleField.enable();
-            CopiesSpinner.enable();
-            PubYearSpinner.enable();
+            CopiesSpinner.setEnabled(true);
+            PubYearSpinner.setEnabled(true);
             DescriptionArea.enable();
             EditButton.enable();
             ErrorBox.setText("Enter information.");
+            this.repaint();
         } catch (BookDoesntExistException ex) {
             ErrorBox.setText("Book doesn't exist.");
             ErrorBox.setVisible(true);
