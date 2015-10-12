@@ -1,5 +1,6 @@
 package bookmgr.repos;
 
+import bookmgr.exceptions.InvalidPasswordException;
 import bookmgr.exceptions.UnauthorizedException;
 import bookmgr.models.User;
 import bookmgr.exceptions.UserAlreadyExistsException;
@@ -102,14 +103,14 @@ public class UserRepo {
      *
      * @return returns true if change was successful
      */
-    public boolean setNewPassword(int user_id, String oldPass, String newPass) throws UserDoesntExistException {
+    public boolean setNewPassword(int user_id, String oldPass, String newPass) throws UserDoesntExistException, InvalidPasswordException {
         User user = this.fetchUser(user_id);
         if (user.getString("password").equals(oldPass)) {
             user.set("password", newPass);
             user.saveIt();
             return true;
         } else {
-            return false;
+            throw new InvalidPasswordException();
         }
     }
 

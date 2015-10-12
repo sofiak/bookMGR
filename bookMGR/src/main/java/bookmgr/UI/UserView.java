@@ -61,6 +61,11 @@ public class UserView extends javax.swing.JFrame {
         MyAccount.setLayout(new java.awt.GridBagLayout());
 
         ChangePasswordButton.setText("Change password");
+        ChangePasswordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangePasswordButtonActionPerformed(evt);
+            }
+        });
         MyAccount.add(ChangePasswordButton, new java.awt.GridBagConstraints());
 
         jTabbedPane1.addTab("My account", MyAccount);
@@ -141,6 +146,10 @@ public class UserView extends javax.swing.JFrame {
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
+
+    private void ChangePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePasswordButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChangePasswordButtonActionPerformed
 
     public void render() {
         /* Set the Nimbus look and feel */
