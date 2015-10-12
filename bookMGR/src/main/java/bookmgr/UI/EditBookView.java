@@ -3,16 +3,18 @@ package bookmgr.UI;
 import bookmgr.bookmgr.Connection;
 import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
-import bookmgr.exceptions.UnacceptableISBNException;
+import bookmgr.models.Book;
 import bookmgr.repos.BookRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EditBookView extends javax.swing.JFrame {
 
     public EditBookView() {
         initComponents();
-        ErrorBox.setVisible(false);
+        TitleField.disable();
+        CopiesSpinner.enable(false);
+        PubYearSpinner.enable(false);
+        DescriptionArea.disable();
+        EditButton.disable();
     }
 
     /**
@@ -38,6 +40,7 @@ public class EditBookView extends javax.swing.JFrame {
         CopiesSpinner = new javax.swing.JSpinner();
         CopiesSpinner.setBounds(1, 1, 100, 1);
         PubYearSpinner = new javax.swing.JSpinner();
+        OkButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("bookMGR - Add Book");
@@ -60,7 +63,7 @@ public class EditBookView extends javax.swing.JFrame {
         });
 
         ErrorBox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ErrorBox.setText("Please enter acceptable values");
+        ErrorBox.setText("Please enter ISBN");
         ErrorBox.setEnabled(false);
 
         DescriptionArea.setColumns(20);
@@ -73,6 +76,13 @@ public class EditBookView extends javax.swing.JFrame {
 
         PubYearSpinner.setModel(new javax.swing.SpinnerNumberModel(2000, 0, 3000, 1));
 
+        OkButton.setText("OK");
+        OkButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OkButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,7 +92,9 @@ public class EditBookView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(ErrorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 13, Short.MAX_VALUE)
+                                .addComponent(ErrorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(Description, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -92,15 +104,19 @@ public class EditBookView extends javax.swing.JFrame {
                                     .addComponent(PubYear, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(ISBNField)
                                     .addComponent(TitleField)
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
                                     .addComponent(CopiesSpinner)
-                                    .addComponent(PubYearSpinner)))))
+                                    .addComponent(PubYearSpinner)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(ISBNField, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(OkButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addComponent(EditButton)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,7 +126,9 @@ public class EditBookView extends javax.swing.JFrame {
                     .addComponent(ISBN, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(ISBNField, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ISBNField)
+                            .addComponent(OkButton))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,11 +166,30 @@ public class EditBookView extends javax.swing.JFrame {
             ErrorBox.setText("Book does not exist.");
             ErrorBox.setVisible(true);
         } catch (BookAlreadyExistsException ex) {
-            ErrorBox.setText("Duplicate ISBNs are not allowed");
+            ErrorBox.setText("Duplicate ISBNs are not allowed.");
             ErrorBox.setVisible(true);
         }
         conn.close();
     }//GEN-LAST:event_EditButtonActionPerformed
+
+    private void OkButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OkButtonActionPerformed
+        Connection conn = new Connection();
+        BookRepo newRepo = new BookRepo();
+        try {
+            Book book = newRepo.GetBook(ISBNField.getText());
+            ISBNField.disable();
+            TitleField.enable();
+            CopiesSpinner.enable();
+            PubYearSpinner.enable();
+            DescriptionArea.enable();
+            EditButton.enable();
+            ErrorBox.setText("Enter information.");
+        } catch (BookDoesntExistException ex) {
+            ErrorBox.setText("Book doesn't exist.");
+            ErrorBox.setVisible(true);
+        }
+        conn.close();
+    }//GEN-LAST:event_OkButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,6 +242,7 @@ public class EditBookView extends javax.swing.JFrame {
     private javax.swing.JLabel ErrorBox;
     private javax.swing.JLabel ISBN;
     private javax.swing.JTextField ISBNField;
+    private javax.swing.JButton OkButton;
     private javax.swing.JLabel PubYear;
     private javax.swing.JSpinner PubYearSpinner;
     private javax.swing.JLabel Title;

@@ -35,7 +35,7 @@ public class BookRepo {
      * @return Book object
      */
     public Book createBook(String isbn, String title, String description, int pubYear, int copies) throws BookAlreadyExistsException, UnacceptableISBNException {
-        if (isbn.length() == 12) {
+        if (isbn.length() == 13) {
             if (this.CheckBook(isbn) == false) {
                 Book book = new Book();
                 book.set("ISBN", isbn);

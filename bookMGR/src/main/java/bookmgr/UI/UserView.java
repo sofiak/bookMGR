@@ -1,6 +1,5 @@
 package bookmgr.UI;
 
-import bookmgr.bookmgr.Connection;
 import bookmgr.models.User;
 
 public class UserView extends javax.swing.JFrame {

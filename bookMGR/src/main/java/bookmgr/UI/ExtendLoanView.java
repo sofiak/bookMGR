@@ -1,14 +1,9 @@
 package bookmgr.UI;
 
 import bookmgr.bookmgr.Connection;
-import bookmgr.exceptions.BookDoesntExistException;
-import bookmgr.exceptions.BookNotAvailableException;
 import bookmgr.exceptions.RentDoesntExistException;
-import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.RentRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ExtendLoanView extends javax.swing.JFrame {
 

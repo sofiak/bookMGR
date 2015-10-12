@@ -10,6 +10,7 @@ public class RemoveBookView extends javax.swing.JFrame {
 
     public RemoveBookView() {
         initComponents();
+        ErrorBox.setVisible(false);
     }
 
     /**

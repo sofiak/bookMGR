@@ -1,15 +1,11 @@
 package bookmgr.UI;
 
 import bookmgr.bookmgr.Connection;
-import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.exceptions.UserHasUnresolvedFeesOrRentsException;
 import bookmgr.models.User;
 import bookmgr.repos.AdminRepo;
-import bookmgr.repos.BookRepo;
 import bookmgr.repos.UserRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class RemoveUserView extends javax.swing.JFrame {
 
