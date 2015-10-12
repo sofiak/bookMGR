@@ -1,5 +1,6 @@
 package bookmgr.repos;
 
+import bookmgr.exceptions.InvalidPasswordException;
 import bookmgr.exceptions.UnauthorizedException;
 import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.exceptions.UserDoesntExistException;
@@ -86,7 +87,7 @@ public class UserRepoTest {
     }
     
     @Test
-    public void newPasswordWorks() throws UserAlreadyExistsException, UserDoesntExistException {
+    public void newPasswordWorks() throws UserAlreadyExistsException, UserDoesntExistException, InvalidPasswordException {
         UserRepo newrepo = new UserRepo();
         User user = newrepo.createUser(userName, passw);
         boolean success = newrepo.setNewPassword(user.getInteger("id"), passw, "anakonda");
@@ -94,7 +95,7 @@ public class UserRepoTest {
     }
     
     @Test
-    public void newPasswordDoesntWorkWithWrongOldPW() throws UserAlreadyExistsException, UserDoesntExistException {
+    public void newPasswordDoesntWorkWithWrongOldPW() throws UserAlreadyExistsException, UserDoesntExistException, InvalidPasswordException {
         UserRepo newrepo = new UserRepo();
         User user = newrepo.createUser(userName, passw);
         boolean success = newrepo.setNewPassword(user.getInteger("id"), "ananas", "anakonda");

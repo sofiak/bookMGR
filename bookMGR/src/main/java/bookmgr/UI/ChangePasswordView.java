@@ -115,6 +115,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
             ErrorBox.setText("Old password was not entered correctly.");
             ErrorBox.setVisible(true);
         }
+        conn.close();
     }//GEN-LAST:event_ChangeButtonActionPerformed
 
     /**

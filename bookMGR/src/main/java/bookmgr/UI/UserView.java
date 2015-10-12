@@ -60,35 +60,31 @@ public class UserView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Home", Home);
 
+        MyAccount.setLayout(new java.awt.GridBagLayout());
+
         ChangePasswordButton.setText("Change password");
         ChangePasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ChangePasswordButtonActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(149, 189, 0, 0);
+        MyAccount.add(ChangePasswordButton, gridBagConstraints);
 
-        javax.swing.GroupLayout MyAccountLayout = new javax.swing.GroupLayout(MyAccount);
-        MyAccount.setLayout(MyAccountLayout);
-        MyAccountLayout.setHorizontalGroup(
-            MyAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MyAccountLayout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(ChangePasswordButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(MyAccountLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PendingFeesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        MyAccountLayout.setVerticalGroup(
-            MyAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MyAccountLayout.createSequentialGroup()
-                .addGap(149, 149, 149)
-                .addComponent(ChangePasswordButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                .addComponent(PendingFeesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        PendingFeesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 478;
+        gridBagConstraints.ipady = 23;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(115, 10, 11, 10);
+        MyAccount.add(PendingFeesLabel, gridBagConstraints);
 
         jTabbedPane1.addTab("My account", MyAccount);
 
