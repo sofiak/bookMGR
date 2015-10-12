@@ -10,6 +10,7 @@ public class UserView extends javax.swing.JFrame {
     public UserView(User user) {
         initComponents();
         this.user = user;
+        PendingFeesLabel.setText("Your pending fees: " + user.getInteger("fees") + " €.");
     }
 
     /**
@@ -28,6 +29,7 @@ public class UserView extends javax.swing.JFrame {
         InfoLabel = new javax.swing.JLabel();
         MyAccount = new javax.swing.JPanel();
         ChangePasswordButton = new javax.swing.JButton();
+        PendingFeesLabel = new javax.swing.JLabel();
         Loans = new javax.swing.JPanel();
         RentBookButton = new javax.swing.JButton();
         ReturnBookButton = new javax.swing.JButton();
@@ -58,15 +60,35 @@ public class UserView extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Home", Home);
 
-        MyAccount.setLayout(new java.awt.GridBagLayout());
-
         ChangePasswordButton.setText("Change password");
         ChangePasswordButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ChangePasswordButtonActionPerformed(evt);
             }
         });
-        MyAccount.add(ChangePasswordButton, new java.awt.GridBagConstraints());
+
+        javax.swing.GroupLayout MyAccountLayout = new javax.swing.GroupLayout(MyAccount);
+        MyAccount.setLayout(MyAccountLayout);
+        MyAccountLayout.setHorizontalGroup(
+            MyAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MyAccountLayout.createSequentialGroup()
+                .addGap(189, 189, 189)
+                .addComponent(ChangePasswordButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(MyAccountLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PendingFeesLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        MyAccountLayout.setVerticalGroup(
+            MyAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(MyAccountLayout.createSequentialGroup()
+                .addGap(149, 149, 149)
+                .addComponent(ChangePasswordButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addComponent(PendingFeesLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         jTabbedPane1.addTab("My account", MyAccount);
 
@@ -148,7 +170,8 @@ public class UserView extends javax.swing.JFrame {
     }//GEN-LAST:event_ExitButtonActionPerformed
 
     private void ChangePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePasswordButtonActionPerformed
-        // TODO add your handling code here:
+        ChangePasswordView newView = new ChangePasswordView(user);
+        newView.render();
     }//GEN-LAST:event_ChangePasswordButtonActionPerformed
 
     public void render() {
@@ -192,6 +215,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel InfoLabel;
     private javax.swing.JPanel Loans;
     private javax.swing.JPanel MyAccount;
+    private javax.swing.JLabel PendingFeesLabel;
     private javax.swing.JButton RentBookButton;
     private javax.swing.JButton ReturnBookButton;
     private javax.swing.JTabbedPane jTabbedPane1;

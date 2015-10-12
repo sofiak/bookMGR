@@ -53,7 +53,6 @@ public class ChangePasswordView extends javax.swing.JFrame {
         NewPasswordLabel.setText("New password");
 
         ErrorBox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ErrorBox.setText("jLabel3");
         ErrorBox.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,8 +92,8 @@ public class ChangePasswordView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(ChangeButton)
                 .addGap(18, 18, 18)
-                .addComponent(ErrorBox)
-                .addGap(15, 15, 15))
+                .addComponent(ErrorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -113,7 +112,7 @@ public class ChangePasswordView extends javax.swing.JFrame {
             ErrorBox.setText("Cannot change password.");
             ErrorBox.setVisible(true);
         } catch (InvalidPasswordException ex) {
-            ErrorBox.setText("Wrong password.");
+            ErrorBox.setText("Old password was not entered correctly.");
             ErrorBox.setVisible(true);
         }
     }//GEN-LAST:event_ChangeButtonActionPerformed
