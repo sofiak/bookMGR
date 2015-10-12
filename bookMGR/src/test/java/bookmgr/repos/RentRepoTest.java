@@ -74,9 +74,14 @@ public class RentRepoTest {
     }
     
     @Test (expected = RentDoesntExistException.class)
-    public void fetchRentThrowsRentDoesntExistException() throws RentDoesntExistException {
+    public void fetchRentThrowsRentDoesntExistException() throws RentDoesntExistException, UserAlreadyExistsException, BookAlreadyExistsException, UnacceptableISBNException {
         RentRepo rentrepo = new RentRepo();
-        rentrepo.fetchRent(87583);
+        UserRepo userrepo = new UserRepo();
+        User user = userrepo.createUser("ananas", "pineapple");
+        BookRepo bookrepo = new BookRepo();
+        String isbn = "1234567891121";
+        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet", 1991, 3);
+        rentrepo.fetchRent(user.getInteger("id"), isbn);
         
     }
     
@@ -91,7 +96,7 @@ public class RentRepoTest {
         int book_id = book.getInteger("id");
         int user_id = user.getInteger("id");
         Rent rent = rentrepo.createRent(user_id, isbn);
-        rent = rentrepo.returnBook(rent.getInteger("id"));
+        rent = rentrepo.returnBook(user_id, isbn);
         int hasReturned = rent.getInteger("hasReturned");
         Assert.assertEquals(1, hasReturned);
     }

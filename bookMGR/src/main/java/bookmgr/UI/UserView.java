@@ -26,6 +26,8 @@ public class UserView extends javax.swing.JFrame {
         Home = new javax.swing.JPanel();
         ExitButton = new javax.swing.JButton();
         InfoLabel = new javax.swing.JLabel();
+        MyAccount = new javax.swing.JPanel();
+        ChangePasswordButton = new javax.swing.JButton();
         Loans = new javax.swing.JPanel();
         RentBookButton = new javax.swing.JButton();
         ReturnBookButton = new javax.swing.JButton();
@@ -55,6 +57,13 @@ public class UserView extends javax.swing.JFrame {
         Home.add(InfoLabel, gridBagConstraints);
 
         jTabbedPane1.addTab("Home", Home);
+
+        MyAccount.setLayout(new java.awt.GridBagLayout());
+
+        ChangePasswordButton.setText("Change password");
+        MyAccount.add(ChangePasswordButton, new java.awt.GridBagConstraints());
+
+        jTabbedPane1.addTab("My account", MyAccount);
 
         Loans.setLayout(new java.awt.GridBagLayout());
 
@@ -99,14 +108,14 @@ public class UserView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -167,11 +176,13 @@ public class UserView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ChangePasswordButton;
     private javax.swing.JButton ExitButton;
     private javax.swing.JButton ExtendLoanButton;
     private javax.swing.JPanel Home;
     private javax.swing.JLabel InfoLabel;
     private javax.swing.JPanel Loans;
+    private javax.swing.JPanel MyAccount;
     private javax.swing.JButton RentBookButton;
     private javax.swing.JButton ReturnBookButton;
     private javax.swing.JTabbedPane jTabbedPane1;
