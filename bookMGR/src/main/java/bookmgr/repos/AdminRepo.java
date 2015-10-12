@@ -29,7 +29,7 @@ public class AdminRepo {
     public boolean checkIfAdmin(int user_id) {
         UserRepo userrepo = new UserRepo();
         User user = User.findById(user_id);
-        
+
         return user.getBoolean("isAdmin");
     }
 
@@ -97,5 +97,14 @@ public class AdminRepo {
         Author author = newRepo.GetAuthor(name);
         List<BookAuthor> booksbyauthor = Book.where("author_id = ?", author.get("id"));
         return booksbyauthor;
+    }
+
+    public boolean changeAdminPassword(int adminId, String password) throws UserDoesntExistException {
+        UserRepo newRepo = new UserRepo();
+        User user =  newRepo.fetchUser(adminId);
+        
+        user.set("password", password);
+        user.saveIt();
+        return true;
     }
 }

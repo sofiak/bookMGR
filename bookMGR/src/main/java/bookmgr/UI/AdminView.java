@@ -1,11 +1,15 @@
 package bookmgr.UI;
 
 import bookmgr.bookmgr.Connection;
+import bookmgr.models.User;
 
 public class AdminView extends javax.swing.JFrame {
 
-    public AdminView() {
+    User user;
+
+    public AdminView(User user) {
         initComponents();
+        this.user = user;
     }
 
     /**
@@ -22,6 +26,8 @@ public class AdminView extends javax.swing.JFrame {
         Home = new javax.swing.JPanel();
         ExitButton = new javax.swing.JButton();
         InfoLabel = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        ChangePasswordButton = new javax.swing.JButton();
         Books = new javax.swing.JPanel();
         AddBook = new javax.swing.JButton();
         RemoveBook = new javax.swing.JButton();
@@ -29,11 +35,11 @@ public class AdminView extends javax.swing.JFrame {
         Authors = new javax.swing.JPanel();
         AddAuthor = new javax.swing.JButton();
         RemoveAuthor = new javax.swing.JButton();
-        AddBookToAuthor = new javax.swing.JButton();
         Users = new javax.swing.JPanel();
         AddUser = new javax.swing.JButton();
         RemoveUser = new javax.swing.JButton();
         SettleFee = new javax.swing.JButton();
+        ChangeAPasswordButton = new javax.swing.JButton();
         Report = new javax.swing.JPanel();
         LoansByUser = new javax.swing.JButton();
         AllBooks = new javax.swing.JButton();
@@ -41,6 +47,7 @@ public class AdminView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("bookMGR");
+        setPreferredSize(new java.awt.Dimension(350, 350));
         setResizable(false);
 
         Home.setLayout(new java.awt.GridBagLayout());
@@ -63,6 +70,18 @@ public class AdminView extends javax.swing.JFrame {
         Home.add(InfoLabel, gridBagConstraints);
 
         jTabbedPane1.addTab("Home", Home);
+
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        ChangePasswordButton.setText("Change password");
+        ChangePasswordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangePasswordButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ChangePasswordButton, new java.awt.GridBagConstraints());
+
+        jTabbedPane1.addTab("Settings", jPanel1);
 
         Books.setLayout(new java.awt.GridBagLayout());
 
@@ -125,17 +144,6 @@ public class AdminView extends javax.swing.JFrame {
         gridBagConstraints.gridy = 1;
         Authors.add(RemoveAuthor, gridBagConstraints);
 
-        AddBookToAuthor.setText("Add book to author");
-        AddBookToAuthor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddBookToAuthorActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        Authors.add(AddBookToAuthor, gridBagConstraints);
-
         jTabbedPane1.addTab("Authors", Authors);
 
         Users.setLayout(new java.awt.GridBagLayout());
@@ -170,8 +178,14 @@ public class AdminView extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 3;
         Users.add(SettleFee, gridBagConstraints);
+
+        ChangeAPasswordButton.setText("Change a password");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        Users.add(ChangeAPasswordButton, gridBagConstraints);
 
         jTabbedPane1.addTab("Users", Users);
 
@@ -219,14 +233,14 @@ public class AdminView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -259,12 +273,9 @@ public class AdminView extends javax.swing.JFrame {
         newView.render();
     }//GEN-LAST:event_RemoveAuthorActionPerformed
 
-    private void AddBookToAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBookToAuthorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AddBookToAuthorActionPerformed
-
     private void AddUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddUserActionPerformed
-        // TODO add your handling code here:
+        AddUserView newView = new AddUserView();
+        newView.render();
     }//GEN-LAST:event_AddUserActionPerformed
 
     private void RemoveUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveUserActionPerformed
@@ -291,6 +302,11 @@ public class AdminView extends javax.swing.JFrame {
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
+
+    private void ChangePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePasswordButtonActionPerformed
+     ChangeAdminPasswordView newView = new ChangeAdminPasswordView(user);
+     newView.render();
+    }//GEN-LAST:event_ChangePasswordButtonActionPerformed
 
     public void render() {
         /* Set the Nimbus look and feel */
@@ -319,7 +335,7 @@ public class AdminView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdminView().setVisible(true);
+                new AdminView(user).setVisible(true);
             }
         });
     }
@@ -327,12 +343,13 @@ public class AdminView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddAuthor;
     private javax.swing.JButton AddBook;
-    private javax.swing.JButton AddBookToAuthor;
     private javax.swing.JButton AddUser;
     private javax.swing.JButton AllBooks;
     private javax.swing.JPanel Authors;
     private javax.swing.JPanel Books;
     private javax.swing.JButton BooksByAuthor;
+    private javax.swing.JButton ChangeAPasswordButton;
+    private javax.swing.JButton ChangePasswordButton;
     private javax.swing.JButton EditBook;
     private javax.swing.JButton ExitButton;
     private javax.swing.JPanel Home;
@@ -344,6 +361,7 @@ public class AdminView extends javax.swing.JFrame {
     private javax.swing.JPanel Report;
     private javax.swing.JButton SettleFee;
     private javax.swing.JPanel Users;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

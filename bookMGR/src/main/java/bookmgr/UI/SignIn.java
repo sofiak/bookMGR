@@ -167,7 +167,7 @@ public class SignIn extends javax.swing.JFrame {
             boolean isAdmin = adminrepo.checkIfAdmin(user.getInteger("id"));
             
             if(isAdmin == true) {
-                AdminView adView = new AdminView();
+                AdminView adView = new AdminView(user);
                 adView.render();
                 this.dispose();
             }else{
