@@ -29,6 +29,7 @@ public class UserView extends javax.swing.JFrame {
         InfoLabel = new javax.swing.JLabel();
         MyAccount = new javax.swing.JPanel();
         ChangePasswordButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         PendingFeesLabel = new javax.swing.JLabel();
         Loans = new javax.swing.JPanel();
         RentBookButton = new javax.swing.JButton();
@@ -63,27 +64,14 @@ public class UserView extends javax.swing.JFrame {
         MyAccount.setLayout(new java.awt.GridBagLayout());
 
         ChangePasswordButton.setText("Change password");
-        ChangePasswordButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ChangePasswordButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(149, 189, 0, 0);
-        MyAccount.add(ChangePasswordButton, gridBagConstraints);
-
-        PendingFeesLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        MyAccount.add(ChangePasswordButton, new java.awt.GridBagConstraints());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 478;
-        gridBagConstraints.ipady = 23;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(115, 10, 11, 10);
+        MyAccount.add(jSeparator1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
         MyAccount.add(PendingFeesLabel, gridBagConstraints);
 
         jTabbedPane1.addTab("My account", MyAccount);
@@ -165,11 +153,6 @@ public class UserView extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
 
-    private void ChangePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangePasswordButtonActionPerformed
-        ChangePasswordView newView = new ChangePasswordView(user);
-        newView.render();
-    }//GEN-LAST:event_ChangePasswordButtonActionPerformed
-
     public void render() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -214,6 +197,7 @@ public class UserView extends javax.swing.JFrame {
     private javax.swing.JLabel PendingFeesLabel;
     private javax.swing.JButton RentBookButton;
     private javax.swing.JButton ReturnBookButton;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }
