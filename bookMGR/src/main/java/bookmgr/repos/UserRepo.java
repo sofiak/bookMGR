@@ -1,5 +1,6 @@
 package bookmgr.repos;
 
+import bookmgr.exceptions.CantPayMoreThanPendingFeesException;
 import bookmgr.exceptions.InvalidPasswordException;
 import bookmgr.exceptions.UnauthorizedException;
 import bookmgr.models.User;
@@ -166,7 +167,7 @@ public class UserRepo {
      *
      * @return true if payment is successful, false if not
      */
-    public boolean payFee(double fee, int user_id) throws UserDoesntExistException {
+    public boolean payFee(double fee, int user_id) throws UserDoesntExistException, CantPayMoreThanPendingFeesException {
         User user = this.fetchUser(user_id);
         double currentFees = user.getDouble("fees");
         if (currentFees >= fee) {

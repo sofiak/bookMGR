@@ -1,6 +1,7 @@
 package bookmgr.UI;
 
 import bookmgr.bookmgr.Connection;
+import bookmgr.exceptions.CantPayMoreThanPendingFeesException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.UserRepo;
@@ -11,8 +12,8 @@ public class SettleAFeeView extends javax.swing.JFrame {
 
     public SettleAFeeView() {
         initComponents();
-        SettleButton.disable();
-        AmountToPaySpinner.disable();
+        SettleButton.setEnabled(false);
+        AmountToPaySpinner.setEnabled(false);
         AmountToPayLabel.disable();
     }
 
@@ -77,9 +78,7 @@ public class SettleAFeeView extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(AmountToPaySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(AmountToPaySpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -125,6 +124,8 @@ public class SettleAFeeView extends javax.swing.JFrame {
             newRepo.payFee((double) AmountToPaySpinner.getValue(), user.getInteger("id"));
         } catch (UserDoesntExistException ex) {
             // Doesn't need to be caught, existence is checked in previous method
+        } catch (CantPayMoreThanPendingFeesException ex) {
+            ErrorBox.setText("Can't pay more than is pending.");
         }
 
         conn.close();
@@ -137,16 +138,18 @@ public class SettleAFeeView extends javax.swing.JFrame {
         User user;
         try {
             user = newRepo.getUser(UsernameField.getText());
-            SettleButton.enable();
-            AmountToPaySpinner.enable();
+            SettleButton.setEnabled(true);
+            AmountToPaySpinner.setEnabled(true);
             AmountToPayLabel.enable();
 
             UsernameField.disable();
             UsernameLabel.disable();
+            FindButton.setEnabled(false);
+            this.repaint();
 
             double payable = newRepo.fetchFees(user.getInteger("id"));
-
             ErrorBox.setText("Fees pending: " + payable + "€.");
+            this.repaint();
         } catch (UserDoesntExistException ex) {
             ErrorBox.setText("User doesn't exist.");
         }
