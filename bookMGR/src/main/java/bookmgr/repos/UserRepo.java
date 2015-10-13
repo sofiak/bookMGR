@@ -175,7 +175,7 @@ public class UserRepo {
             user.saveIt();
             return true;
         } else {
-            return false;
+            throw new CantPayMoreThanPendingFeesException();
         }
     }
 
