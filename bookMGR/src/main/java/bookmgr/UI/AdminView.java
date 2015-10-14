@@ -289,7 +289,8 @@ public class AdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_SettleFeeActionPerformed
 
     private void BooksByAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BooksByAuthorActionPerformed
-        // TODO add your handling code here:
+        AuthorReportView newView = new AuthorReportView();
+        newView.render();
     }//GEN-LAST:event_BooksByAuthorActionPerformed
 
     private void AllBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllBooksActionPerformed
