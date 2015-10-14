@@ -8,8 +8,8 @@ import bookmgr.models.Book;
 import bookmgr.models.BookAuthor;
 import bookmgr.models.Rent;
 import bookmgr.models.User;
+import java.util.ArrayList;
 import java.util.List;
-import org.javalite.activejdbc.Model;
 
 /**
  * Repo for all admin-related functions
@@ -45,7 +45,7 @@ public class AdminRepo {
     public void removeUser(int user_id) throws UserDoesntExistException, UserHasUnresolvedFeesOrRentsException {
         UserRepo userrepo = new UserRepo();
         User user = userrepo.fetchUser(user_id);
-        List<Rent> rents = this.reportForRents(user_id, 0);
+        ArrayList<String> rents = this.reportForRents(user_id, 0);
         if (rents.isEmpty() && userrepo.fetchFees(user_id) == 0) {
             userrepo.removeUser(user_id);
         } else {
@@ -63,11 +63,11 @@ public class AdminRepo {
      *
      * @return List of the rents
      */
-    public List<Rent> reportForRents(int user_id, int bookStatus) {
+    public ArrayList<String> reportForRents(int user_id, int bookStatus) {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
         List<Rent> rents = rent.where("user_id = ? AND hasReturned = ?", user_id, bookStatus);
-        return rents;
+        return this.reportToString(rents);
     }
 
     /**
@@ -78,11 +78,12 @@ public class AdminRepo {
      *
      * @return List of rents
      */
-    public List<Rent> reportForAllRents(int bookStatus) {
+    public ArrayList<String> reportForAllRents(int bookStatus) {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
         List<Rent> rents = rent.where("hasReturned = ?", bookStatus);
-        return rents;
+       
+        return this.reportToString(rents);
     }
 
     /**
@@ -92,28 +93,37 @@ public class AdminRepo {
      *
      * @return List of the books
      */
-    public List<BookAuthor> reportBooksByAuthor(String name) throws AuthorDoesntExistException {
+    public ArrayList<String> reportBooksByAuthor(String name) throws AuthorDoesntExistException {
         BookRepo newRepo = new BookRepo();
         Author author = newRepo.GetAuthor(name);
         List<BookAuthor> booksbyauthor = Book.where("author_id = ?", author.get("id"));
-        return booksbyauthor;
+        return this.reportToString(booksbyauthor);
     }
 
     public boolean changeAdminPassword(int adminId, String password) throws UserDoesntExistException {
         UserRepo newRepo = new UserRepo();
-        User user =  newRepo.fetchUser(adminId);
-        
+        User user = newRepo.fetchUser(adminId);
+
         user.set("password", password);
         user.saveIt();
         return true;
     }
-    
-    public boolean changeAPassword(String username, String password) throws UserDoesntExistException{
+
+    public boolean changeAPassword(String username, String password) throws UserDoesntExistException {
         UserRepo newRepo = new UserRepo();
-        User user =  newRepo.getUser(username);
-        
+        User user = newRepo.getUser(username);
+
         user.set("password", password);
         user.saveIt();
         return true;
+    }
+
+    private ArrayList<String> reportToString(List list) {
+        ArrayList<String> newArray = new ArrayList<>();
+        for (Object list1 : list) {
+            newArray.add(list1.toString());
+        }
+        
+        return newArray;
     }
 }
