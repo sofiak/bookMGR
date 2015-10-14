@@ -66,7 +66,13 @@ public class AdminRepo {
     public ArrayList<String> reportForRents(int user_id, int bookStatus) {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
-        List<Rent> rents = rent.where("user_id = ? AND hasReturned = ?", user_id, bookStatus);
+        List<Rent> rents;
+        
+        if(bookStatus == 2){
+            rents = rent.where("user_id = ?", user_id);
+        }else{
+            rents = rent.where("user_id = ? AND hasReturned = ?", user_id, bookStatus);
+        }
         return this.reportToString(rents);
     }
 

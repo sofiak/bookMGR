@@ -1,6 +1,5 @@
 package bookmgr.UI;
 
-import bookmgr.bookmgr.Connection;
 import bookmgr.models.User;
 
 public class AdminView extends javax.swing.JFrame {
@@ -294,11 +293,13 @@ public class AdminView extends javax.swing.JFrame {
     }//GEN-LAST:event_BooksByAuthorActionPerformed
 
     private void AllBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllBooksActionPerformed
-        // TODO add your handling code here:
+        RentReportView newView = new RentReportView();
+        newView.render();
     }//GEN-LAST:event_AllBooksActionPerformed
 
     private void LoansByUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoansByUserActionPerformed
-        // TODO add your handling code here:
+        RentReportForAUserView newView = new RentReportForAUserView();
+        newView.render();
     }//GEN-LAST:event_LoansByUserActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
