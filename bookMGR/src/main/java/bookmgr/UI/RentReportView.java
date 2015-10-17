@@ -1,5 +1,7 @@
 package bookmgr.UI;
 
+import bookmgr.exceptions.BookDoesntExistException;
+import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.main.Connection;
 import bookmgr.repos.AdminRepo;
 import java.util.ArrayList;
@@ -85,14 +87,29 @@ public class RentReportView extends javax.swing.JFrame {
         Connection conn = new Connection();
         AdminRepo newRepo = new AdminRepo();
         if (CurrentBox.isSelected() && ReturnedBox.isSelected()) {
-            ArrayList<String> list = newRepo.reportForAllRents(2);
-            ReportView newView = new ReportView(list);
+            try {
+                ArrayList<String> list = newRepo.reportForAllRents(2);
+                ReportView newView = new ReportView(list);
+            } catch (BookDoesntExistException | UserDoesntExistException ex) {
+                ErrorBox.setText("A report could not be formed.");
+                ErrorBox.setVisible(true);
+            }
         } else if (CurrentBox.isSelected()) {
-            ArrayList<String> list = newRepo.reportForAllRents(0);
-            ReportView newView = new ReportView(list);
+            try {
+                ArrayList<String> list = newRepo.reportForAllRents(0);
+                ReportView newView = new ReportView(list);
+            } catch (BookDoesntExistException | UserDoesntExistException ex) {
+                ErrorBox.setText("A report could not be formed.");
+                ErrorBox.setVisible(true);
+            }
         } else if (ReturnedBox.isSelected()) {
-            ArrayList<String> list = newRepo.reportForAllRents(1);
-            ReportView newView = new ReportView(list);
+            try {
+                ArrayList<String> list = newRepo.reportForAllRents(1);
+                ReportView newView = new ReportView(list);
+            } catch (BookDoesntExistException | UserDoesntExistException ex) {
+                ErrorBox.setText("A report could not be formed.");
+                ErrorBox.setVisible(true);
+            }
         } else {
             ErrorBox.setText("Please select what to form reports on.");
             ErrorBox.setVisible(true);

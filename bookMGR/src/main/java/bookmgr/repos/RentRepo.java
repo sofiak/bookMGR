@@ -143,7 +143,7 @@ public class RentRepo {
      * @return Rent object
      */
     public Rent fetchRent(int user_id, String ISBN) throws RentDoesntExistException {
-        List<Rent> rents = Rent.where("ISBN = ? AND user_id != ?", ISBN, user_id);
+        List<Rent> rents = Rent.where("ISBN = ? AND user_id = ?", ISBN, user_id);
         if (rents.isEmpty()) {
             throw new RentDoesntExistException();
         } else {

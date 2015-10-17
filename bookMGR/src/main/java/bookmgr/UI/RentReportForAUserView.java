@@ -1,11 +1,14 @@
 package bookmgr.UI;
 
+import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.main.Connection;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.AdminRepo;
 import bookmgr.repos.UserRepo;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RentReportForAUserView extends javax.swing.JFrame {
 
@@ -119,6 +122,9 @@ public class RentReportForAUserView extends javax.swing.JFrame {
             }
         } catch (UserDoesntExistException ex) {
             ErrorBox.setText("User doesn't exist.");
+            ErrorBox.setVisible(true);
+        } catch (BookDoesntExistException ex) {
+            ErrorBox.setText("A report could not be formed.");
             ErrorBox.setVisible(true);
         }
         conn.close();

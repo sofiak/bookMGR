@@ -1,5 +1,6 @@
 package bookmgr.UI;
 
+import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.main.Connection;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.exceptions.UserHasUnresolvedFeesOrRentsException;
@@ -94,17 +95,13 @@ public class RemoveUserView extends javax.swing.JFrame {
         } catch (UserDoesntExistException ex) {
             ErrorBox.setText("User doesn't exist.");
             ErrorBox.setVisible(true);
-        } catch (UserHasUnresolvedFeesOrRentsException ex) {
+        } catch (UserHasUnresolvedFeesOrRentsException | BookDoesntExistException ex) {
             ErrorBox.setText("ERROR: User has pending fees or loans.");
             ErrorBox.setVisible(true);
         }
-
         conn.close();
     }//GEN-LAST:event_RemoveButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public void render() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
