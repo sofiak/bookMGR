@@ -31,12 +31,13 @@ public class BookRepo {
      * @param pubYear publishing year of the book
      * @param copies number of copies of the book
      *
-     * @throws BookAlreadyExistsException if a book by the same ISBN already
-     * exists
-     *
      * @return Book object
      * @throws bookmgr.exceptions.UnacceptableISBNException
      * @throws bookmgr.exceptions.AuthorDoesntExistException
+     * @throws bookmgr.exceptions.BookDoesntExistException
+     * @throws bookmgr.exceptions.AuthorAndBookAreAlreadyConnectedException
+     * @throws BookAlreadyExistsException if a book by the same ISBN already
+     * exists
      */
     public Book createBook(String isbn, String title, String description,
             String author, int pubYear, int copies) throws BookAlreadyExistsException,
@@ -45,7 +46,7 @@ public class BookRepo {
         if (isbn.length() == 13) {
             if (this.CheckBook(isbn) == false) {
                 Author authorT = this.GetAuthor(author);
-                
+
                 Book book = new Book();
                 book.set("ISBN", isbn);
                 book.set("title", title);
@@ -226,6 +227,7 @@ public class BookRepo {
      */
     public Author fetchAuthor(int author_id) throws AuthorDoesntExistException {
         Author author = Author.findById(author_id);
+        System.out.println(author);
         if (author == null) {
             throw new AuthorDoesntExistException();
         } else {
@@ -259,15 +261,15 @@ public class BookRepo {
      * @throws AuthorAndBookAreAlreadyConnectedException if the objects are
      * already connected
      */
-    public void addAuthorToBook(int book_id, int author_id) throws BookDoesntExistException, 
+    public void addAuthorToBook(int book_id, int author_id) throws BookDoesntExistException,
             AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
         Author author = this.fetchAuthor(author_id);
         Book book = this.fetchBook(book_id);
         boolean exists = this.checkBookAuthor(book_id, author_id);
-        if (exists = false) {
+        if (exists == false) {
             BookAuthor bookauthor = new BookAuthor();
             bookauthor.set("book_id", book_id);
-            bookauthor.set(author_id, author_id);
+            bookauthor.set("author_id", author_id);
             bookauthor.saveIt();
         } else {
             throw new AuthorAndBookAreAlreadyConnectedException();
