@@ -44,6 +44,8 @@ public class BookRepo {
             AuthorAndBookAreAlreadyConnectedException {
         if (isbn.length() == 13) {
             if (this.CheckBook(isbn) == false) {
+                Author authorT = this.GetAuthor(author);
+                
                 Book book = new Book();
                 book.set("ISBN", isbn);
                 book.set("title", title);
@@ -52,7 +54,7 @@ public class BookRepo {
                 book.set("copies", copies);
                 book.saveIt();
 
-                this.addAuthorToBook(book.getInteger("id"), this.GetAuthor(author).getInteger("id"));
+                this.addAuthorToBook(book.getInteger("id"), authorT.getInteger("id"));
                 return book;
             } else {
                 throw new BookAlreadyExistsException();
@@ -257,7 +259,8 @@ public class BookRepo {
      * @throws AuthorAndBookAreAlreadyConnectedException if the objects are
      * already connected
      */
-    public void addAuthorToBook(int book_id, int author_id) throws BookDoesntExistException, AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
+    public void addAuthorToBook(int book_id, int author_id) throws BookDoesntExistException, 
+            AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
         Author author = this.fetchAuthor(author_id);
         Book book = this.fetchBook(book_id);
         boolean exists = this.checkBookAuthor(book_id, author_id);
@@ -301,7 +304,7 @@ public class BookRepo {
      * @return BookAuthor object
      */
     public List<BookAuthor> fetchBookAuthor(int book_id, int author_id) {
-        List<BookAuthor> bookauthor = BookAuthor.findBySQL("author_id = ? AND book_id = ?", author_id, book_id);
+        List<BookAuthor> bookauthor = BookAuthor.where("author_id = ? AND book_id = ?", author_id, book_id);
         return bookauthor;
     }
 
@@ -314,7 +317,7 @@ public class BookRepo {
      * @return true if BookAuthor exists, false if not
      */
     public boolean checkBookAuthor(int book_id, int author_id) {
-        List<BookAuthor> bookauthor = BookAuthor.findBySQL("author_id = ? AND book_id = ?", author_id, book_id);
+        List<BookAuthor> bookauthor = BookAuthor.where("author_id = ? AND book_id = ?", author_id, book_id);
         if (bookauthor.isEmpty()) {
             return false;
         } else {

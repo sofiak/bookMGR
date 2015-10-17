@@ -2,8 +2,12 @@ package bookmgr.UI;
 
 import bookmgr.main.Connection;
 import bookmgr.exceptions.AuthorDoesntExistException;
+import bookmgr.exceptions.AuthorHasNoBooksException;
+import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.repos.AdminRepo;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AuthorReportView extends javax.swing.JFrame {
 
@@ -92,6 +96,9 @@ public class AuthorReportView extends javax.swing.JFrame {
             newView.render();
             this.dispose();
         } catch (AuthorDoesntExistException ex) {
+            ErrorBox.setVisible(true);
+        } catch (BookDoesntExistException | AuthorHasNoBooksException ex) {
+            ErrorBox.setText("Author has no books to show.");
             ErrorBox.setVisible(true);
         }
         

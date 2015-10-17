@@ -1,6 +1,8 @@
 package bookmgr.repos;
 
 import bookmgr.exceptions.AuthorDoesntExistException;
+import bookmgr.exceptions.AuthorHasNoBooksException;
+import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.exceptions.UserHasUnresolvedFeesOrRentsException;
 import bookmgr.models.Author;
@@ -99,11 +101,21 @@ public class AdminRepo {
      *
      * @return List of the books
      */
-    public ArrayList<String> reportBooksByAuthor(String name) throws AuthorDoesntExistException {
+    public ArrayList<String> reportBooksByAuthor(String name) throws AuthorDoesntExistException, 
+            BookDoesntExistException, AuthorHasNoBooksException {
         BookRepo newRepo = new BookRepo();
         Author author = newRepo.GetAuthor(name);
-        List<BookAuthor> booksbyauthor = Book.where("author_id = ?", author.get("id"));
+        List<BookAuthor> bookAuthors = BookAuthor.where("author_id = ?", author.get("id"));
+        List<Book> booksbyauthor = null;
+        if(bookAuthors.isEmpty()) {
+            throw new AuthorHasNoBooksException();
+        }else {
+        for(int i = 0; i <= bookAuthors.size(); i++) {
+            int bookId = bookAuthors.get(i).getInteger("book_id");
+            booksbyauthor.add(newRepo.fetchBook(bookId));
+        }
         return this.reportToString(booksbyauthor);
+        }
     }
 
     public boolean changeAdminPassword(int adminId, String password) throws UserDoesntExistException {
