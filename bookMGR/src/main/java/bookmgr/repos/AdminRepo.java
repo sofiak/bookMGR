@@ -99,11 +99,11 @@ public class AdminRepo {
      *
      * @param name name of the author in String form
      *
-     * @return List of the books
-     * 
      * @throws AuthorDoesntExistException
      * @throws BookDoesntExistException
      * @throws AuthorHasNoBooksException
+     *
+     * @return List of the books
      */
     public ArrayList<String> reportBooksByAuthor(String name) throws AuthorDoesntExistException,
             BookDoesntExistException, AuthorHasNoBooksException {
@@ -125,6 +125,16 @@ public class AdminRepo {
         }
     }
 
+    /**
+     * Method changes Admin's password
+     *
+     * @param adminId ID of the admin
+     * @param password new password for the admin, as given by user
+     *
+     * @throws UserDoesntExistException if user(admin) doesn't exist
+     *
+     * @return List of the books
+     */
     public boolean changeAdminPassword(int adminId, String password) throws UserDoesntExistException {
         UserRepo newRepo = new UserRepo();
         User user = newRepo.fetchUser(adminId);
@@ -134,6 +144,16 @@ public class AdminRepo {
         return true;
     }
 
+    /**
+     * Method changes a user's password
+     *
+     * @param username username of the user whose password is to be changed
+     * @param password new password as entered by user
+     *
+     * @throws UserDoesntExistException
+     *
+     * @return List of the books
+     */
     public boolean changeAPassword(String username, String password) throws UserDoesntExistException {
         UserRepo newRepo = new UserRepo();
         User user = newRepo.getUser(username);

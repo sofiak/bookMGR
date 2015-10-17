@@ -24,7 +24,7 @@ public class UserRepo {
      *
      * @throws UserAlreadyExistsException if the username is already taken
      *
-     * @return todennäköisyys kalibroituna
+     * @return User object
      */
     public User createUser(String uname, String pw) throws UserAlreadyExistsException {
         if (this.CheckUser(uname) == null) {
@@ -57,11 +57,20 @@ public class UserRepo {
         }
     }
 
+    /**
+     * Method fetches a user based on username
+     *
+     * @param username username of the user to fetch
+     *
+     * @throws UserDoesntExistException if user doesn't exist
+     *
+     * @return User object
+     */
     public User getUser(String username) throws UserDoesntExistException {
         User user = CheckUser(username);
-        if(user == null) {
+        if (user == null) {
             throw new UserDoesntExistException();
-        }else{
+        } else {
             return user;
         }
     }
@@ -125,7 +134,7 @@ public class UserRepo {
     }
 
     /**
-     * Method checks if a certain username is in user
+     * Method checks if a certain username is taken
      *
      * @param username username
      *
@@ -164,6 +173,7 @@ public class UserRepo {
      * @param user_id ID of user
      *
      * @throws UserDoesntExistException if user doesn't exist
+     * @throws bookmgr.exceptions.CantPayMoreThanPendingFeesException
      *
      * @return true if payment is successful, false if not
      */
@@ -181,7 +191,7 @@ public class UserRepo {
     }
 
     /**
-     * Method fetches a certain users active balance
+     * Method fetches a certain users pending fees balance
      *
      * @param user_id ID of the user
      *
@@ -194,6 +204,18 @@ public class UserRepo {
         return user.getDouble("fees");
     }
 
+    /**
+     * Method compares a username and password entered by user in the SignInView to
+     * to the same in the database
+     *
+     * @param username username as entered by the user
+     * @param password password as entered by the user
+     *
+     * @throws UnauthorizedException if username doesn't exist, or username and 
+     * password do not match
+     *
+     * @return current fees
+     */
     public User signIn(String username, String password) throws UnauthorizedException {
         UserRepo userrepo = new UserRepo();
         List<User> userlist = User.where("username = ?", username);

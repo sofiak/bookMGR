@@ -23,7 +23,7 @@ public class RentRepo {
      * Method for creating a Rent object with given attributes, User and Book
      *
      * @param user_id id for User
-     * @param book_id id for Book
+     * @param ISBN ISBN for the book
      *
      * @throws BookDoesntExistException if book does not exist
      * @throws BookNotAvailableException if the book has no available copies
@@ -66,14 +66,17 @@ public class RentRepo {
     /**
      * Method for returning a rented book
      *
-     * @param rent_id id for Rent object
+     * @param user_id ID for the user
+     * @param ISBN ISBN of the book
      *
      * @throws RentDoesntExistException if rent doesn't exist
      * @throws UserDoesntExistException if user doesn't exist
+     * @throws BookDoesntExistException is book doesn't exist
      *
      * @return Rent object
      */
-    public Rent returnBook(int user_id, String ISBN) throws RentDoesntExistException, UserDoesntExistException, BookDoesntExistException {
+    public Rent returnBook(int user_id, String ISBN) throws RentDoesntExistException, 
+            UserDoesntExistException, BookDoesntExistException {
         BookRepo newRepo = new BookRepo();
         Book book = newRepo.GetBook(ISBN);
         int book_id = book.getInteger("id");
@@ -117,7 +120,8 @@ public class RentRepo {
     /**
      * Method extends the renting period of a book by 30 days from current date
      *
-     * @param rent_id ID of the rent
+     * @param user_id ID for the user
+     * @param ISBN ISBN of the book
      *
      * @throws RentDoesntExistException if rent doesn't exist
      */
@@ -129,9 +133,10 @@ public class RentRepo {
     }
 
     /**
-     * Method fetches a rent based on ID
+     * Method fetches a rent based on ID of the user and ISBN of the book
      *
-     * @param rent_id ID of the rent
+     * @param user_id ID of the user
+     * @param ISBN ISBN of the book
      *
      * @throws RentDoesntExistException is rent doesn't exist
      *
@@ -147,7 +152,7 @@ public class RentRepo {
     }
 
     /**
-     * Method calculates copies available of a certain book
+     * Method calculates number of copies available of a certain book
      *
      * @param book_id id of the book
      * 

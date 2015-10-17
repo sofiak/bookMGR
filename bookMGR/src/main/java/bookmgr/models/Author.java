@@ -1,14 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bookmgr.models;
 
 import org.javalite.activejdbc.Model;
 import org.javalite.activejdbc.annotations.Table;
 
+/**
+ * A model for creating objects from rows of table "authors"
+ */
 @Table("authors")
-public class Author extends Model{
-    
+public class Author extends Model {
+
 }
