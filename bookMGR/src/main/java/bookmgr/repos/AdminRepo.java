@@ -200,7 +200,8 @@ public class AdminRepo {
                 returned = "not returned";
                 Date due_date = rent.getDate("due_date");
                 newArray.add("" + book.getString("isbn") + ", "
-                        + user.getString("username") + ", " + returned + ", " + due_date);
+                        + user.getString("username") + ", " + returned + ", " 
+                        + due_date);
             }
         }
         return newArray;

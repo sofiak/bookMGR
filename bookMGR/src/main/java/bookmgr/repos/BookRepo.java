@@ -86,7 +86,9 @@ public class BookRepo {
      * @return Book object
      */
     public Book editBook(String isbn, String title, String description, String author, int pubYear,
-            int copies) throws BookDoesntExistException, BookAlreadyExistsException, CantRemoveBooksNotOnTheShelfException, AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException, AuthorAndBookAreNotConnectedException {
+            int copies) throws BookDoesntExistException, BookAlreadyExistsException, 
+            CantRemoveBooksNotOnTheShelfException, AuthorDoesntExistException, 
+            AuthorAndBookAreAlreadyConnectedException, AuthorAndBookAreNotConnectedException {
         Book book = this.GetBook(isbn);
         RentRepo newRepo = new RentRepo();
         if (copies < (book.getInteger("copies") - newRepo.availableCopies(book.getInteger("id")))) {
@@ -267,8 +269,9 @@ public class BookRepo {
      * @throws AuthorAndBookAreAlreadyConnectedException if the objects are
      * already connected
      */
-    public void addAuthorToBook(int book_id, int author_id) throws BookDoesntExistException,
-            AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
+    public void addAuthorToBook(int book_id, int author_id) 
+            throws BookDoesntExistException, AuthorDoesntExistException, 
+            AuthorAndBookAreAlreadyConnectedException {
         Author author = this.fetchAuthor(author_id);
         Book book = this.fetchBook(book_id);
         boolean exists = this.checkBookAuthor(book_id, author_id);
@@ -293,7 +296,9 @@ public class BookRepo {
      * @throws AuthorAndBookAreNotConnectedException if the objects are not
      * connected
      */
-    public void removeAuthorFromBook(int book_id, int author_id) throws AuthorDoesntExistException, BookDoesntExistException, AuthorAndBookAreNotConnectedException {
+    public void removeAuthorFromBook(int book_id, int author_id)
+            throws AuthorDoesntExistException, BookDoesntExistException,
+            AuthorAndBookAreNotConnectedException {
         boolean exists = this.checkBookAuthor(book_id, author_id);
         if (exists == true) {
             BookAuthor bookauthor = this.fetchBookAuthor(book_id, author_id).get(0);
@@ -312,7 +317,8 @@ public class BookRepo {
      * @return BookAuthor object
      */
     public List<BookAuthor> fetchBookAuthor(int book_id, int author_id) {
-        List<BookAuthor> bookauthor = BookAuthor.where("author_id = ? AND book_id = ?", author_id, book_id);
+        List<BookAuthor> bookauthor
+                = BookAuthor.where("author_id = ? AND book_id = ?", author_id, book_id);
         return bookauthor;
     }
 
@@ -325,7 +331,8 @@ public class BookRepo {
      * @return true if BookAuthor exists, false if not
      */
     public boolean checkBookAuthor(int book_id, int author_id) {
-        List<BookAuthor> bookauthor = BookAuthor.where("author_id = ? AND book_id = ?", author_id, book_id);
+        List<BookAuthor> bookauthor
+                = BookAuthor.where("author_id = ? AND book_id = ?", author_id, book_id);
         if (bookauthor.isEmpty()) {
             return false;
         } else {
