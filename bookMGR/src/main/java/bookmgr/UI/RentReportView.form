@@ -56,7 +56,7 @@
               <Component id="ReturnedBox" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="GetButton" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="ErrorBox" min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
       </Group>

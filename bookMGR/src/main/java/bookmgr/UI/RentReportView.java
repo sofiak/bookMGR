@@ -75,7 +75,7 @@ public class RentReportView extends javax.swing.JFrame {
                 .addComponent(ReturnedBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(GetButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ErrorBox, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -90,6 +90,7 @@ public class RentReportView extends javax.swing.JFrame {
             try {
                 ArrayList<String> list = newRepo.reportForAllRents(2);
                 ReportView newView = new ReportView(list);
+                newView.render();
             } catch (BookDoesntExistException | UserDoesntExistException ex) {
                 ErrorBox.setText("A report could not be formed.");
                 ErrorBox.setVisible(true);
@@ -98,6 +99,7 @@ public class RentReportView extends javax.swing.JFrame {
             try {
                 ArrayList<String> list = newRepo.reportForAllRents(0);
                 ReportView newView = new ReportView(list);
+                newView.render();
             } catch (BookDoesntExistException | UserDoesntExistException ex) {
                 ErrorBox.setText("A report could not be formed.");
                 ErrorBox.setVisible(true);
@@ -106,6 +108,7 @@ public class RentReportView extends javax.swing.JFrame {
             try {
                 ArrayList<String> list = newRepo.reportForAllRents(1);
                 ReportView newView = new ReportView(list);
+                newView.render();
             } catch (BookDoesntExistException | UserDoesntExistException ex) {
                 ErrorBox.setText("A report could not be formed.");
                 ErrorBox.setVisible(true);
