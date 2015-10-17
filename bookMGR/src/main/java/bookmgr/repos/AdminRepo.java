@@ -75,7 +75,7 @@ public class AdminRepo {
         } else {
             rents = rent.where("user_id = ? AND hasReturned = ?", user_id, bookStatus);
         }
-        return this.reportToString(rents);
+        return this.reportRentsToString(rents);
     }
 
     /**
@@ -91,7 +91,7 @@ public class AdminRepo {
         Rent rent = new Rent();
         List<Rent> rents = rent.where("hasReturned = ?", bookStatus);
 
-        return this.reportToString(rents);
+        return this.reportRentsToString(rents);
     }
 
     /**
@@ -116,12 +116,11 @@ public class AdminRepo {
             List<Book> booksbyauthor = new ArrayList<>();
             for (int i = 0; i < bookAuthors.size(); i++) {
                 int bookId = bookAuthors.get(i).getInteger("book_id");
-                System.out.println(bookId);
                 Book book = newRepo.fetchBook(bookId);
                 booksbyauthor.add(book);
 
             }
-            return this.reportToString(booksbyauthor);
+            return this.reportBookToString(booksbyauthor);
         }
     }
 
@@ -163,12 +162,23 @@ public class AdminRepo {
         return true;
     }
 
-    private ArrayList<String> reportToString(List list) {
+    private ArrayList<String> reportRentsToString(List list) {
         ArrayList<String> newArray = new ArrayList<>();
         for (Object list1 : list) {
             newArray.add(list1.toString());
         }
 
+        return newArray;
+    }
+
+    private ArrayList<String> reportBookToString(List<Book> list) {
+        ArrayList<String> newArray = new ArrayList<>();
+        BookRepo newRepo = new BookRepo();
+        for (int i = 0; 1 < list.size(); i++) {
+            Book book = list.get(i);
+            newArray.add(""+book.getString("isbn")+", "+book.getString("title")+", "
+                    +book.getInteger("pub_year")+", "+book.getInteger("copies") +" copies");
+        }
         return newArray;
     }
 }
