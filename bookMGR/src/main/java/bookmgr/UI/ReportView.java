@@ -13,8 +13,8 @@ public class ReportView extends javax.swing.JFrame {
         this.list = list;
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Report");
-        for (int i = 0; i < list.size(); i++) {
-            model.addColumn(list.get(i));
+        for (String element : list) {
+            model.addRow(new Object[]{element});
         }
         jTable1.setModel(model);
     }
