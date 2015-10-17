@@ -1,6 +1,6 @@
 package bookmgr.UI;
 
-import bookmgr.bookmgr.Connection;
+import bookmgr.main.Connection;
 import bookmgr.exceptions.AuthorDoesntExistException;
 import bookmgr.repos.AdminRepo;
 import java.util.ArrayList;
@@ -90,6 +90,7 @@ public class AuthorReportView extends javax.swing.JFrame {
             ArrayList<String> list = newRepo.reportBooksByAuthor(AuthorNameField.getText());
             ReportView newView = new ReportView(list);
             newView.render();
+            this.dispose();
         } catch (AuthorDoesntExistException ex) {
             ErrorBox.setVisible(true);
         }

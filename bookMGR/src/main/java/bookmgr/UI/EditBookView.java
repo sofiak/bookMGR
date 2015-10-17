@@ -1,6 +1,6 @@
 package bookmgr.UI;
 
-import bookmgr.bookmgr.Connection;
+import bookmgr.main.Connection;
 import bookmgr.exceptions.AuthorAndBookAreAlreadyConnectedException;
 import bookmgr.exceptions.AuthorAndBookAreNotConnectedException;
 import bookmgr.exceptions.AuthorDoesntExistException;

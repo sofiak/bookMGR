@@ -1,6 +1,6 @@
 package bookmgr.UI;
 
-import bookmgr.bookmgr.Connection;
+import bookmgr.main.Connection;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.RentDoesntExistException;
 import bookmgr.exceptions.UserDoesntExistException;

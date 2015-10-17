@@ -1,6 +1,6 @@
 package bookmgr.UI;
 
-import bookmgr.bookmgr.Connection;
+import bookmgr.main.Connection;
 import bookmgr.repos.AdminRepo;
 import java.util.ArrayList;
 
@@ -27,6 +27,7 @@ public class RentReportView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("bookMGR - Report");
+        setResizable(false);
 
         GetButton.setText("Get");
         GetButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

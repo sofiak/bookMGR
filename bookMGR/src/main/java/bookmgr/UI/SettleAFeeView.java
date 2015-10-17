@@ -1,6 +1,6 @@
 package bookmgr.UI;
 
-import bookmgr.bookmgr.Connection;
+import bookmgr.main.Connection;
 import bookmgr.exceptions.CantPayMoreThanPendingFeesException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;

@@ -46,7 +46,6 @@ public class BookRepo {
             if (this.CheckBook(isbn) == false) {
                 Book book = new Book();
                 book.set("ISBN", isbn);
-                book.set("author", this.GetAuthor(author));
                 book.set("title", title);
                 book.set("description", description);
                 book.set("pub_year", pubYear);

@@ -181,6 +181,11 @@ public class AdminView extends javax.swing.JFrame {
         Users.add(SettleFee, gridBagConstraints);
 
         ChangeAPasswordButton.setText("Change a password");
+        ChangeAPasswordButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChangeAPasswordButtonActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -310,6 +315,11 @@ public class AdminView extends javax.swing.JFrame {
      ChangeAdminPasswordView newView = new ChangeAdminPasswordView(user);
      newView.render();
     }//GEN-LAST:event_ChangePasswordButtonActionPerformed
+
+    private void ChangeAPasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChangeAPasswordButtonActionPerformed
+        ChangeAPasswordView newView = new ChangeAPasswordView();
+        newView.render();
+    }//GEN-LAST:event_ChangeAPasswordButtonActionPerformed
 
     public void render() {
         /* Set the Nimbus look and feel */
