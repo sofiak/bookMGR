@@ -110,12 +110,15 @@ public class RentReportForAUserView extends javax.swing.JFrame {
             if (CurrentBox.isSelected() && ReturnedBox.isSelected()) {
                 ArrayList<String> list = newRepo.reportForRents(user.getInteger("id"), 2);
                 ReportView newView = new ReportView(list);
+                newView.render();
             } else if (CurrentBox.isSelected()) {
                 ArrayList<String> list = newRepo.reportForRents(user.getInteger("id"), 0);
                 ReportView newView = new ReportView(list);
+                newView.render();
             } else if (ReturnedBox.isSelected()) {
                 ArrayList<String> list = newRepo.reportForRents(user.getInteger("id"), 1);
                 ReportView newView = new ReportView(list);
+                newView.render();
             } else {
                 ErrorBox.setText("Please select what to form reports on.");
                 ErrorBox.setVisible(true);

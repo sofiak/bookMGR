@@ -74,7 +74,7 @@ public class AdminRepo {
      */
     public ArrayList<String> reportForRents(int user_id, int bookStatus)
             throws BookDoesntExistException, UserDoesntExistException {
-        RentRepo rentrepo = new RentRepo();
+        RentRepo newRepo = new RentRepo();
         Rent rent = new Rent();
         List<Rent> rents;
 
@@ -189,12 +189,12 @@ public class AdminRepo {
             String returned;
             if (rent.getInteger("hasReturned") == 1) {
                 returned = "returned";
-                newArray.add("" + rent.getString("isbn") + ", "
+                newArray.add("" + book.getString("isbn") + ", "
                         + user.getString("username") + ", " + returned + "");
             } else {
                 returned = "not returned";
                 Date due_date = rent.getDate("due_date");
-                newArray.add("" + rent.getString("isbn") + ", "
+                newArray.add("" + book.getString("isbn") + ", "
                         + user.getString("username") + ", " + returned + ", " + due_date);
             }
         }
