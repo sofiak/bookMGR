@@ -69,10 +69,10 @@ public class AdminRepo {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
         List<Rent> rents;
-        
-        if(bookStatus == 2){
+
+        if (bookStatus == 2) {
             rents = rent.where("user_id = ?", user_id);
-        }else{
+        } else {
             rents = rent.where("user_id = ? AND hasReturned = ?", user_id, bookStatus);
         }
         return this.reportToString(rents);
@@ -90,7 +90,7 @@ public class AdminRepo {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
         List<Rent> rents = rent.where("hasReturned = ?", bookStatus);
-       
+
         return this.reportToString(rents);
     }
 
@@ -100,21 +100,28 @@ public class AdminRepo {
      * @param name name of the author in String form
      *
      * @return List of the books
+     * 
+     * @throws AuthorDoesntExistException
+     * @throws BookDoesntExistException
+     * @throws AuthorHasNoBooksException
      */
-    public ArrayList<String> reportBooksByAuthor(String name) throws AuthorDoesntExistException, 
+    public ArrayList<String> reportBooksByAuthor(String name) throws AuthorDoesntExistException,
             BookDoesntExistException, AuthorHasNoBooksException {
         BookRepo newRepo = new BookRepo();
         Author author = newRepo.GetAuthor(name);
-        List<BookAuthor> bookAuthors = BookAuthor.where("author_id = ?", author.get("id"));
-        List<Book> booksbyauthor = null;
-        if(bookAuthors.isEmpty()) {
+        List<BookAuthor> bookAuthors = BookAuthor.where("author_id = ?", author.getInteger("id"));
+        if (bookAuthors.isEmpty()) {
             throw new AuthorHasNoBooksException();
-        }else {
-        for(int i = 0; i <= bookAuthors.size(); i++) {
-            int bookId = bookAuthors.get(i).getInteger("book_id");
-            booksbyauthor.add(newRepo.fetchBook(bookId));
-        }
-        return this.reportToString(booksbyauthor);
+        } else {
+            List<Book> booksbyauthor = new ArrayList<>();
+            for (int i = 0; i < bookAuthors.size(); i++) {
+                int bookId = bookAuthors.get(i).getInteger("book_id");
+                System.out.println(bookId);
+                Book book = newRepo.fetchBook(bookId);
+                booksbyauthor.add(book);
+
+            }
+            return this.reportToString(booksbyauthor);
         }
     }
 
@@ -141,7 +148,7 @@ public class AdminRepo {
         for (Object list1 : list) {
             newArray.add(list1.toString());
         }
-        
+
         return newArray;
     }
 }

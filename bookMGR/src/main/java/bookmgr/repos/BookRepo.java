@@ -73,10 +73,15 @@ public class BookRepo {
      * @param description description of the book
      * @param pubYear publishing year of the book
      * @param copies number of copies of the book
+     * @param author name of author in string form
      *
      * @throws BookAlreadyExistsException if a book by the same ISBN already
      * exists
      * @throws BookDoesntExistException if the book doesn't exist
+     * @throws bookmgr.exceptions.CantRemoveBooksNotOnTheShelfException
+     * @throws bookmgr.exceptions.AuthorDoesntExistException
+     * @throws bookmgr.exceptions.AuthorAndBookAreAlreadyConnectedException
+     * @throws bookmgr.exceptions.AuthorAndBookAreNotConnectedException
      *
      * @return Book object
      */
@@ -179,6 +184,7 @@ public class BookRepo {
      * @param name name of the author
      *
      * @return Author object
+     * @throws bookmgr.exceptions.AuthorAlreadyExistsException
      */
     public Author createAuthor(String name) throws AuthorAlreadyExistsException {
         if (this.CheckAuthor(name) == false) {
