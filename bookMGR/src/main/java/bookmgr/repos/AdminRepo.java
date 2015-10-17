@@ -92,7 +92,7 @@ public class AdminRepo {
      *
      * @param bookStatus specifies if loans to be collected are returned,
      * current, or all
-     * 
+     *
      * @throws BookDoesntExistException if book doesn't exist
      * @throws UserDoesntExistException if user doesn't exist
      *
@@ -102,7 +102,12 @@ public class AdminRepo {
             throws BookDoesntExistException, UserDoesntExistException {
         RentRepo rentrepo = new RentRepo();
         Rent rent = new Rent();
-        List<Rent> rents = rent.where("hasReturned = ?", bookStatus);
+        List<Rent> rents;
+        if (bookStatus != 2) {
+            rents = rent.where("hasReturned = ?", bookStatus);
+        } else {
+            rents = Rent.findAll();
+        }
 
         return this.reportRentsToString(rents);
     }

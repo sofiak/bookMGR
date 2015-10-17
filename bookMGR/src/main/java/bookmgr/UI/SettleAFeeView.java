@@ -5,8 +5,6 @@ import bookmgr.exceptions.CantPayMoreThanPendingFeesException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.UserRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SettleAFeeView extends javax.swing.JFrame {
 
@@ -36,6 +34,7 @@ public class SettleAFeeView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("bookMGR - Settle a fee");
+        setResizable(false);
 
         UsernameLabel.setText("Username");
 
@@ -122,6 +121,8 @@ public class SettleAFeeView extends javax.swing.JFrame {
         try {
             User user = newRepo.getUser(UsernameField.getText());
             newRepo.payFee((double) AmountToPaySpinner.getValue(), user.getInteger("id"));
+            ErrorBox.setText((double) AmountToPaySpinner.getValue()+ "€ paid.");
+            this.repaint();
         } catch (UserDoesntExistException ex) {
             // Doesn't need to be caught, existence is checked in previous method
         } catch (CantPayMoreThanPendingFeesException ex) {

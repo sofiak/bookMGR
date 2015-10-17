@@ -119,10 +119,12 @@ public class UserRepo {
      * @param newPass user input new pw
      *
      * @throws UserDoesntExistException if user doesn't exist
+     * @throws InvalidPasswordException if old password isn't entered correctly
      *
      * @return returns true if change was successful
      */
-    public boolean setNewPassword(int user_id, String oldPass, String newPass) throws UserDoesntExistException, InvalidPasswordException {
+    public boolean setNewPassword(int user_id, String oldPass, String newPass) 
+            throws UserDoesntExistException, InvalidPasswordException {
         User user = this.fetchUser(user_id);
         if (user.getString("password").equals(oldPass)) {
             user.set("password", newPass);
@@ -162,7 +164,7 @@ public class UserRepo {
         User user = this.fetchUser(user_id);
         double currentFees = user.getDouble("fees");
         currentFees += fee;
-        user.setInteger("fees", currentFees);
+        user.setDouble("fees", currentFees);
         user.saveIt();
     }
 
@@ -182,7 +184,7 @@ public class UserRepo {
         double currentFees = user.getDouble("fees");
         if (currentFees >= fee) {
             currentFees -= fee;
-            user.setInteger("fees", currentFees);
+            user.setDouble("fees", currentFees);
             user.saveIt();
             return true;
         } else {

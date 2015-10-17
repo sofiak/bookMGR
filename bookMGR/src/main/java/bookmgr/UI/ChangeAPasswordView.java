@@ -29,6 +29,7 @@ public class ChangeAPasswordView extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("bookMGR - Change a password");
+        setResizable(false);
 
         UsernameLabel.setText("Username");
 
