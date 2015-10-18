@@ -164,7 +164,7 @@ public class UserRepo {
         User user = this.fetchUser(user_id);
         double currentFees = user.getDouble("fees");
         currentFees += fee;
-        user.setDouble("fees", currentFees);
+        user.set("fees", currentFees);
         user.saveIt();
     }
 
