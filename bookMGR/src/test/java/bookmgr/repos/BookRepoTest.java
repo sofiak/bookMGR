@@ -125,4 +125,9 @@ public class BookRepoTest {
         BookRepo newRepo = new BookRepo();
         newRepo.GetAuthor("R2D2");
     }
+    
+    @Test
+    public void addAuthorToBookThrowsException() {
+        
+    }
 }
