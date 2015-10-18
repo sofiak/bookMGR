@@ -1,17 +1,25 @@
 - 4.9. 0.5h repon luonti, muut alkutoimet
 - 11.9. 0.5h suunnittelua
 - 12.9. 6.0h loin tietokannan yms
-- 17.9.	
-- 18.9.	
-- 22.9.	
-- 25.9.	
-- 29.9.
-- 30.9.
-- 1.10.
-- 4.10. 3.5h 
-- 9.10.	
-- 12.10.
-- 13.10.
+- 13.9.	3.0h testausta
+- 14.9. 0.5h uusi metodi UserRepoon
+- 15.9. 2.0h testejä UserRepolle
+- 16.9. 2.0h UserRepoa	
+- 17.9. 0.5h UserRepoa
+- 18.9. 0.5h uusia metodeja repoihin
+- 19.9. 0.2h luokkakaavio
+- 24.9.	2.5h RentRepon luonti
+- 25.9.	6.0h RentRepoa, BookRepoa, uusia Exceptioneita, pit-report
+- 29.9. 2.0h AdminRepoa, BookRepoa
+- 2.10. 1.5h javadoc, sekvenssinkaavio
+- 5.10. 0.5h authentikointimetodi
+- 7.10. 0.5h GUIn aloitus
+- 10.10. 3.5h GUIn rakentamista
+- 11.10. 1.5h GUI-hommia..
+- 12.10. 4.0h GUI....
+- 13.10. 2.0h muutoksia BookRepon logiikkaan, GUI-hommia
+- 14.10. 0.5h GUI, raporttimuutoksia
+- 15.10. 0.5h muutos pomiin
 - 17.10. 4.5h viimeisiä korjauksia käyttöliittymään
 - 18.10. 3.0h dokumentoinnin viimeistely
 
