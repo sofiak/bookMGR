@@ -1,17 +1,17 @@
-4.9.  	0.5h repon luonti, muut alkutoimet
-11.9. 	0.5h suunnittelua
-12.9. 	6.0h loin tietokannan yms
-17.9.	
-18.9.	
-22.9.	
-25.9.	
-29.9.
-30.9.
-1.10.
-4.10. 	3.5h 
-9.10.	
-12.10.
-13.10.
-17.10.	4.5h viimeisiä korjauksia käyttöliittymään
-18.10.	3.0h dokumentoinnin viimeistely
+- 4.9. 0.5h repon luonti, muut alkutoimet
+- 11.9. 0.5h suunnittelua
+- 12.9. 6.0h loin tietokannan yms
+- 17.9.	
+- 18.9.	
+- 22.9.	
+- 25.9.	
+- 29.9.
+- 30.9.
+- 1.10.
+- 4.10. 3.5h 
+- 9.10.	
+- 12.10.
+- 13.10.
+- 17.10. 4.5h viimeisiä korjauksia käyttöliittymään
+- 18.10. 3.0h dokumentoinnin viimeistely
 
