@@ -19,4 +19,7 @@ Adminkäyttäjät (kirjastonhoitajat) voivat
 Admin-tunnus ja salasana
 admin, tiikerikakku
 
+valmis perustunnus
+brucewayne, alfred
+
 

@@ -9,3 +9,7 @@ Käyttäjätunnukset ovat luonnollisesti uniikkeja, eli duplikaatteja ei voi luoda.
 Uutta kirjaa lisättäessä, kirjailija pitää luoda ensin omalla välilehdellään, sen jälkeen kirjan voi luoda.
 
 Ohjelma antaa virhetilanteissa palautetta ja neuvoo mikäli käyttäjän syötteissä on epäselvyyksiä.
+
+Valmis peruskäyttäjätunnus
+brucewayne, ss. alfred
+
