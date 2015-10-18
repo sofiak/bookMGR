@@ -8,6 +8,7 @@ import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.CantRemoveBooksNotOnTheShelfException;
 import bookmgr.exceptions.UnacceptableISBNException;
+import bookmgr.models.Author;
 import bookmgr.models.Book;
 import junit.framework.Assert;
 import org.javalite.activejdbc.Base;
@@ -98,14 +99,19 @@ public class BookRepoTest {
         repo.fetchBook(randomId);
     }
 
-//    @Test
-//    public void editBookWorks() throws BookAlreadyExistsException, BookDoesntExistException, UnacceptableISBNException, AuthorAlreadyExistsException, AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException, CantRemoveBooksNotOnTheShelfException, AuthorAndBookAreNotConnectedException {
-//        BookRepo newRepo = new BookRepo();
-//        newRepo.createAuthor("Anneli");
-//        newRepo.createBook("1234567897898", "Harry Potter", "Good book", "Anneli", 1999, 5);
-//        Book book = newRepo.editBook("1234567897898", "LOTR", "Good book", "Anneli", 1999, 5);
-//        Assert.assertEquals("LOTR", book.getString("title"));
-//    }
+    @Test
+    public void editBookWorks() throws BookAlreadyExistsException,
+            BookDoesntExistException, UnacceptableISBNException,
+            AuthorAlreadyExistsException, AuthorDoesntExistException,
+            AuthorAndBookAreAlreadyConnectedException,
+            CantRemoveBooksNotOnTheShelfException, AuthorAndBookAreNotConnectedException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.createAuthor("Anneli");
+        newRepo.createBook("1234567897898", "Harry Potter", "Good book", "Anneli", 1999, 5);
+        Book book = newRepo.editBook("1234567897898", "LOTR", "Good book", "Anneli", 1999, 5);
+        Assert.assertEquals("LOTR", book.getString("title"));
+    }
+
     @Test(expected = BookDoesntExistException.class)
     public void getBookThrowsException() throws BookDoesntExistException {
         BookRepo newRepo = new BookRepo();
@@ -118,16 +124,54 @@ public class BookRepoTest {
         newRepo.createAuthor("R2D2");
         newRepo.createAuthor("R2D2");
     }
-    
-    @Test (expected = AuthorDoesntExistException.class)
-    public void GetAuthorThrowsException() throws AuthorAlreadyExistsException, 
+
+    @Test(expected = AuthorDoesntExistException.class)
+    public void GetAuthorThrowsException() throws AuthorAlreadyExistsException,
             AuthorDoesntExistException {
         BookRepo newRepo = new BookRepo();
         newRepo.GetAuthor("R2D2");
     }
-    
-    @Test
-    public void addAuthorToBookThrowsException() {
-        
+
+    @Test(expected = AuthorAndBookAreAlreadyConnectedException.class)
+    public void addAuthorToBookThrowsException()
+            throws AuthorAlreadyExistsException, BookAlreadyExistsException,
+            UnacceptableISBNException, AuthorDoesntExistException,
+            BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
+        BookRepo newRepo = new BookRepo();
+        Author author = newRepo.createAuthor("Anneli");
+        Book book = newRepo.createBook("1234567898798", "Harry Potter",
+                "Good book", "Anneli", 1999, 5);
+        newRepo.addAuthorToBook(book.getInteger("id"), author.getInteger("id"));
     }
+
+    @Test(expected = AuthorDoesntExistException.class)
+    public void fetchAuthorThrowsException() throws AuthorAlreadyExistsException,
+            AuthorDoesntExistException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.fetchAuthor(8888);
+    }
+
+    @Test(expected = AuthorDoesntExistException.class)
+    public void removeAuthorThrowsException() throws AuthorAlreadyExistsException,
+            AuthorDoesntExistException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.removeAuthor(8888);
+    }
+
+    @Test(expected = AuthorAndBookAreNotConnectedException.class)
+    public void removeAuthorFromBookThrowsException() throws AuthorAlreadyExistsException,
+            AuthorDoesntExistException,
+            BookAlreadyExistsException,
+            UnacceptableISBNException,
+            BookDoesntExistException,
+            AuthorAndBookAreAlreadyConnectedException,
+            AuthorAndBookAreNotConnectedException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.createAuthor("Anneli");
+        Author author = newRepo.createAuthor("The Hulk");
+        Book book = newRepo.createBook("1234567898798", "Harry Potter",
+                "Good book", "Anneli", 1999, 5);
+        newRepo.removeAuthorFromBook(book.getInteger("id"), author.getInteger("id"));
+    }
+
 }

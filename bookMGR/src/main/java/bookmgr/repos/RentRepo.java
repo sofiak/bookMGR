@@ -75,7 +75,7 @@ public class RentRepo {
      *
      * @return Rent object
      */
-    public Rent returnBook(int user_id, String ISBN) throws RentDoesntExistException, 
+    public Rent returnBook(int user_id, String ISBN) throws RentDoesntExistException,
             UserDoesntExistException, BookDoesntExistException {
         BookRepo newRepo = new BookRepo();
         Book book = newRepo.GetBook(ISBN);
@@ -125,7 +125,8 @@ public class RentRepo {
      *
      * @throws RentDoesntExistException if rent doesn't exist
      */
-    public void extendRent(int user_id, String ISBN) throws RentDoesntExistException {
+    public void extendRent(int user_id, String ISBN)
+            throws RentDoesntExistException, BookDoesntExistException {
         Rent rent = this.fetchRent(user_id, ISBN);
         Date date = this.calculateDueDate();
         rent.set("due_date", date);
@@ -142,8 +143,12 @@ public class RentRepo {
      *
      * @return Rent object
      */
-    public Rent fetchRent(int user_id, String ISBN) throws RentDoesntExistException {
-        List<Rent> rents = Rent.where("ISBN = ? AND user_id = ?", ISBN, user_id);
+    public Rent fetchRent(int user_id, String ISBN)
+            throws RentDoesntExistException, BookDoesntExistException {
+        BookRepo newRepo = new BookRepo();
+        Book book = newRepo.GetBook(ISBN);
+        List<Rent> rents = Rent.where("book_id = ? AND user_id = ?",
+                book.getInteger("id"), user_id);
         if (rents.isEmpty()) {
             throw new RentDoesntExistException();
         } else {
@@ -155,7 +160,7 @@ public class RentRepo {
      * Method calculates number of copies available of a certain book
      *
      * @param book_id id of the book
-     * 
+     *
      * @throws BookDoesntExistException if book doesn't exist
      *
      * @return copies number of copies available to rent

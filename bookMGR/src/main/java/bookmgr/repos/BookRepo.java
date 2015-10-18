@@ -93,11 +93,8 @@ public class BookRepo {
         RentRepo newRepo = new RentRepo();
         if (copies < (book.getInteger("copies") - newRepo.availableCopies(book.getInteger("id")))) {
             throw new CantRemoveBooksNotOnTheShelfException();
-        } else if (author.equalsIgnoreCase(book.getString("author"))) {
-            book = this.bookSetter(book, title, description, pubYear, copies);
-            return book;
         } else {
-            Author oldAuthor = this.GetAuthor(book.getString("author"));
+            Author oldAuthor = this.GetAuthor(author);
             this.removeAuthorFromBook(book.getInteger("id"), oldAuthor.getInteger("id"));
             book = this.bookSetter(book, title, description, pubYear, copies);
             this.addAuthorToBook(book.getInteger("id"), this.GetAuthor(author).getInteger("id"));
