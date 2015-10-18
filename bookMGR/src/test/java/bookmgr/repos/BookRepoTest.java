@@ -29,17 +29,17 @@ public class BookRepoTest {
         Base.close();
     }
 
-//    @Test
-//    public void AddBookWorks() throws BookAlreadyExistsException, UnacceptableISBNException,
-//            AuthorAlreadyExistsException, AuthorDoesntExistException,
-//            BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
-//        BookRepo newRepo = new BookRepo();
-//        newRepo.createAuthor("Anneli");
-//        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
-//
-//        String title = book.getString("title");
-//        Assert.assertEquals("Harry Potter", title);
-//    }
+    @Test
+    public void AddBookWorks() throws BookAlreadyExistsException, UnacceptableISBNException,
+            AuthorAlreadyExistsException, AuthorDoesntExistException,
+            BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.createAuthor("Anneli");
+        Book book = newRepo.createBook("1234567895446", "Harry Potter", "Good book", "Anneli", 1999, 5);
+
+        String title = book.getString("title");
+        Assert.assertEquals("Harry Potter", title);
+    }
 
     @Test(expected = BookAlreadyExistsException.class)
     public void CantCreateISBNDuplicates() throws BookAlreadyExistsException,
@@ -53,27 +53,44 @@ public class BookRepoTest {
         book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
     }
 
-//    @Test
-//    public void fetchBookWorks() throws BookAlreadyExistsException,
-//            BookDoesntExistException, UnacceptableISBNException,
-//            AuthorAlreadyExistsException, AuthorDoesntExistException,
-//            AuthorAndBookAreAlreadyConnectedException {
-//
-//        BookRepo newRepo = new BookRepo();
-//        newRepo.createAuthor("Anneli");
-//        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
-//        Book book1 = newRepo.fetchBook(book.getInteger("id"));
-//
-//        Assert.assertEquals(book.get("title"), book1.get("title"));
-//    }
+    @Test(expected = UnacceptableISBNException.class)
+    public void createBookThrowsExceptionIfIsbnIsInvalid() throws BookAlreadyExistsException,
+            UnacceptableISBNException, AuthorAlreadyExistsException,
+            AuthorDoesntExistException, BookDoesntExistException,
+            AuthorAndBookAreAlreadyConnectedException {
 
-//    @Test(expected = BookDoesntExistException.class)
-//    public void removeBookWorks() throws BookAlreadyExistsException, BookDoesntExistException {
-//        BookRepo repo = new BookRepo();
-//        Book book = repo.createBook("1234567890123", "Harry Potter", "Good book", 1999, 5);
-//        repo.removeBook(book.getInteger("id"));
-//        Book book1 = repo.fetchBook(book.getInteger("id"));
-//    }
+        BookRepo newRepo = new BookRepo();
+        newRepo.createAuthor("Anneli");
+        Book book = newRepo.createBook("123456789", "Harry Potter", "Good book", "Anneli", 1999, 5);
+    }
+
+    @Test
+    public void fetchBookWorks() throws BookAlreadyExistsException,
+            BookDoesntExistException, UnacceptableISBNException,
+            AuthorAlreadyExistsException, AuthorDoesntExistException,
+            AuthorAndBookAreAlreadyConnectedException {
+
+        BookRepo newRepo = new BookRepo();
+        newRepo.createAuthor("Anneli");
+        Book book = newRepo.createBook("1234567895587", "Harry Potter", "Good book", "Anneli", 1999, 5);
+        Book book1 = newRepo.fetchBook(book.getInteger("id"));
+
+        Assert.assertEquals(book.get("title"), book1.get("title"));
+    }
+
+    @Test(expected = BookDoesntExistException.class)
+    public void removeBookWorks() throws BookAlreadyExistsException,
+            BookDoesntExistException, AuthorAlreadyExistsException,
+            UnacceptableISBNException, AuthorDoesntExistException,
+            AuthorAndBookAreAlreadyConnectedException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.createAuthor("Anneli");
+        Book book = newRepo.createBook("1234567898798", "Harry Potter",
+                "Good book", "Anneli", 1999, 5);
+        newRepo.removeBook("1234567898798");
+        Book book1 = newRepo.fetchBook(book.getInteger("id"));
+    }
+
     @Test(expected = BookDoesntExistException.class)
     public void fetchBookWorksWithWrongId() throws BookDoesntExistException {
         int randomId = 1234567891;
@@ -85,8 +102,27 @@ public class BookRepoTest {
 //    public void editBookWorks() throws BookAlreadyExistsException, BookDoesntExistException, UnacceptableISBNException, AuthorAlreadyExistsException, AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException, CantRemoveBooksNotOnTheShelfException, AuthorAndBookAreNotConnectedException {
 //        BookRepo newRepo = new BookRepo();
 //        newRepo.createAuthor("Anneli");
-//        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
-//        book = newRepo.editBook("1234567890123", "LOTR", "Good book", "Anneli", 1999, 5);
+//        newRepo.createBook("1234567897898", "Harry Potter", "Good book", "Anneli", 1999, 5);
+//        Book book = newRepo.editBook("1234567897898", "LOTR", "Good book", "Anneli", 1999, 5);
 //        Assert.assertEquals("LOTR", book.getString("title"));
 //    }
+    @Test(expected = BookDoesntExistException.class)
+    public void getBookThrowsException() throws BookDoesntExistException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.GetBook("6887454845453");
+    }
+
+    @Test(expected = AuthorAlreadyExistsException.class)
+    public void createAuthorThrowsException() throws AuthorAlreadyExistsException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.createAuthor("R2D2");
+        newRepo.createAuthor("R2D2");
+    }
+    
+    @Test (expected = AuthorDoesntExistException.class)
+    public void GetAuthorThrowsException() throws AuthorAlreadyExistsException, 
+            AuthorDoesntExistException {
+        BookRepo newRepo = new BookRepo();
+        newRepo.GetAuthor("R2D2");
+    }
 }

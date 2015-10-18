@@ -129,7 +129,7 @@ public class BookRepo {
         RentRepo rentrepo = new RentRepo();
         if (rentrepo.availableCopies(book_id) == book.getInteger("copies")) {
             List<BookAuthor> bookauthors = BookAuthor.where("book_id = ?", book_id);
-            for (int i = 0; i <= bookauthors.size(); i++) {
+            for (int i = 0; i < bookauthors.size(); i++) {
                 BookAuthor bookauthor = bookauthors.get(i);
                 bookauthor.delete();
             }

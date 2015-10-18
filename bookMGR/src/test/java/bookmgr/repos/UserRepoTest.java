@@ -134,6 +134,14 @@ public class UserRepoTest {
         User user = newrepo.createUser(userName, passw);
         newrepo.signIn(userName, "vaarasalasana");
     }
+    
+        @Test(expected = UnauthorizedException.class)
+    public void SignInThrowsExceptionIfUserDoesntExist() throws UserAlreadyExistsException,
+            UserDoesntExistException,
+            UnauthorizedException {
+        UserRepo newrepo = new UserRepo();
+        newrepo.signIn(userName, passw);
+    }
 
     @Test
     public void addFeeAddsTheProperFee() throws UserAlreadyExistsException,
@@ -165,13 +173,9 @@ public class UserRepoTest {
         UserRepo newrepo = new UserRepo();
         User user = newrepo.createUser(userName, passw);
         int user_id = user.getInteger("id");
-        double aFee = 20.0;
-        newrepo.addFee(aFee, user_id);
-        double payable = 5.0;
-        newrepo.payFee(payable, user_id);
-        aFee -= payable;
-        user = newrepo.getUser(userName);
-        Assert.assertEquals(aFee, user.getDouble("fees"));
+        newrepo.addFee(20.0, user_id);
+        boolean success = newrepo.payFee(5.0, user_id);
+        Assert.assertTrue(success);
     }
 
     @Test(expected = CantPayMoreThanPendingFeesException.class)
