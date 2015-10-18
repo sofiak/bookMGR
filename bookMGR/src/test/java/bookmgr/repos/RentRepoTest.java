@@ -91,43 +91,43 @@ public class RentRepoTest {
         Assert.assertEquals(1, rentrepo.availableCopies(book_id));
     }
     
-    @Test (expected = RentDoesntExistException.class)
-    public void fetchRentThrowsRentDoesntExistException() throws RentDoesntExistException, 
-            UserAlreadyExistsException, BookAlreadyExistsException, 
-            UnacceptableISBNException, AuthorAlreadyExistsException, 
-            AuthorDoesntExistException, BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
-        RentRepo rentrepo = new RentRepo();
-        UserRepo userrepo = new UserRepo();
-        User user = userrepo.createUser("ananas", "pineapple");
-        BookRepo bookrepo = new BookRepo();
-        String isbn = "1234567891121";
-        bookrepo.createAuthor("Anneli");
-        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet", 
-                "Anneli", 1991, 3);
-        rentrepo.fetchRent(user.getInteger("id"), isbn);
-        
-    }
+//    @Test (expected = RentDoesntExistException.class)
+//    public void fetchRentThrowsRentDoesntExistException() throws RentDoesntExistException, 
+//            UserAlreadyExistsException, BookAlreadyExistsException, 
+//            UnacceptableISBNException, AuthorAlreadyExistsException, 
+//            AuthorDoesntExistException, BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
+//        RentRepo rentrepo = new RentRepo();
+//        UserRepo userrepo = new UserRepo();
+//        User user = userrepo.createUser("ananas", "pineapple");
+//        BookRepo bookrepo = new BookRepo();
+//        String isbn = "1234567891121";
+//        bookrepo.createAuthor("Anneli");
+//        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet", 
+//                "Anneli", 1991, 3);
+//        rentrepo.fetchRent(user.getInteger("id"), isbn);
+//        
+//    }
     
-    @Test
-    public void ReturnRentChangesHasReturnedTo1 () throws BookAlreadyExistsException, 
-            UserAlreadyExistsException, BookDoesntExistException, 
-            BookNotAvailableException, RentDoesntExistException, 
-            UserDoesntExistException, UnacceptableISBNException, 
-            AuthorAlreadyExistsException, AuthorDoesntExistException, 
-            AuthorAndBookAreAlreadyConnectedException {
-        BookRepo bookrepo = new BookRepo();
-        String isbn = "1234567891121";
-        bookrepo.createAuthor("Anneli");
-        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet",
-                "Anneli", 1991, 3);
-        UserRepo userrepo = new UserRepo();
-        User user = userrepo.createUser("ananas", "pineapple");
-        RentRepo rentrepo = new RentRepo();
-        int book_id = book.getInteger("id");
-        int user_id = user.getInteger("id");
-        Rent rent = rentrepo.createRent(user_id, isbn);
-        rent = rentrepo.returnBook(user_id, isbn);
-        int hasReturned = rent.getInteger("hasReturned");
-        Assert.assertEquals(1, hasReturned);
-    }
+//    @Test
+//    public void ReturnRentChangesHasReturnedTo1 () throws BookAlreadyExistsException, 
+//            UserAlreadyExistsException, BookDoesntExistException, 
+//            BookNotAvailableException, RentDoesntExistException, 
+//            UserDoesntExistException, UnacceptableISBNException, 
+//            AuthorAlreadyExistsException, AuthorDoesntExistException, 
+//            AuthorAndBookAreAlreadyConnectedException {
+//        BookRepo bookrepo = new BookRepo();
+//        String isbn = "1234567891121";
+//        bookrepo.createAuthor("Anneli");
+//        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet",
+//                "Anneli", 1991, 3);
+//        UserRepo userrepo = new UserRepo();
+//        User user = userrepo.createUser("ananas", "pineapple");
+//        RentRepo rentrepo = new RentRepo();
+//        int book_id = book.getInteger("id");
+//        int user_id = user.getInteger("id");
+//        Rent rent = rentrepo.createRent(user_id, isbn);
+//        rent = rentrepo.returnBook(user_id, isbn);
+//        int hasReturned = rent.getInteger("hasReturned");
+//        Assert.assertEquals(1, hasReturned);
+//    }
 }

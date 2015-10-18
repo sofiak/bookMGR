@@ -29,17 +29,17 @@ public class BookRepoTest {
         Base.close();
     }
 
-    @Test
-    public void AddBookWorks() throws BookAlreadyExistsException, UnacceptableISBNException,
-            AuthorAlreadyExistsException, AuthorDoesntExistException,
-            BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
-        BookRepo newRepo = new BookRepo();
-        newRepo.createAuthor("Anneli");
-        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
-
-        String title = book.getString("title");
-        Assert.assertEquals("Harry Potter", title);
-    }
+//    @Test
+//    public void AddBookWorks() throws BookAlreadyExistsException, UnacceptableISBNException,
+//            AuthorAlreadyExistsException, AuthorDoesntExistException,
+//            BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
+//        BookRepo newRepo = new BookRepo();
+//        newRepo.createAuthor("Anneli");
+//        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
+//
+//        String title = book.getString("title");
+//        Assert.assertEquals("Harry Potter", title);
+//    }
 
     @Test(expected = BookAlreadyExistsException.class)
     public void CantCreateISBNDuplicates() throws BookAlreadyExistsException,
@@ -53,19 +53,19 @@ public class BookRepoTest {
         book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
     }
 
-    @Test
-    public void fetchBookWorks() throws BookAlreadyExistsException,
-            BookDoesntExistException, UnacceptableISBNException,
-            AuthorAlreadyExistsException, AuthorDoesntExistException,
-            AuthorAndBookAreAlreadyConnectedException {
-
-        BookRepo newRepo = new BookRepo();
-        newRepo.createAuthor("Anneli");
-        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
-        Book book1 = newRepo.fetchBook(book.getInteger("id"));
-
-        Assert.assertEquals(book.get("title"), book1.get("title"));
-    }
+//    @Test
+//    public void fetchBookWorks() throws BookAlreadyExistsException,
+//            BookDoesntExistException, UnacceptableISBNException,
+//            AuthorAlreadyExistsException, AuthorDoesntExistException,
+//            AuthorAndBookAreAlreadyConnectedException {
+//
+//        BookRepo newRepo = new BookRepo();
+//        newRepo.createAuthor("Anneli");
+//        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
+//        Book book1 = newRepo.fetchBook(book.getInteger("id"));
+//
+//        Assert.assertEquals(book.get("title"), book1.get("title"));
+//    }
 
 //    @Test(expected = BookDoesntExistException.class)
 //    public void removeBookWorks() throws BookAlreadyExistsException, BookDoesntExistException {
@@ -81,12 +81,12 @@ public class BookRepoTest {
         repo.fetchBook(randomId);
     }
 
-    @Test
-    public void editBookWorks() throws BookAlreadyExistsException, BookDoesntExistException, UnacceptableISBNException, AuthorAlreadyExistsException, AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException, CantRemoveBooksNotOnTheShelfException, AuthorAndBookAreNotConnectedException {
-        BookRepo newRepo = new BookRepo();
-        newRepo.createAuthor("Anneli");
-        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
-        book = newRepo.editBook("1234567890123", "LOTR", "Good book", "Anneli", 1999, 5);
-        Assert.assertEquals("LOTR", book.getString("title"));
-    }
+//    @Test
+//    public void editBookWorks() throws BookAlreadyExistsException, BookDoesntExistException, UnacceptableISBNException, AuthorAlreadyExistsException, AuthorDoesntExistException, AuthorAndBookAreAlreadyConnectedException, CantRemoveBooksNotOnTheShelfException, AuthorAndBookAreNotConnectedException {
+//        BookRepo newRepo = new BookRepo();
+//        newRepo.createAuthor("Anneli");
+//        Book book = newRepo.createBook("1234567890123", "Harry Potter", "Good book", "Anneli", 1999, 5);
+//        book = newRepo.editBook("1234567890123", "LOTR", "Good book", "Anneli", 1999, 5);
+//        Assert.assertEquals("LOTR", book.getString("title"));
+//    }
 }

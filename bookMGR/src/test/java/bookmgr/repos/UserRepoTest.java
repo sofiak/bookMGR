@@ -1,13 +1,11 @@
 package bookmgr.repos;
 
+import bookmgr.exceptions.CantPayMoreThanPendingFeesException;
 import bookmgr.exceptions.InvalidPasswordException;
 import bookmgr.exceptions.UnauthorizedException;
 import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 import junit.framework.Assert;
 import org.javalite.activejdbc.Base;
 import org.junit.After;
@@ -24,7 +22,8 @@ public class UserRepoTest {
 
     @Before
     public void setUp() throws Exception {
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://52.16.13.120/bookMGR", "sofia", "iambatgirl");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://52.16.13.120/bookMGR",
+                "sofia", "iambatgirl");
         Base.openTransaction();
     }
 
@@ -54,7 +53,8 @@ public class UserRepoTest {
     }
 
     @Test
-    public void fetchUserWorks() throws UserDoesntExistException, UserAlreadyExistsException {
+    public void fetchUserWorks() throws UserDoesntExistException,
+            UserAlreadyExistsException {
         UserRepo newrepo = new UserRepo();
         User user1 = newrepo.createUser(userName, passw);
 
@@ -64,7 +64,8 @@ public class UserRepoTest {
     }
 
     @Test(expected = UserDoesntExistException.class)
-    public void removeUserWorks() throws UserAlreadyExistsException, UserDoesntExistException {
+    public void removeUserWorks() throws UserAlreadyExistsException,
+            UserDoesntExistException {
         UserRepo newrepo = new UserRepo();
         User user1 = newrepo.createUser(userName, passw);
         newrepo.removeUser(user1.getInteger("id"));
@@ -79,7 +80,8 @@ public class UserRepoTest {
     }
 
     @Test
-    public void editUserWorks() throws UserAlreadyExistsException, UserDoesntExistException {
+    public void editUserWorks() throws UserAlreadyExistsException,
+            UserDoesntExistException {
         UserRepo newrepo = new UserRepo();
         User user = newrepo.createUser(userName, passw);
         User user1 = newrepo.editUser(user.getInteger("id"), "anakonda");
@@ -87,10 +89,12 @@ public class UserRepoTest {
     }
 
     @Test
-    public void newPasswordWorks() throws UserAlreadyExistsException, UserDoesntExistException, InvalidPasswordException {
+    public void newPasswordWorks() throws UserAlreadyExistsException,
+            UserDoesntExistException, InvalidPasswordException {
         UserRepo newrepo = new UserRepo();
         User user = newrepo.createUser(userName, passw);
-        boolean success = newrepo.setNewPassword(user.getInteger("id"), passw, "anakonda");
+        boolean success = newrepo.setNewPassword(user.getInteger("id"),
+                passw, "anakonda");
         Assert.assertTrue(success);
     }
 
@@ -104,7 +108,8 @@ public class UserRepoTest {
     }
 
     @Test(expected = UnauthorizedException.class)
-    public void SignInThrowsError() throws UserAlreadyExistsException, UnauthorizedException {
+    public void SignInThrowsError() throws UserAlreadyExistsException,
+            UnauthorizedException {
         UserRepo newrepo = new UserRepo();
         User user = newrepo.createUser(userName, passw);
 
@@ -112,12 +117,22 @@ public class UserRepoTest {
     }
 
     @Test
-    public void SignInWorks() throws UserAlreadyExistsException, UnauthorizedException {
+    public void SignInWorks() throws UserAlreadyExistsException,
+            UnauthorizedException {
         UserRepo newrepo = new UserRepo();
         User user = newrepo.createUser(userName, passw);
 
         User anotherUser = newrepo.signIn(userName, passw);
         Assert.assertEquals(user.get("username"), anotherUser.get("username"));
+    }
+
+    @Test(expected = UnauthorizedException.class)
+    public void SignInThrowsException() throws UserAlreadyExistsException,
+            UserDoesntExistException,
+            UnauthorizedException {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        newrepo.signIn(userName, "vaarasalasana");
     }
 
     @Test
@@ -127,8 +142,75 @@ public class UserRepoTest {
         User user = newrepo.createUser(userName, passw);
         int user_id = user.getInteger("id");
         double aFee = 13.4;
-
         newrepo.addFee(aFee, user_id);
-        Assert.assertEquals(13.4, user.getDouble("fees"));
+        user = newrepo.fetchUser(user_id);
+        Assert.assertEquals(aFee, user.get("fees"));
+    }
+
+    @Test
+    public void fetchFeesWorks() throws UserAlreadyExistsException,
+            UserDoesntExistException {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        int user_id = user.getInteger("id");
+        double aFee = 13.4;
+        newrepo.addFee(aFee, user_id);
+        Assert.assertEquals(13.4, newrepo.fetchFees(user_id));
+    }
+
+    @Test
+    public void payFeeWorks() throws UserAlreadyExistsException,
+            UserDoesntExistException,
+            CantPayMoreThanPendingFeesException {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        int user_id = user.getInteger("id");
+        double aFee = 20.0;
+        newrepo.addFee(aFee, user_id);
+        double payable = 5.0;
+        newrepo.payFee(payable, user_id);
+        aFee -= payable;
+        user = newrepo.getUser(userName);
+        Assert.assertEquals(aFee, user.getDouble("fees"));
+    }
+
+    @Test(expected = CantPayMoreThanPendingFeesException.class)
+    public void payFeeThrowsException() throws UserAlreadyExistsException,
+            UserDoesntExistException,
+            CantPayMoreThanPendingFeesException {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        int user_id = user.getInteger("id");
+        double aFee = 20.0;
+        newrepo.addFee(aFee, user_id);
+        double payable = aFee+4.0;
+        newrepo.payFee(payable, user_id);
+    }
+
+    @Test(expected = UserDoesntExistException.class)
+    public void getUserThrowsException() throws UserDoesntExistException {
+        UserRepo newrepo = new UserRepo();
+        newrepo.getUser("hfajsgffg");
+    }
+
+    @Test
+    public void getUserFindsUserByUsername()
+            throws UserAlreadyExistsException, UserDoesntExistException {
+        UserRepo newrepo = new UserRepo();
+        User user = newrepo.createUser(userName, passw);
+        int user_id = user.getInteger("id");
+        user = newrepo.getUser(userName);
+        int user_id2 = user.getInteger("id");
+        Assert.assertEquals(user_id, user_id2);
+    }
+
+    @Test(expected = UserAlreadyExistsException.class)
+    public void editUserThrowsException() throws UserAlreadyExistsException,
+            UserDoesntExistException {
+        UserRepo newrepo = new UserRepo();
+        newrepo.createUser(userName, passw);
+        User user = newrepo.createUser("batman", "batman");
+        int user_id = user.getInteger("id");
+        newrepo.editUser(user_id, userName);
     }
 }
