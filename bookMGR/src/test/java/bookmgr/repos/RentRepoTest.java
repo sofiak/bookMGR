@@ -27,7 +27,8 @@ public class RentRepoTest {
 
     @Before
     public void setUp() {
-        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://52.16.13.120/bookMGR", "sofia", "iambatgirl");
+        Base.open("com.mysql.jdbc.Driver", "jdbc:mysql://52.16.13.120/bookMGR", 
+                "sofia", "iambatgirl");
         Base.openTransaction();
     }
 
@@ -96,7 +97,8 @@ public class RentRepoTest {
     public void fetchRentThrowsRentDoesntExistException() throws RentDoesntExistException,
             UserAlreadyExistsException, BookAlreadyExistsException,
             UnacceptableISBNException, AuthorAlreadyExistsException,
-            AuthorDoesntExistException, BookDoesntExistException, AuthorAndBookAreAlreadyConnectedException {
+            AuthorDoesntExistException, BookDoesntExistException, 
+            AuthorAndBookAreAlreadyConnectedException {
         RentRepo rentrepo = new RentRepo();
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
@@ -165,7 +167,8 @@ public class RentRepoTest {
         BookRepo bookrepo = new BookRepo();
         String isbn = "1234567891121";
         bookrepo.createAuthor("Anneli");
-        Book book = bookrepo.createBook(isbn, "Graveyard", "Neil Gaimans bestselling novel yet",
+        Book book = bookrepo.createBook(isbn, "Graveyard", 
+                "Neil Gaimans bestselling novel yet",
                 "Anneli", 1991, 3);
         UserRepo userrepo = new UserRepo();
         User user = userrepo.createUser("ananas", "pineapple");
@@ -174,7 +177,7 @@ public class RentRepoTest {
         int user_id = user.getInteger("id");
         Rent rent = rentrepo.createRent(user_id, isbn);
 
-        rent.set("due_date", "2015 - 10 - 01");
+        rent.set("due_date", "2015-10-01");
         rent.saveIt();
         user = userrepo.fetchUser(user_id);
         int feesB = user.getInteger("fees");

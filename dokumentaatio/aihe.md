@@ -15,3 +15,8 @@ Adminkäyttäjät (kirjastonhoitajat) voivat
 - lisätä, muokata ja poistaa käyttäjiä
 - ottaa vastaa käyttäjän myöhästymismaksut
 
+
+Admin-tunnus ja salasana
+admin, tiikerikakku
+
+
