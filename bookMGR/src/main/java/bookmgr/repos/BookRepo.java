@@ -235,7 +235,6 @@ public class BookRepo {
      */
     public Author fetchAuthor(int author_id) throws AuthorDoesntExistException {
         Author author = Author.findById(author_id);
-        System.out.println(author);
         if (author == null) {
             throw new AuthorDoesntExistException();
         } else {

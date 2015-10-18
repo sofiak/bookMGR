@@ -3,9 +3,10 @@ package bookmgr.UI;
 import bookmgr.main.Connection;
 import bookmgr.exceptions.AuthorAlreadyExistsException;
 import bookmgr.repos.BookRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * Luokka tarjoaa useita todennäköisyyslaskentaan tarvittavia metodeita
+ */
 public class AddAuthorView extends javax.swing.JFrame {
 
     public AddAuthorView() {

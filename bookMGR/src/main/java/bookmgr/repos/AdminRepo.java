@@ -210,7 +210,6 @@ public class AdminRepo {
     private ArrayList<String> reportBookToString(List<Book> list) {
         ArrayList<String> newArray = new ArrayList<>();
         for (Book book : list) {
-            System.out.println(book);
             newArray.add("" + book.getString("isbn") + ", "
                     + book.getString("title") + ", " + book.getInteger("pub_year")
                     + ", " + book.getInteger("copies") + " copies");
