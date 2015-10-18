@@ -2,6 +2,9 @@ package bookmgr.UI;
 
 import bookmgr.models.User;
 
+/**
+ * Basic view for all functionalities performed by admin
+ */
 public class AdminView extends javax.swing.JFrame {
 
     User user;

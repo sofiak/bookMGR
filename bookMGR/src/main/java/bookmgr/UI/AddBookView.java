@@ -7,9 +7,10 @@ import bookmgr.exceptions.BookAlreadyExistsException;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.exceptions.UnacceptableISBNException;
 import bookmgr.repos.BookRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * View for adding books
+ */
 public class AddBookView extends javax.swing.JFrame {
 
     public AddBookView() {

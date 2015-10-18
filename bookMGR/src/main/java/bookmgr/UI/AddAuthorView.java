@@ -5,7 +5,7 @@ import bookmgr.exceptions.AuthorAlreadyExistsException;
 import bookmgr.repos.BookRepo;
 
 /**
- * Luokka tarjoaa useita todennäköisyyslaskentaan tarvittavia metodeita
+ * View for adding authors from adminview
  */
 public class AddAuthorView extends javax.swing.JFrame {
 

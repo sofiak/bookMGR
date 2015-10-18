@@ -1,13 +1,13 @@
 package bookmgr.UI;
 
 import bookmgr.main.Connection;
-import bookmgr.exceptions.AuthorAlreadyExistsException;
 import bookmgr.exceptions.AuthorDoesntExistException;
 import bookmgr.models.Author;
 import bookmgr.repos.BookRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * View for removing an author
+ */
 public class RemoveAuthorView extends javax.swing.JFrame {
 
     public RemoveAuthorView() {

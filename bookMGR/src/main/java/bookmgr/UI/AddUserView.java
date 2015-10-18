@@ -4,6 +4,9 @@ import bookmgr.main.Connection;
 import bookmgr.exceptions.UserAlreadyExistsException;
 import bookmgr.repos.UserRepo;
 
+/**
+ * View for adding users
+ */
 public class AddUserView extends javax.swing.JFrame {
 
     public AddUserView() {

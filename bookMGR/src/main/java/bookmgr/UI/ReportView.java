@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
  
+/**
+ * View for displaying all reports
+ */
 public class ReportView extends javax.swing.JFrame {
    
     ArrayList<String> list;

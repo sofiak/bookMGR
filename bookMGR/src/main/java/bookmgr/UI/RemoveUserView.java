@@ -7,9 +7,10 @@ import bookmgr.exceptions.UserHasUnresolvedFeesOrRentsException;
 import bookmgr.models.User;
 import bookmgr.repos.AdminRepo;
 import bookmgr.repos.UserRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * View for removing users
+ */
 public class RemoveUserView extends javax.swing.JFrame {
 
     public RemoveUserView() {

@@ -7,6 +7,9 @@ import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.RentRepo;
 
+/**
+ * View for returning a book 
+ */
 public class ReturnBookView extends javax.swing.JFrame {
 
     private User user;

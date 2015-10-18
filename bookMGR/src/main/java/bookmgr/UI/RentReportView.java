@@ -6,6 +6,9 @@ import bookmgr.main.Connection;
 import bookmgr.repos.AdminRepo;
 import java.util.ArrayList;
 
+/**
+ * View for printing a report on all loans
+ */
 public class RentReportView extends javax.swing.JFrame {
 
     public RentReportView() {

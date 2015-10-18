@@ -5,9 +5,10 @@ import bookmgr.exceptions.UnauthorizedException;
 import bookmgr.models.User;
 import bookmgr.repos.AdminRepo;
 import bookmgr.repos.UserRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * View for signing into bookMGR
+ */
 public class SignIn extends javax.swing.JFrame {
 
     /**

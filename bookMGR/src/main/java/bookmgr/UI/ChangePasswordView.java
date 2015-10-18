@@ -6,6 +6,9 @@ import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.UserRepo;
 
+/**
+ * View for a changing a user's own password from userview
+ */
 public class ChangePasswordView extends javax.swing.JFrame {
 
     private User user;

@@ -8,6 +8,9 @@ import bookmgr.repos.AdminRepo;
 import bookmgr.repos.UserRepo;
 import java.util.ArrayList;
 
+/**
+ * View for printing a report of a specific user's loans
+ */
 public class RentReportForAUserView extends javax.swing.JFrame {
 
     public RentReportForAUserView() {

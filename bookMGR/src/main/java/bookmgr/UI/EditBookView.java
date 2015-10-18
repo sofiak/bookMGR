@@ -10,6 +10,9 @@ import bookmgr.exceptions.CantRemoveBooksNotOnTheShelfException;
 import bookmgr.models.Book;
 import bookmgr.repos.BookRepo;
 
+/**
+ * View for editing books
+ */
 public class EditBookView extends javax.swing.JFrame {
 
     public EditBookView() {

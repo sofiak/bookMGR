@@ -5,6 +5,9 @@ import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.AdminRepo;
 
+/**
+ * View for changing the admin password
+ */
 public class ChangeAdminPasswordView extends javax.swing.JFrame {
 
     User user;

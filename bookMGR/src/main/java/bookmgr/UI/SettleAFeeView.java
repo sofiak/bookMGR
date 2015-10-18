@@ -6,6 +6,9 @@ import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.UserRepo;
 
+/**
+ * View for settling a fee
+ */
 public class SettleAFeeView extends javax.swing.JFrame {
 
     public SettleAFeeView() {

@@ -6,6 +6,9 @@ import bookmgr.exceptions.BookNotAvailableException;
 import bookmgr.models.User;
 import bookmgr.repos.RentRepo;
 
+/**
+ * View for renting books
+ */
 public class RentBookView extends javax.swing.JFrame {
 
     private User user;

@@ -7,6 +7,9 @@ import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.repos.AdminRepo;
 import java.util.ArrayList;
 
+/**
+ * View for printing a report of a specific authors books
+ */
 public class AuthorReportView extends javax.swing.JFrame {
 
     public AuthorReportView() {

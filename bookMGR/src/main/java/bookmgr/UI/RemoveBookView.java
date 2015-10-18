@@ -3,9 +3,10 @@ package bookmgr.UI;
 import bookmgr.main.Connection;
 import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.repos.BookRepo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * View for removing books
+ */
 public class RemoveBookView extends javax.swing.JFrame {
 
     public RemoveBookView() {

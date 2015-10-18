@@ -1,10 +1,16 @@
 package bookmgr.UI;
 
+import bookmgr.exceptions.BookDoesntExistException;
 import bookmgr.main.Connection;
 import bookmgr.exceptions.RentDoesntExistException;
 import bookmgr.models.User;
 import bookmgr.repos.RentRepo;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ * View for extending a loan
+ */
 public class ExtendLoanView extends javax.swing.JFrame {
 
     private User user;
@@ -91,7 +97,7 @@ public class ExtendLoanView extends javax.swing.JFrame {
             newRepo.extendRent(user.getInteger("id"), ISBNField.getText());
             ErrorBox.setText("Loan period extended by 30 days.");
             ErrorBox.setVisible(true);
-        } catch (RentDoesntExistException ex) {
+        } catch (RentDoesntExistException | BookDoesntExistException ex) {
             ErrorBox.setText("You have not rented this book yet.");
             ErrorBox.setVisible(true);
         }

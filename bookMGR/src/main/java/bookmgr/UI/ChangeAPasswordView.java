@@ -4,6 +4,9 @@ import bookmgr.main.Connection;
 import bookmgr.exceptions.UserDoesntExistException;
 import bookmgr.repos.AdminRepo;
 
+/**
+ * View for changing the password of any user
+ */
 public class ChangeAPasswordView extends javax.swing.JFrame {
 
     public ChangeAPasswordView() {

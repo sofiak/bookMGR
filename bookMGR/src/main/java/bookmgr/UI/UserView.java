@@ -2,6 +2,9 @@ package bookmgr.UI;
 
 import bookmgr.models.User;
 
+/**
+ * Basic view for all user functionality
+ */
 public class UserView extends javax.swing.JFrame {
     
     private User user;
