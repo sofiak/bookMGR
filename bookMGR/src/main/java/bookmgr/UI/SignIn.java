@@ -12,7 +12,7 @@ import bookmgr.repos.UserRepo;
 public class SignIn extends javax.swing.JFrame {
 
     /**
-     * Creates new form bookmgrUI
+     * Creates new form SignIn
      */
     public SignIn() {
         initComponents();
@@ -182,9 +182,6 @@ public class SignIn extends javax.swing.JFrame {
         conn.close();
     }//GEN-LAST:event_SignInButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public void render() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

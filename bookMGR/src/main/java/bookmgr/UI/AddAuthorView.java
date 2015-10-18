@@ -97,9 +97,7 @@ public class AddAuthorView extends javax.swing.JFrame {
         conn.close();
     }//GEN-LAST:event_AddButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+
     public void render() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -125,7 +123,6 @@ public class AddAuthorView extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new AddAuthorView().setVisible(true);

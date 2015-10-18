@@ -32,10 +32,14 @@ public class BookRepo {
      * @param copies number of copies of the book
      *
      * @return Book object
-     * @throws bookmgr.exceptions.UnacceptableISBNException
-     * @throws bookmgr.exceptions.AuthorDoesntExistException
+     * @throws bookmgr.exceptions.UnacceptableISBNException is ISBN is not
+     * proper
+     * @throws bookmgr.exceptions.AuthorDoesntExistException if author does not
+     * exist
      * @throws bookmgr.exceptions.BookDoesntExistException
+     * if book does not exist
      * @throws bookmgr.exceptions.AuthorAndBookAreAlreadyConnectedException
+     * if author and book are already connected
      * @throws BookAlreadyExistsException if a book by the same ISBN already
      * exists
      */
@@ -78,10 +82,14 @@ public class BookRepo {
      * @throws BookAlreadyExistsException if a book by the same ISBN already
      * exists
      * @throws BookDoesntExistException if the book doesn't exist
-     * @throws bookmgr.exceptions.CantRemoveBooksNotOnTheShelfException
-     * @throws bookmgr.exceptions.AuthorDoesntExistException
+     * @throws bookmgr.exceptions.CantRemoveBooksNotOnTheShelfException if books 
+     * are not available
+     * @throws bookmgr.exceptions.AuthorDoesntExistException if author
+     * does not exist
      * @throws bookmgr.exceptions.AuthorAndBookAreAlreadyConnectedException
+     * if book and author are already connected
      * @throws bookmgr.exceptions.AuthorAndBookAreNotConnectedException
+     * if book and author are not connected
      *
      * @return Book object
      */
@@ -183,7 +191,8 @@ public class BookRepo {
      * @param name name of the author
      *
      * @return Author object
-     * @throws bookmgr.exceptions.AuthorAlreadyExistsException
+     * @throws bookmgr.exceptions.AuthorAlreadyExistsException if author already 
+     * exists
      */
     public Author createAuthor(String name) throws AuthorAlreadyExistsException {
         if (this.CheckAuthor(name) == false) {

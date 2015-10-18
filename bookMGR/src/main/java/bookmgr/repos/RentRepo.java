@@ -124,6 +124,8 @@ public class RentRepo {
      * @param ISBN ISBN of the book
      *
      * @throws RentDoesntExistException if rent doesn't exist
+     * @throws bookmgr.exceptions.BookDoesntExistException if book does not
+     * exist
      */
     public void extendRent(int user_id, String ISBN)
             throws RentDoesntExistException, BookDoesntExistException {
@@ -140,6 +142,7 @@ public class RentRepo {
      * @param ISBN ISBN of the book
      *
      * @throws RentDoesntExistException is rent doesn't exist
+     * @throws BookDoesntExistException if book does not exist
      *
      * @return Rent object
      */

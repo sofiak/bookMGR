@@ -175,7 +175,8 @@ public class UserRepo {
      * @param user_id ID of user
      *
      * @throws UserDoesntExistException if user doesn't exist
-     * @throws bookmgr.exceptions.CantPayMoreThanPendingFeesException
+     * @throws bookmgr.exceptions.CantPayMoreThanPendingFeesException if trying
+     * to pay more than the user owes
      *
      * @return true if payment is successful, false if not
      */

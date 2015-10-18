@@ -44,7 +44,7 @@ public class AdminRepo {
      * @throws UserDoesntExistException if user doesn't exist
      * @throws UserHasUnresolvedFeesOrRentsException if user has any unresolved
      * fees or rents
-     * @throws BookDoesntExistException
+     * @throws BookDoesntExistException if book does not exist
      */
     public void removeUser(int user_id) throws UserDoesntExistException,
             UserHasUnresolvedFeesOrRentsException,
@@ -67,8 +67,9 @@ public class AdminRepo {
      * @param bookStatus specifies if loans to be collected are returned,
      * current, or all
      *
-     * @throws bookmgr.exceptions.BookDoesntExistException
-     * @throws bookmgr.exceptions.UserDoesntExistException
+     * @throws bookmgr.exceptions.BookDoesntExistException if book does not
+     * exist
+     * @throws bookmgr.exceptions.UserDoesntExistException if user does not exist
      *
      * @return List of the rents
      */
@@ -117,9 +118,9 @@ public class AdminRepo {
      *
      * @param name name of the author in String form
      *
-     * @throws AuthorDoesntExistException
-     * @throws BookDoesntExistException
-     * @throws AuthorHasNoBooksException
+     * @throws AuthorDoesntExistException if author does not exist
+     * @throws BookDoesntExistException if book does not exist
+     * @throws AuthorHasNoBooksException if no books are connected to the author
      *
      * @return List of the books
      */
@@ -169,7 +170,7 @@ public class AdminRepo {
      * @param username username of the user whose password is to be changed
      * @param password new password as entered by user
      *
-     * @throws UserDoesntExistException
+     * @throws UserDoesntExistException if user does not exist
      *
      * @return List of the books
      */
